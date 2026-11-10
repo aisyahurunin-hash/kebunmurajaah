@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffe3ee">
+<title>Unduh Kebun Murojaah</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#fff5f9;--card:#fff;--ink:#5a2d45;--soft:#8d6178;--pink:#ff7aa5;--deep:#b4507c;--line:#b98a9c;--ok:#4f9a5a}
+@media (prefers-color-scheme:dark){:root{--bg:#2a1b25;--card:#3a2733;--ink:#ffe9f1;--soft:#d8b4c4;--line:#7c5568;--deep:#ff9cc3}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);padding:0 max(16px,env(safe-area-inset-left)) 48px max(16px,env(safe-area-inset-right))}
+.wrap{max-width:560px;margin:0 auto;display:grid;gap:16px}
+header{text-align:center;padding:32px 0 8px}
+.logo{width:92px;height:92px;margin:0 auto 10px;border-radius:26px;background:linear-gradient(145deg,#ffd1e3,#fff0c8);display:grid;place-items:center;border:3px solid var(--line);box-shadow:0 6px 0 rgba(0,0,0,.08)}
+.logo svg{width:60px;height:60px;color:var(--pink)}
+h1{margin:6px 0 2px;font-size:1.7rem;color:var(--deep)}
+header p{margin:0;color:var(--soft)}
+.card{background:var(--card);border:2.5px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 5px 0 rgba(0,0,0,.06)}
+.card h2{margin:0 0 6px;font-size:1.15rem;color:var(--deep);display:flex;align-items:center;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px 18px;border-radius:999px;background:var(--deep);color:#fff;font-weight:800;font-size:1.05rem;text-decoration:none;border:0;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .15s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.btn.ghost{background:transparent;color:var(--deep);border:2.5px solid var(--deep);box-shadow:none}
+.small{font-size:.86rem;color:var(--soft)}
+ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:6px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.feat li{background:var(--bg);border-radius:14px;padding:10px 12px;border:2px dashed var(--line);font-size:.92rem}
+details{border-top:2px dashed var(--line);padding:10px 0}details:first-of-type{border-top:0}
+summary{font-weight:700;cursor:pointer}
+details p{margin:6px 0 0;color:var(--soft)}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;background:#ffe9a6;color:#6a3f34;font-size:.75rem;font-weight:800}
+.hide{display:none!important}
+.order1{order:-1}
+.wrap{display:flex;flex-direction:column}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><circle cx="12" cy="5.5" r="4"/><circle cx="18.2" cy="10" r="4"/><circle cx="15.8" cy="17.2" r="4"/><circle cx="8.2" cy="17.2" r="4"/><circle cx="5.8" cy="10" r="4"/></g><circle cx="12" cy="12" r="3" fill="#fff3a8"/></svg></div>
+  <h1>Kebun Murojaah</h1>
+  <p>Murojaah, tilawah, hafalan, dan game seru. Satu tempat, tanpa pusing.</p>
+</header>
+
+<section class="card" id="cAnd">
+  <h2>🤖 Android <span class="tag">APK</span></h2>
+  <p class="small" style="margin:0 0 12px">Unduh file aplikasinya, lalu pasang. Gratis.</p>
+  <a class="btn" id="apk" href="https://github.com/aisyahurunin-hash/kebunmurajaah/releases/latest/download/KebunMurojaah.apk">⬇ Unduh Aplikasi (APK)</a>
+  <p class="small hide" id="noapk" style="margin:12px 0 0;padding:10px 12px;border-radius:14px;background:#fff3cd;color:#6a4b00">File APK belum tersedia saat ini. Sementara, pakai versi web di bawah, atau pasang dari browser (Chrome menu titik tiga, lalu Pasang aplikasi). Coba lagi nanti ya.</p>
+  <ol>
+    <li>Ketuk tombol di atas, tunggu unduhan selesai.</li>
+    <li>Buka file <b>KebunMurojaah.apk</b> dari notifikasi atau folder Download.</li>
+    <li>Kalau muncul peringatan, ketuk <b>Setelan</b> lalu izinkan <b>pasang dari sumber ini</b>. Peringatan ini wajar karena aplikasi tidak lewat Play Store.</li>
+    <li>Ketuk <b>Pasang</b>, lalu buka. Izinkan <b>notifikasi</b> supaya pengingat bersuara.</li>
+  </ol>
+</section>
+
+<section class="card" id="cIos">
+  <h2>🍎 iPhone / iPad</h2>
+  <p class="small" style="margin:0">Di iPhone tidak ada file APK. Pasang langsung dari Safari, hasilnya tampil seperti aplikasi:</p>
+  <ol>
+    <li>Buka halaman <b>Kebun Murojaah</b> di <b>Safari</b>.</li>
+    <li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas).</li>
+    <li>Pilih <b>Tambah ke Layar Utama</b>, lalu <b>Tambah</b>.</li>
+  </ol>
+  <a class="btn ghost" style="margin-top:12px" href="./">Buka Kebun Murojaah</a>
+</section>
+
+<section class="card" id="cWeb">
+  <h2>🌐 Tanpa unduh</h2>
+  <p class="small" style="margin:0 0 12px">Bisa langsung dipakai di browser HP atau laptop. Di Chrome, kamu juga bisa memasangnya jadi ikon di layar utama.</p>
+  <a class="btn ghost" href="./">Buka versi web</a>
+  <button type="button" class="btn hide" id="pwa" style="margin-top:10px">📲 Pasang dari browser</button>
+</section>
+
+<section class="card">
+  <h2>✨ Isi aplikasinya</h2>
+  <ul class="feat">
+    <li>🔔 Pengingat bersuara khas Kebun</li>
+    <li>📖 Murojaah, tilawah &amp; sunnah harian</li>
+    <li>🌱 Hafalan &amp; kebun yang tumbuh</li>
+    <li>🎮 Game sambung ayat</li>
+    <li>🪙 Koin &amp; toko: baju, tema, bingkai</li>
+    <li>👧 Karakter yang bisa didandani</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Pertanyaan yang sering muncul</h2>
+  <details><summary>Apakah aman dipasang?</summary><p>Ya. Aplikasi ini hanya membuka Kebun Murojaah dan tidak meminta akses kontak, galeri, atau mikrofon. Android menampilkan peringatan karena aplikasinya tidak dari Play Store.</p></details>
+  <details><summary>Apakah datanya ikut pindah dari web?</summary><p>Data tersimpan terpisah di tiap tempat (browser dan aplikasi). Untuk memindahkan, buka Akun lalu pakai <b>Cadangan</b>: salin di web, tempel di aplikasi.</p></details>
+  <details><summary>Perlu unduh ulang kalau ada pembaruan?</summary><p>Tidak. Isi aplikasi ikut terbarui sendiri setiap kali dibuka dengan internet.</p></details>
+  <details><summary>Perlu internet?</summary><p>Perlu sekali di awal. Setelahnya, halaman yang pernah dibuka tetap bisa dibuka saat sinyal jelek.</p></details>
+</section>
+<p class="small" style="text-align:center">Dibuat dengan ♥ untuk sahabat murojaah.</p>
+</div>
+<script>
+(function(){
+  var ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),and=/Android/.test(ua);
+  var a=document.getElementById('cAnd'),i=document.getElementById('cIos');
+  if(ios){a.classList.add('hide');i.classList.add('order1')}
+  else if(!and){a.querySelector('.small').textContent='Buka halaman ini dari HP Android untuk mengunduh, atau kirim link halaman ini ke HP-mu.'}
+  var apk=document.getElementById('apk'),no=document.getElementById('noapk');
+  apk.addEventListener('click',function(e){
+    if(apk.dataset.ok==='1')return;
+    e.preventDefault();no.classList.add('hide');
+    var direct=apk.getAttribute('href'),st=0;
+    fetch('https://api.github.com/repos/aisyahurunin-hash/kebunmurajaah/releases/latest').then(function(r){st=r.status;if(!r.ok)throw 0;return r.json()}).then(function(j){
+      var f=(j.assets||[]).filter(function(x){return /\.apk$/i.test(x.name)})[0];
+      apk.dataset.ok='1';location.href=f?f.browser_download_url:direct;
+    }).catch(function(){
+      if(st===404||st===0&&false){no.classList.remove('hide')}
+      else{apk.dataset.ok='1';location.href=direct}
+    });
+  });
+  var d=null,b=document.getElementById('pwa');
+  addEventListener('beforeinstallprompt',function(e){e.preventDefault();d=e;b.classList.remove('hide')});
+  b.addEventListener('click',function(){if(d){d.prompt();d=null;b.classList.add('hide')}});
+  try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
+})();
+</script>
+</body>
+</html>

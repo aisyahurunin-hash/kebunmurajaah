@@ -1,0 +1,104 @@
+PANDUAN AKUN ONLINE (FIREBASE) - GRATIS, SEKALI SETUP ~15 MENIT
+Hasilnya: akun & data tiap orang tersimpan di server, jadi bisa login dari HP/laptop mana pun.
+Kalau kamu belum mengisi firebase-config.js, web tetap jalan seperti biasa (akun lokal di browser).
+
+LANGKAH 1 - Buat proyek
+1. Buka https://console.firebase.google.com (login pakai akun Google).
+2. Klik "Create a project" / "Buat project", beri nama (mis. kebun-murojaah).
+3. Google Analytics boleh dimatikan. Klik Create, tunggu selesai.
+
+LANGKAH 2 - Aktifkan Authentication
+1. Menu kiri: Build -> Authentication -> "Get started".
+2. Tab "Sign-in method" -> pilih "Email/Password" -> aktifkan switch yang PERTAMA (Email/Password), BUKAN "Email link". Klik Save.
+   (Web ini memakai username yang diubah jadi alamat palsu seperti budi@kebunmurojaah.app, jadi pengguna tidak perlu email asli.)
+
+LANGKAH 3 - Buat database Firestore + aturan keamanan
+1. Menu kiri: Build -> Firestore Database -> "Create database".
+2. Pilih lokasi terdekat (mis. asia-southeast2 Jakarta). Pilih "Start in production mode". Klik Create.
+3. Buka tab "Rules", hapus isinya, tempel ini, lalu klik Publish:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'admin@kebunmurojaah.app';
+    }
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, delete: if isAdmin();
+    }
+    match /disabled/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+    match /meta/{doc} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    match /groups/{code} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+      match /m/{uid} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}
+
+(Artinya: tiap orang hanya bisa membaca/menulis datanya sendiri. Bagian "groups" untuk fitur Grup & Peringkat:
+ pengguna yang sudah masuk boleh membuat grup dan membaca peringkatnya, tetapi tiap orang hanya bisa mengubah poinnya sendiri.)
+
+ADMIN (PANEL ADMIN UNTUK AKUN ONLINE)
+- Akun admin = akun dengan username "admin" (bisa diganti lewat baris window.KM_ADMINS di firebase-config.js).
+- LANGKAH WAJIB: begitu web online dan Rules di atas sudah dipasang, SEGERA daftar akun dengan username admin
+  dan sandi yang kuat. Username itu milik siapa pun yang mendaftar duluan, jadi jangan ditunda.
+- Kalau kamu mengganti nama admin (mis. "bu_guru"), ganti juga 'admin@kebunmurojaah.app' di aturan di atas menjadi
+  'bu_guru@kebunmurojaah.app'.
+- Setelah masuk sebagai admin, menu "panel admin" muncul di sisi kiri. Di sana kamu bisa: melihat semua pengguna dan
+  statistik belajarnya, menonaktifkan/mengaktifkan akun, menghapus data akun, mengunduh data (JSON) atau daftar (CSV),
+  dan menampilkan pengumuman di beranda semua pengguna.
+- Yang TIDAK bisa: melihat kata sandi (memang tidak tersimpan), dan mereset sandi akun online (batasan Firebase dari
+  sisi web). Untuk akun yang lupa sandi, ganti lewat Firebase Console (Authentication > Users).
+- Pengguna lama yang datanya sudah ada akan muncul di daftar admin setelah mereka masuk sekali lagi (agar username
+  tercatat di server).
+
+ATURAN GRUP (UNTUK YANG SUDAH PUNYA FIREBASE DARI VERSI SEBELUMNYA)
+Kalau kamu sudah pernah mengisi Rules, buka lagi tab "Rules", tambahkan blok "match /groups/{code} { ... }" di atas
+persis di bawah blok "match /users/{uid}", lalu Publish. Tanpa ini, tombol Buat grup/Gabung akan menampilkan pesan
+bahwa Firestore belum mengizinkan grup. Fitur lain tidak terpengaruh.
+
+LANGKAH 4 - Ambil konfigurasi
+1. Klik ikon roda gigi (Project settings) -> bagian "Your apps" -> klik ikon web "</>".
+2. Beri nama app apa saja, klik Register app (Firebase Hosting TIDAK perlu dicentang).
+3. Akan muncul kode "const firebaseConfig = { apiKey: ..., authDomain: ..., ... }".
+4. Buka file firebase-config.js (pakai Notepad), salin nilai-nilainya ke kolom yang sama. Contoh:
+     apiKey: "AIzaSy....",
+     authDomain: "kebun-murojaah.firebaseapp.com",
+     projectId: "kebun-murojaah",
+     ...
+   Simpan filenya. (apiKey ini memang boleh publik; yang melindungi data adalah aturan di langkah 3.)
+
+LANGKAH 5 - Izinkan domain GitHub Pages
+1. Authentication -> tab "Settings" -> "Authorized domains" -> "Add domain".
+2. Isi: aisyahurunin-hash.github.io   lalu Add.
+
+LANGKAH 6 - Upload ke GitHub (tanpa repository baru)
+1. Buka repo kamu -> Add file -> Upload files.
+2. Drag TIGA file: index.html, sw.js, dan firebase-config.js (yang sudah kamu isi). Commit changes.
+3. Tunggu 1-2 menit, buka linknya, tekan Ctrl+Shift+R.
+4. Daftar akun tes, lalu coba login dari HP/laptop lain. Data harus sama.
+
+AKUN LAMA TEMANMU
+Kalau teman kamu sudah punya akun lokal di perangkatnya, saat dia login pakai username & kata sandi lamanya,
+akunnya OTOMATIS dipindahkan ke server beserta datanya (streak, riwayat, koin). Tidak perlu daftar ulang.
+Setelah itu dia bisa login dari perangkat lain.
+
+HAL YANG PERLU DIKETAHUI
+- Tidak ada fitur "lupa kata sandi" (karena tidak memakai email asli). Pengguna bisa mengganti kata sandi di menu Akun
+  selama masih ingat yang lama. Kalau lupa, akunnya harus dibuat ulang.
+- Paket gratis Firebase (Spark) cukup untuk ratusan pengguna aktif harian (batas sekitar 50 ribu baca & 20 ribu tulis per hari).
+- Grup: anggota grup bisa melihat username, poin mingguan, dan streak anggota lain. Siapa pun yang sudah login dan tahu kode 6 karakter bisa bergabung, jadi jangan sebar kode ke sembarang orang.
+- Kalau dua perangkat dipakai bersamaan, yang tersimpan terakhir yang menang.
+- Jika gagal masuk, cek pesan error merah di layar login: biasanya Authentication belum diaktifkan (langkah 2)
+  atau isi firebase-config.js salah ketik.

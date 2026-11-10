@@ -1,0 +1,35 @@
+LANGKAH MENJADIKAN KEBUN MUROJAAH APLIKASI ANDROID (SATU REPO, SATU ZIP)
+========================================================================
+Semuanya ke repo YANG SAMA dengan webmu (kebunmurajaah). Alamat web dan data pengguna tidak berubah,
+karena data ikut alamat web, bukan nama repo. Orang yang tidak mau aplikasi tetap pakai web seperti biasa.
+
+APA YANG KAMU DAPAT
+- Web terbaru:      https://aisyahurunin-hash.github.io/kebunmurajaah/
+- Halaman unduh:    https://aisyahurunin-hash.github.io/kebunmurajaah/download.html   <- INI YANG KAMU BAGIKAN
+- APK (otomatis):   https://github.com/aisyahurunin-hash/kebunmurajaah/releases/latest/download/KebunMurojaah.apk
+Pengguna memilih sendiri: pakai web, atau unduh aplikasi dari halaman unduh.
+
+LANGKAH (sekitar 10 menit, paling enak dari laptop)
+1. Ekstrak zip ini. Ada folder  android  dan  .github  (di Mac: Cmd + Shift + titik agar folder .github kelihatan).
+2. Buka https://github.com/aisyahurunin-hash/kebunmurajaah dan login.
+3. Add file > Upload files. Tarik SEMUA isi zip (termasuk folder android dan .github) ke halaman itu. Commit changes.
+   - Jangan timpa firebase-config.js kalau kamu sudah mengisinya.
+   - Kalau folder .github gagal terunggah: Add file > Create new file, nama  .github/workflows/build-apk.yml
+     lalu tempel isi file build-apk.yml, Commit.
+4. Buka tab Actions. Kalau ada tombol hijau "I understand my workflows, go ahead and enable them", klik.
+   Pilih "Bangun APK Kebun Murojaah" > Run workflow (kalau belum jalan sendiri). Tunggu 5-8 menit sampai centang hijau.
+5. Cek kolom kanan "Releases" di halaman repo: di sana ada KebunMurojaah.apk. Selesai.
+   Kalau Actions gagal menerbitkan rilis: Settings > Actions > General > Workflow permissions > "Read and write permissions", lalu jalankan ulang.
+
+PENTING DIBACA
+- Repo harus PUBLIK supaya orang bisa unduh APK tanpa login.
+- Aku tidak bisa membangun APK di tempatku bekerja. Proyek ini BELUM pernah dites jadi APK. Kalau Actions merah (X),
+  buka run-nya, salin tulisan error, kirim ke aku, nanti kubetulkan.
+- iPhone TIDAK bisa memasang APK. Untuk iPhone: Safari > Bagikan > Tambah ke Layar Utama (dijelaskan di halaman unduh).
+- Notifikasi bersuara khas Kebun hanya ada di APK (Android). Di iPhone/web, notifikasi pakai suara bawaan perangkat dan hanya bekerja saat web terbuka.
+- Data di web dan di aplikasi tersimpan terpisah. Pindahkan lewat Akun > Cadangan. Mau data tersinkron di semua perangkat: aktifkan akun online (PANDUAN-FIREBASE.txt).
+- Kunci tanda tangan APK (android/kebun.jks) ikut di repo publik. Cukup untuk dibagikan ke teman, jangan untuk Play Store.
+- Update isi web (upload index.html baru) otomatis ikut ke aplikasi. APK baru hanya perlu dibangun kalau folder android berubah.
+
+CATATAN: folder android + .github boleh diupload ke repo terpisah (mis. "kebunapp", publik). Aplikasinya tetap membuka web di
+repo kebunmurajaah, jadi data dan alamat web tidak berubah. File web (index.html, download.html, dll) tetap di repo kebunmurajaah.

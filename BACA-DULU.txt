@@ -1,0 +1,123 @@
+KEBUN MUROJAAH v9 - MUSHAF AL-QUR'AN PER HALAMAN + WARNA TAJWID
+==============================================================
+Upload index.html dan sw.js ke repo (timpa yang lama). File lain tidak berubah. Aplikasi (APK) tidak perlu dibangun ulang: isinya ikut berubah otomatis karena APK membuka web ini.
+
+YANG BARU
+1. MENU BARU "mushaf": baca Al-Qur'an per halaman (bukan per ayat), pilih juz atau surah, geser halaman kiri-kanan (atau tombol panah di sisi).
+2. WARNA TAJWID: ketuk huruf berwarna, muncul penjelasan hukum tajwidnya. Tombol "Tajwid" di bawah menampilkan arti semua warna dan bisa mematikan warna.
+3. Ketuk ayat untuk melihat terjemahnya dan menandainya (Markah). Tombol "Penanda" melompat ke ayat yang ditandai. "Huruf" mengatur ukuran tulisan.
+4. Tampilan mengikuti tema dan mode gelap web kamu. Bacaan terakhir diingat, tinggal tekan "Lanjut membaca".
+5. Mode per-ayat yang lama (menu "juz & baca") tetap ada.
+
+CATATAN JUJUR: halaman disusun otomatis sesuai ukuran layar dan huruf, jadi nomor halamannya tidak sama dengan mushaf cetak Madinah. Warna tajwid dibuat otomatis dari aturan huruf, bisa meleset di kasus tertentu.
+
+KEBUN MUROJAAH v8 - BUG DIPERBAIKI, TOKO KOIN, BAJU BARU, APLIKASI ANDROID
+==============================================================================
+Upload SEMUA file web ke repo (nama sama, timpa yang lama): index.html, sw.js, manifest.webmanifest, download.html, icon-192.png, icon-512.png, icon-maskable-512.png.
+Jangan timpa firebase-config.js kalau sudah kamu isi.
+Untuk APK: lihat LANGKAH-APK.txt (folder android dan .github ikut diupload ke repo yang SAMA).
+
+YANG BARU DI v8
+1. BUG TOMBOL/GAME DIPERBAIKI: fungsi percikan animasi bentrok dengan fungsi confetti lama sehingga jawaban game sambung ayat macet. Sudah dipisah.
+2. BAJU & ITEM BARU: 26 baju (seragam, dokter, koki, piyama, overall, kebaya, gaun peri/putri, toga, penyihir, astronot, pilot, ksatria, dll), 9 hiasan kepala, 8 aksesori (termasuk sayap kupu-kupu & naga), 7 barang dibawa, 5 teman hewan, 6 latar.
+3. TOKO KOIN (menu "toko koin"): booster koin ganda, bingkai karakter, gelar, efek tekan tombol, nada tekan tombol.
+4. TEMA BERBAYAR: 13 tema warna dan 11 tata letak dibuka pakai koin (bisa "Coba dulu"). Yang sedang dipakai tetap gratis.
+5. MODE HP/LAPTOP: menu tema web > Ukuran tampilan. Mode Aplikasi otomatis menyesuaikan layar HP.
+6. SPLASH SCREEN saat aplikasi dibuka, bukan lagi layar kosong ala browser.
+7. HALAMAN UNDUH: download.html (alamat: .../kebunmurajaah/download.html). Bagikan link ini ke teman-teman.
+8. NOTIFIKASI ASLI di APK dengan suara khas Kebun (bukan suara bawaan HP). Muncul walau aplikasi ditutup.
+
+KEBUN MUROJAAH v7 - TATA LETAK BARU, ANIMASI, SKELETON, SUARA
+==============================================================
+Upload SEMUA file ini ke repo (nama sama, timpa yang lama): index.html, sw.js, manifest.webmanifest, icon-192.png, icon-512.png, icon-maskable-512.png.
+Jangan timpa firebase-config.js kalau sudah kamu isi.
+
+YANG BARU
+00. MODE APLIKASI: bar atas ringkas, 4 tab utama di bawah (beranda, murojaah, hafalan, games) + tombol Menu yang membuka semua fitur. Otomatis aktif saat dibuka dari ikon layar utama atau APK. Bisa juga dipilih manual di menu tema web > Tata letak > Aplikasi.
+000. BISA DIPASANG: Chrome Android: menu titik tiga > Pasang aplikasi. iPhone Safari: Bagikan > Tambah ke Layar Utama. Setelah sekali dibuka, web juga bisa dibuka tanpa internet.
+0. LOGO DI TAB BROWSER: sekarang ada logo bunga manis (favicon) di tab dan di layar utama HP kalau web ditambahkan ke Home Screen. Sudah termasuk di index.html, tidak ada file tambahan.
+1. 14 TATA LETAK (menu "tema web" > Tata letak): susunan halaman benar-benar berubah, bukan cuma warna.
+   Klasik, Retro Paradise, Best Chat, Kantor Pos, Toko Stroberi, Papan Ladang, Kawaii Space, Beranda Video,
+   Boneka Felt, Selimut Tambal, Angel City, Wonderland, Situs Swirl, Meja Komputer.
+   Tema warna yang cocok ikut terpasang, boleh kamu ganti lagi. Isi, streak, hafalan, koin tidak berubah.
+2. ANIMASI TOMBOL: memantul saat ditekan, ada cincin dan percikan kecil.
+3. ANIMASI KARTU: terangkat saat disorot, berdenyut saat ditekan.
+4. SKELETON SHIMMER: kilau loading muncul tiap pindah halaman, lalu isi muncul bertahap.
+5. SUARA: semua gerakan punya bunyi (tombol, kartu, pindah halaman). Ikut tombol speaker di header.
+6. Mode "Hemat" (menu tema web > Animasi & suara) untuk HP yang berat. Otomatis hemat kalau HP kamu mengaktifkan "kurangi gerakan".
+
+KEBUN MUROJAAH v6 - CARA UPDATE DI GITHUB (TANPA REPOSITORY / LINK BARU)
+
+Isi zip:
+- index.html            : webnya (wajib di-upload)
+- sw.js                 : file kecil untuk notifikasi pengingat di HP (wajib di-upload, kalau belum pernah)
+- firebase-config.js    : isian koneksi akun online (boleh kosong dulu)
+- PANDUAN-FIREBASE.txt  : cara mengaktifkan akun online + aturan untuk fitur Grup
+- BACA-DULU.txt         : file ini
+
+PENTING (kalau di HP / hanya bisa upload satu file): cukup upload index.html. Kalau kamu SUDAH mengisi dan mengupload
+firebase-config.js dan sw.js sebelumnya, JANGAN timpa dengan yang kosong dari zip ini.
+
+CARA UPDATE (lewat website GitHub)
+1. Ekstrak zip.
+2. Buka repo lama: github.com/aisyahurunin-hash/kebunmurajaah
+3. Add file -> Upload files -> pilih index.html. Namanya harus sama agar file lama tertimpa.
+4. Commit changes, tunggu 1-2 menit.
+5. Buka https://aisyahurunin-hash.github.io/kebunmurajaah/ lalu Ctrl+Shift+R (HP: tutup tab, buka lagi).
+Link tetap sama. Data pengguna (akun, streak, koin, karakter) tetap ada.
+
+FITUR BARU DI v6
+1. 10 TEMA WEB BARU (total 19, menu "tema web"): Permen Pink dan Lavender Pita (terinspirasi dua foto darimu),
+   Awan Langit, Limun Segar, Sakura Salju, Mint Coklat, Senja Jingga, Samudra Mini, Malam Bintang, Daisy Taman.
+   Semua punya versi terang dan gelap. Isi web tidak berubah, hanya warna dan hiasan.
+2. CARI AYAT (menu "alat bantu"): cari kata di terjemahan atau teks Arab seluruh Al-Qur'an, tanpa internet.
+3. JURNAL SYUKUR: catatan harian + suasana hati, grafik 14 hari, streak jurnal. Dapat 5 koin sekali sehari.
+4. KUIS TEBAK SURAH: tebak ayat dari surah apa. 5 soal, 4 koin tiap benar (maks 40 koin per hari).
+5. CADANGAN DATA (menu "akun & target"): unduh semua datamu jadi file, dan pulihkan kapan saja (mis. pindah HP).
+6. AKUN ADMIN + PANEL ADMIN:
+   - Daftar akun dengan username  admin  (bisa diganti di firebase-config.js, baris KM_ADMINS).
+   - Menu "panel admin" muncul hanya untuk admin: lihat semua pengguna dan statistiknya, cari/urutkan, detail per
+     pengguna, nonaktifkan/aktifkan, hapus akun, unduh data (JSON) dan daftar (CSV), kirim pengumuman ke beranda.
+   - Tanpa Firebase: panel menampilkan akun yang dibuat di browser itu saja, dan bisa mereset sandi pengguna.
+   - Dengan Firebase: menampilkan semua pengguna di server. Wajib memasang aturan baru (lihat PANDUAN-FIREBASE.txt,
+     bagian ADMIN) dan segera mendaftarkan akun admin sebelum orang lain memakai nama itu.
+   - Batasan jujur: tombol admin hanya pengatur tampilan; pengaman sungguhan untuk data online adalah aturan Firestore.
+     Kata sandi tidak pernah bisa dilihat. Reset sandi akun online tidak bisa dari web ini. Pengguna sebaiknya diberi tahu
+     bahwa admin bisa melihat statistik belajar mereka.
+
+FITUR BARU DI v5.2: TEMA WEB (menu "tema web" di sisi kiri)
+- 9 tampilan: Klasik Pink, Susu Beruang, Toko Kue Stroberi, Pelangi Pastel, Hati Renda, Hutan Jamur, Roti Manis, Argyle Lime, Rajut Sage.
+- Desainnya ORIGINAL, hanya terinspirasi suasana foto referensi (tanpa karakter/logo/merek dari foto).
+- Yang berubah hanya warna dan hiasan. Isi (streak, hafalan, koin, karakter, game, data) TIDAK berubah sama sekali.
+- Tiap tema punya versi terang dan gelap (atur di bagian "Terang atau gelap").
+- Pilihan tema tersimpan per akun dan juga di browser, jadi halaman login ikut bertema.
+
+FITUR BARU DI v5 (menu baru: hafalan, statistik, ibadah, grup)
+1. HAFALAN (kebun tanaman)
+   - Tanam surah yang sudah kamu hafal. Tiap surah jadi tanaman: benih -> kecambah -> daun -> kuncup -> mekar -> pohon berbuah.
+   - Uji Hafalan: 3 mode (tebak kata berikutnya, susun kata, ingat-ingat). Hasil menentukan jadwal ulang otomatis: 1, 3, 7, 14, 30 hari.
+   - Tanaman yang telat diulang jadi layu. Beranda dan pengingat memberi tahu surah mana yang perlu "disiram".
+   - Planner hafalan baru: pilih surah + tanggal target, web membagi jatah ayat per hari.
+   - Penanda ayat (favorit/sulit/baru). Ayat yang salah saat uji otomatis masuk "sulit".
+   - Dengar murattal per ayat dengan pengulangan (butuh internet; suara dari everyayah.com).
+2. STATISTIK & LENCANA: peta aktivitas 20 pekan, grafik pekanan, jam terbaik, banyak lencana baru, dan KARTU PROGRES
+   (gambar yang bisa diunduh/dibagikan ke WhatsApp/Instagram).
+3. IBADAH: jadwal sholat sesuai kota (metode Kemenag), pengingat waktu sholat, centang sholat 5 waktu, tasbih digital,
+   dzikir pagi & petang, tracker Ramadhan 30 hari (tanggal Ramadhan dihitung otomatis dari kalender Hijriah).
+4. GRUP & PERINGKAT: buat grup keluarga/kelas, bagikan kode 6 huruf, lihat peringkat poin mingguan.
+   Butuh akun online (Firebase) + aturan baru di PANDUAN-FIREBASE.txt. Kalau belum diaktifkan, menu ini hanya menampilkan penjelasan.
+5. GAME: level 6 (40 rintangan) dengan hadiah Mahkota raja. Misi baru di menu tantangan.
+   SUARA GAME: musik latar petualangan (mengecil saat soal muncul), langkah kaki, bunyi mendarat, bunyi khusus tiap rintangan
+   (pintu, jembatan, semak, batu), dan peringatan saat nyawa tinggal satu. Tombol speaker di atas layar game mematikan semuanya.
+6. TATA LETAK BARU: menu kini di SAMPING (kiri) dan dikelompokkan, isi halaman di tengah, panel streak di kanan.
+   Di HP, menu jadi barisan tombol yang bisa digeser di bagian atas layar.
+Yang lama tetap ada: pengingat notifikasi, akun (lokal/online), games, tilawah, sunnah, koin, toko karakter, suara.
+
+CATATAN JUJUR
+- Notifikasi (target dan waktu sholat) hanya muncul selama web masih terbuka (tab di latar belakang boleh). Notifikasi saat web ditutup total
+  butuh server khusus, tidak termasuk di web ini.
+- Jadwal sholat dan audio butuh internet. Jadwal dari aladhan.com bisa beda 1-2 menit dari masjid setempat; Ramadhan dihitung dari
+  kalender umm al-qura, bisa beda 1 hari dari pengumuman pemerintah.
+- Ringkasan dzikir untuk membantu; rujuk buku/ustadz untuk bacaan lengkap.
+- Koin disimpan di data pengguna, jadi pengguna yang paham kode bisa mengutak-atiknya. Papan peringkat grup juga bukan sistem anti-curang.
+- Font bagus dimuat dari Google Fonts (butuh internet); tanpa internet tampilan tetap jalan dengan font biasa.
