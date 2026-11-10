@@ -8,3 +8,4 @@ window.KM_FIREBASE = {
   messagingSenderId: "1077443122647",
   appId: "1:1077443122647:web:34aa8508a55e6de8fea792"
 };
+window.KM_ADMINS = ["admin"];
