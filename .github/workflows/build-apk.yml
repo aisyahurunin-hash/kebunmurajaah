@@ -1,0 +1,44 @@
+name: Bangun APK Kebun Murojaah
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'android/**'
+      - '.github/workflows/build-apk.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v4
+
+      - name: Pasang Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Pasang Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Bangun APK
+        run: gradle -p android assembleRelease -PvCode=${{ github.run_number }} --no-daemon
+
+      - name: Beri nama APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk KebunMurojaah.apk
+
+      - name: Terbitkan sebagai rilis (link unduhan)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v8.${{ github.run_number }}
+          name: Kebun Murojaah v8.${{ github.run_number }}
+          body: Unduh KebunMurojaah.apk lalu pasang di HP Android.
+          files: KebunMurojaah.apk
+          make_latest: true
