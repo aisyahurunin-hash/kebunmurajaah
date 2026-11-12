@@ -68,9 +68,64 @@ public class Scheduler {
             AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
             PendingIntent pend = pi(c, idx, n, PendingIntent.FLAG_UPDATE_CURRENT);
             long t = cal.getTimeInMillis();
-            boolean exact = Build.VERSION.SDK_INT < 31 || am.canScheduleExactAlarms();
-            if (exact) am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, t, pend);
-            else am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, t, pend);
+            set(c, am, t, pend);
         } catch (Exception e) { /* abaikan */ }
+    }
+
+    /** Pasang satu alarm. Pakai alarm tepat bila boleh; kalau tidak, pakai alarm-jam (tetap tepat waktu, kebal Doze). */
+    static void set(Context c, AlarmManager am, long t, PendingIntent pend) {
+        boolean exact = Build.VERSION.SDK_INT < 31 || am.canScheduleExactAlarms();
+        if (exact) {
+            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, t, pend);
+        } else {
+            Intent o = new Intent(c, MainActivity.class);
+            PendingIntent show = PendingIntent.getActivity(c, 7, o, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            am.setAlarmClock(new AlarmManager.AlarmClockInfo(t, show), pend);
+        }
+    }
+
+    static void markFire(Context c, String what) {
+        c.getSharedPreferences(PREF, Context.MODE_PRIVATE).edit()
+                .putString("last", new java.text.SimpleDateFormat("dd/MM HH:mm:ss", java.util.Locale.US).format(new java.util.Date()) + " " + what).apply();
+    }
+
+    /** Tes: alarm sungguhan dalam 60 detik lewat jalur yang sama dengan pengingat. */
+    public static void testAlarm(Context c) {
+        Intent i = new Intent(c, ReminderReceiver.class);
+        i.setAction("id.kebun.murojaah.REMIND");
+        i.putExtra("test", true);
+        PendingIntent p = PendingIntent.getBroadcast(c, 99, i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+        set(c, am, System.currentTimeMillis() + 60000, p);
+    }
+
+    /** Ringkasan status alarm untuk ditampilkan di web (JSON). */
+    public static String info(Context c) {
+        try {
+            AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+            int count = 0;
+            for (int idx = 0; idx < 6; idx++)
+                for (int n = 0; n < MAX_N; n++) {
+                    PendingIntent p = pi(c, idx, n, PendingIntent.FLAG_NO_CREATE);
+                    if (p != null) count++;
+                }
+            boolean exact = Build.VERSION.SDK_INT < 31 || am.canScheduleExactAlarms();
+            boolean batt = true;
+            if (Build.VERSION.SDK_INT >= 23) {
+                android.os.PowerManager pm = (android.os.PowerManager) c.getSystemService(Context.POWER_SERVICE);
+                batt = pm.isIgnoringBatteryOptimizations(c.getPackageName());
+            }
+            String json = load(c);
+            JSONObject o = new JSONObject();
+            o.put("n", count);
+            o.put("exact", exact);
+            o.put("batt", batt);
+            o.put("synced", json != null);
+            o.put("last", c.getSharedPreferences(PREF, Context.MODE_PRIVATE).getString("last", ""));
+            o.put("brand", Build.MANUFACTURER);
+            return o.toString();
+        } catch (Exception e) {
+            return "{}";
+        }
     }
 }

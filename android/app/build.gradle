@@ -13,7 +13,7 @@ android {
         minSdk 24
         targetSdk 34
         versionCode vc
-        versionName '8.0'
+        versionName '8.2'
     }
 
     signingConfigs {

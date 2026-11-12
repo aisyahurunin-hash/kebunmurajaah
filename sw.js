@@ -1,5 +1,5 @@
 /* Kebun Murojaah: service worker. Pengingat (notifikasi) + simpanan offline supaya web/aplikasi tetap bisa dibuka tanpa internet. */
-const CACHE='km-v9';
+const CACHE='km-v10';
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','./index.html','./manifest.webmanifest','./icon-192.png']).catch(()=>{})))});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{

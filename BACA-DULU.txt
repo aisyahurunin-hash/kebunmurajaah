@@ -1,3 +1,40 @@
+v10 - SEKOLAH, AKUN GURU, REKAM SUARA, MASUK LANGSUNG
+=====================================================
+BARU
+1. MENU "rekam suara": rekam bacaan langsung di web/aplikasi (maks. 3 menit), tersimpan di perangkat. Kalau murid tergabung di sekolah, rekaman juga dikirim ke guru.
+2. MENU "sekolah":
+   - Murid: masukkan KODE SEKOLAH, lalu gabung. Peringatan dari guru muncul di beranda dan menu sekolah.
+   - Guru: lihat daftar murid (sudah/belum murojaah hari ini, streak, ayat, menit), dengar rekaman, tandai dicek, kirim peringatan satu murid atau semua yang belum.
+3. PANEL ADMIN > "Sekolah": tambah sekolah (nama, kode, username guru), HENTIKAN/AKTIFKAN sekolah (murid dan guru langsung terblokir), lihat murid tiap sekolah.
+4. MASUK LANGSUNG: kalau perangkat sudah pernah login, aplikasi langsung membuka akun tanpa layar login. Pengecekan sesi berjalan di belakang.
+
+WAJIB (kalau tidak, fitur sekolah ditolak server)
+A. Firebase > Firestore Database > Rules: tempel isi file firestore-rules.txt, lalu Publish. (Ganti admin@kebunmurojaah.app kalau username adminmu bukan "admin".)
+B. APK harus dibangun ulang (ada izin mikrofon baru). Upload semua isi zip, tunggu Actions hijau, unduh APK baru, pasang menimpa yang lama.
+
+CARA PAKAI
+1. Admin: Panel admin > Sekolah > isi nama, kode (contoh SEKOLAH-A), username guru > Tambah.
+2. Guru: daftar akun dengan username persis seperti yang didaftarkan admin, buka menu sekolah, masukkan kode.
+3. Murid: daftar akun, menu sekolah, masukkan kode.
+4. Menghentikan sekolah: Panel admin > Sekolah > Hentikan.
+
+CATATAN JUJUR
+- Rekaman suara murid dikirim ke guru: beri tahu murid dan orang tua (izin) sebelum dipakai di sekolah.
+- Peringatan guru muncul saat murid membuka aplikasi (tidak ada notifikasi dorong saat aplikasi tertutup).
+- Rekaman di Firestore dibatasi ~3 menit dan ~700 KB per rekaman. Kuota gratis Firebase tetap berlaku.
+- Akun guru ditentukan dari username yang didaftarkan admin: daftarkan akunnya segera supaya tidak dipakai orang lain.
+- Belum diuji dengan server Firebase asli, hanya dengan server tiruan di komputer.
+
+v9b - PERBAIKAN PENGINGAT (NOTIFIKASI TERJADWAL) DI APLIKASI
+============================================================
+Masalah: notifikasi tes muncul, tapi notifikasi sesuai jam tidak muncul.
+Yang diubah:
+1. Alarm kini memakai jalur yang tetap tepat waktu walau izin "alarm tepat waktu" belum diberikan.
+2. Aplikasi mencatat kapan alarm terakhir berbunyi dan kenapa dilewati.
+3. Di menu Akun > Pengingat ada kotak baru "Status alarm pengingat": jumlah alarm terjadwal, izin yang kurang, tombol "Tes alarm 1 menit", "Izinkan jalan di latar", dan "Izin alarm tepat waktu".
+Cara: upload semua isi zip ini ke repo (timpa), tunggu Actions hijau, lalu UNDUH APK BARU dan pasang menimpa yang lama. Perubahan Java hanya masuk kalau APK dibangun ulang.
+Setelah terpasang: buka Akun > Pengingat > tekan "Tes alarm 1 menit", tutup aplikasi, tunggu 1 menit. Kalau tidak muncul, buka "Izinkan jalan di latar" dan pilih Izinkan. Di HP Xiaomi/Oppo/Vivo/Realme/Samsung, aktifkan juga "Mulai otomatis" dan set Hemat baterai ke "Tanpa batasan" untuk aplikasi ini.
+
 KEBUN MUROJAAH v9 - MUSHAF AL-QUR'AN PER HALAMAN + WARNA TAJWID
 ==============================================================
 Upload index.html dan sw.js ke repo (timpa yang lama). File lain tidak berubah. Aplikasi (APK) tidak perlu dibangun ulang: isinya ikut berubah otomatis karena APK membuka web ini.

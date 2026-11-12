@@ -14,6 +14,12 @@ public class ReminderReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context c, Intent in) {
         int idx = in.getIntExtra("idx", 0), n = in.getIntExtra("n", 0);
+        if (in.getBooleanExtra("test", false)) {
+            Scheduler.markFire(c, "tes alarm: berbunyi");
+            Notifier.show(c, 1998, "Kebun Murojaah · Tes alarm", "Alarm terjadwal berhasil! Pengingatmu akan muncul tepat waktu.", null);
+            return;
+        }
+        Scheduler.markFire(c, "alarm " + idx + "/" + n + " diterima");
         try {
             String json = Scheduler.load(c);
             if (json == null) return;
@@ -28,11 +34,12 @@ public class ReminderReceiver extends BroadcastReceiver {
             boolean late = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE) >= 23 * 60 + 30;
             // jadwalkan kemunculan berikutnya (besok) lebih dulu supaya tidak terputus
             Scheduler.scheduleNext(c, idx, n, t, repeat, true);
-            if (done || late) return;
+            if (done || late) { Scheduler.markFire(c, "alarm " + idx + "/" + n + " dilewati (target sudah tercapai atau lewat 23.30)"); return; }
             JSONArray msgs = it.optJSONArray("msgs");
             String k = it.optString("k", "murojaah");
             String body = (msgs != null && msgs.length() > 0) ? msgs.getString(new Random().nextInt(msgs.length())) : "Yuk lanjutkan ibadah harianmu di Kebun Murojaah.";
             String name = "murojaah".equals(k) ? "Murojaah" : ("tilawah".equals(k) ? "Tilawah" : "Sunnah");
+            Scheduler.markFire(c, "alarm " + idx + "/" + n + " ditampilkan");
             Notifier.show(c, 2000 + idx, "Kebun Murojaah · " + name, body, k);
         } catch (Exception e) { /* abaikan */ }
     }

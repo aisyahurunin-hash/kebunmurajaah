@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.email == 'admin@kebunmurojaah.app'; }
+    function uname() { return request.auth.token.email.split('@')[0]; }
+    function me() { return get(/databases/$(database)/documents/members/$(request.auth.uid)).data; }
+    function hasMe() { return exists(/databases/$(database)/documents/members/$(request.auth.uid)); }
+    function isGuruOf(sc) { return signedIn() && hasMe() && me().role == 'guru' && me().sc == sc; }
+    function schoolOn(sc) { return get(/databases/$(database)/documents/schools/$(sc)).data.active != false; }
+
+    // data belajar tiap pengguna
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+      allow read, delete: if isAdmin();
+    }
+    match /disabled/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+    match /meta/{doc} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // grup (papan peringkat)
+    match /groups/{code} {
+      allow read, create: if signedIn();
+      allow update, delete: if false;
+      match /m/{uid} {
+        allow read: if signedIn();
+        allow write: if signedIn() && request.auth.uid == uid;
+      }
+    }
+
+    // SEKOLAH: dibuat dan dihentikan hanya oleh admin
+    match /schools/{code} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // keanggotaan: murid memilih sekolah dengan kode; peran guru hanya jika username ada di daftar guru sekolah
+    match /members/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.u == uname()
+        && exists(/databases/$(database)/documents/schools/$(request.resource.data.sc))
+        && schoolOn(request.resource.data.sc)
+        && (request.resource.data.role == 'siswa'
+            || (request.resource.data.role == 'guru'
+                && get(/databases/$(database)/documents/schools/$(request.resource.data.sc)).data.teachers.hasAny([uname()])));
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // ringkasan progres murid (dibaca guru sekolahnya)
+    match /students/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin() || isGuruOf(resource.data.sc));
+      allow create, update: if signedIn() && request.auth.uid == uid && schoolOn(request.resource.data.sc);
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // rekaman suara
+    match /recs/{id} {
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin() || isGuruOf(resource.data.sc));
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid && schoolOn(request.resource.data.sc);
+      allow update: if isGuruOf(resource.data.sc)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['chk']);
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      match /a/{n} {
+        allow read: if signedIn() && (
+          get(/databases/$(database)/documents/recs/$(id)).data.uid == request.auth.uid
+          || isAdmin()
+          || isGuruOf(get(/databases/$(database)/documents/recs/$(id)).data.sc));
+        allow create: if signedIn() && get(/databases/$(database)/documents/recs/$(id)).data.uid == request.auth.uid;
+        allow delete: if signedIn() && (get(/databases/$(database)/documents/recs/$(id)).data.uid == request.auth.uid || isAdmin());
+      }
+    }
+
+    // peringatan dari guru ke murid
+    match /warns/{id} {
+      allow read: if signedIn() && (resource.data.to == request.auth.uid || isGuruOf(resource.data.sc) || isAdmin());
+      allow create: if isGuruOf(request.resource.data.sc) && schoolOn(request.resource.data.sc);
+      allow update: if signedIn() && resource.data.to == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+    }
+  }
+}

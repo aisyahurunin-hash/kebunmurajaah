@@ -43,6 +43,8 @@ public class MainActivity extends Activity {
     private static final int REQ_LOC = 12;
 
     private static final int REQ_NOTIF = 13;
+    private static final int REQ_MIC = 14;
+    private android.webkit.PermissionRequest micReq;
     private WebView web;
     private LinearLayout splash;
     private ValueCallback<Uri[]> fileCallback;
@@ -90,7 +92,7 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(false);
         s.setGeolocationEnabled(true);
         s.setCacheMode(WebSettings.LOAD_DEFAULT);
-        s.setUserAgentString(s.getUserAgentString() + " KebunApp/8.0");
+        s.setUserAgentString(s.getUserAgentString() + " KebunApp/8.2");
 
         web.addJavascriptInterface(new Bridge(), "KebunApp");
 
@@ -139,6 +141,21 @@ public class MainActivity extends Activity {
                     return false;
                 }
                 return true;
+            }
+
+            @Override
+            public void onPermissionRequest(final android.webkit.PermissionRequest request) {
+                boolean wantsMic = false;
+                for (String r : request.getResources()) {
+                    if (android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(r)) wantsMic = true;
+                }
+                if (!wantsMic) { request.deny(); return; }
+                if (Build.VERSION.SDK_INT < 23 || checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                    request.grant(new String[]{android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+                } else {
+                    micReq = request;
+                    requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQ_MIC);
+                }
             }
 
             @Override
@@ -212,6 +229,13 @@ public class MainActivity extends Activity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQ_MIC && micReq != null) {
+            boolean ok = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (ok) micReq.grant(new String[]{android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+            else micReq.deny();
+            micReq = null;
+            return;
+        }
         if (requestCode == REQ_LOC && geoCallback != null) {
             boolean ok = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
             geoCallback.invoke(geoOrigin, ok, false);
@@ -279,7 +303,7 @@ public class MainActivity extends Activity {
 
         @JavascriptInterface
         public String version() {
-            return "8.0";
+            return "8.2";
         }
 
         @JavascriptInterface
@@ -290,6 +314,42 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public void notifyNow(String title, String body) {
             Notifier.show(MainActivity.this, 1999, title, body, null);
+        }
+
+        @JavascriptInterface
+        public String alarmInfo() {
+            return Scheduler.info(MainActivity.this);
+        }
+
+        @JavascriptInterface
+        public void testAlarm() {
+            Scheduler.testAlarm(MainActivity.this);
+        }
+
+        @JavascriptInterface
+        public void askExact() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    try {
+                        if (Build.VERSION.SDK_INT >= 31) {
+                            startActivity(new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:" + getPackageName())));
+                        }
+                    } catch (Exception e) { /* abaikan */ }
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void askBattery() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    try {
+                        startActivity(new Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:" + getPackageName())));
+                    } catch (Exception e) {
+                        try { startActivity(new Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)); } catch (Exception e2) { /* abaikan */ }
+                    }
+                }
+            });
         }
 
         @JavascriptInterface

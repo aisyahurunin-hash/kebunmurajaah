@@ -1243,6 +1243,22 @@ body.mf-open .toast{z-index:1000}
 .mf-mini{font-family:var(--font-ar);font-size:1.9rem;line-height:2;text-align:center;background:var(--paper);border:2px solid color-mix(in srgb,var(--line) 40%,transparent);border-radius:16px;padding:4px 10px}
 .mf-mini .tj{background:none;border:0;padding:0;cursor:default;color:color-mix(in srgb,var(--c) 72%,var(--ink))}
 @media (min-width:700px){#mf{align-items:center}#mf>*{width:min(100%,560px)}.mf-sheet{left:50%;right:auto;transform:translateX(-50%);width:min(540px,calc(100% - 20px))}}
+/* ===== Sekolah, guru, rekam suara ===== */
+.rec-box{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px;background:var(--paper);border:2.5px dashed color-mix(in srgb,var(--line) 55%,transparent);border-radius:18px}
+.rec-btn{width:84px;height:84px;border-radius:50%;border:3px solid var(--line);background:var(--pink);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 5px 0 var(--line);padding:0}
+.rec-btn .i{width:38px;height:38px}
+.rec-btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.rec-btn.on{background:var(--warn);animation:recPulse 1.2s ease-in-out infinite}
+.rec-sq{width:28px;height:28px;border-radius:7px;background:#fff;display:block}
+.rec-t{font:700 1.6rem var(--font-num);font-variant-numeric:tabular-nums}
+@keyframes recPulse{0%,100%{box-shadow:0 5px 0 var(--line),0 0 0 0 color-mix(in srgb,var(--warn) 45%,transparent)}50%{box-shadow:0 5px 0 var(--line),0 0 0 14px color-mix(in srgb,var(--warn) 0%,transparent)}}
+.rec-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1.5px dashed color-mix(in srgb,var(--line) 30%,transparent);flex-wrap:wrap}
+.td-card{border:2.5px solid var(--line);border-radius:16px;padding:10px 12px;margin:0 0 10px;background:var(--paper)}
+.td-card.no{border-color:var(--warn)}
+.td-det{margin-top:10px;padding-top:8px;border-top:2px dashed color-mix(in srgb,var(--line) 35%,transparent)}
+#schBlock{position:fixed;inset:0;z-index:2000;display:flex;padding:20px;background:color-mix(in srgb,var(--cream) 94%,transparent);overflow:auto}
+#schBlock[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.rec-btn.on{animation:none}}
 
 </style>
 </head>
@@ -1395,6 +1411,8 @@ body.mf-open .toast{z-index:1000}
         <span class="nav-h" aria-hidden="true">Hafalan &amp; ibadah</span>
         <button type="button" data-go="hafalan"><svg class="i"><use href="#i-leaf"/></svg>hafalan</button>
         <button type="button" data-go="mushaf"><svg class="i"><use href="#i-book"/></svg>mushaf</button>
+        <button type="button" data-go="rekam"><svg class="i"><use href="#i-sound"/></svg>rekam suara</button>
+        <button type="button" data-go="sekolah"><svg class="i"><use href="#i-group"/></svg>sekolah</button>
         <button type="button" data-go="juz"><svg class="i"><use href="#i-leaf"/></svg>juz &amp; baca</button>
         <button type="button" data-go="tajwid"><svg class="i"><use href="#i-flower"/></svg>tajwid</button>
         <button type="button" data-go="ibadah"><svg class="i"><use href="#i-moon"/></svg>ibadah</button>
@@ -1433,6 +1451,8 @@ body.mf-open .toast{z-index:1000}
           <section class="page" id="p-tema" hidden></section>
           <section class="page" id="p-toko" hidden></section>
           <section class="page" id="p-mushaf" hidden></section>
+          <section class="page" id="p-rekam" hidden></section>
+          <section class="page" id="p-sekolah" hidden></section>
           <section class="page" id="p-juz" hidden></section>
           <section class="page" id="p-tajwid" hidden></section>
           <section class="page" id="p-kalender" hidden></section>
@@ -5789,8 +5809,19 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
   const oA=P.akun;
   P.akun=function(){let h=oA();
     h=h.replace(/(<p class="small muted" id="remPerm"[^>]*>)[^<]*(<\/p>)/,(m,a,b)=>a+(KebunApp.notifOK()?'Izin notifikasi: diizinkan. Pengingat muncul dengan suara khas Kebun.':'Izin notifikasi belum aktif. Buka Pengaturan HP > Aplikasi > Kebun Murojaah > Notifikasi, lalu izinkan.')+b);
+    h=h.replace(/(<p class="small muted" id="remPerm"[^>]*>[^<]*<\/p>)/,'$1<div class="card" id="alarmBox" style="margin:8px 0"><b class="small">Status alarm pengingat</b><div class="small" id="alarmInfo" style="margin:4px 0 8px">Memeriksa…</div><div class="row" style="gap:8px"><button type="button" class="btn sm y" data-act="alarmtest">Tes alarm 1 menit</button><button type="button" class="btn sm ghost" data-act="alarmbatt">Izinkan jalan di latar</button><button type="button" class="btn sm ghost" data-act="alarmexact">Izin alarm tepat waktu</button></div></div>');
     h=h.replace(/<p class="small muted" style="margin:6px 0 0">Penting: pengingat bekerja[\s\S]*?<\/p>/,'<p class="small muted" style="margin:6px 0 0">Di aplikasi ini, pengingat muncul sebagai notifikasi dengan suara khas Kebun, bahkan saat aplikasi ditutup. Kalau targetnya sudah tercapai, pengingat tidak dikirim.</p>');
     return h};
+  function fillAlarm(){const el=document.getElementById('alarmInfo');if(!el)return;
+    try{const o=JSON.parse(KebunApp.alarmInfo()||'{}');
+      const ok=v=>v?'ya':'TIDAK';
+      el.innerHTML='Alarm terjadwal: <b>'+(o.n||0)+'</b>'+(o.synced?'':' (jadwal belum terkirim ke aplikasi: ubah/simpan pengaturan pengingat sekali)')+'<br>Alarm tepat waktu diizinkan: <b>'+ok(o.exact)+'</b><br>Boleh jalan di latar (hemat baterai tidak membatasi): <b>'+ok(o.batt)+'</b>'+(o.last?'<br>Terakhir alarm berbunyi: <b>'+esc(o.last)+'</b>':'<br>Belum ada alarm yang berbunyi.')+(o.brand?'<br><span class="muted">HP: '+esc(o.brand)+'</span>':'')}catch(e){el.textContent='Status tidak bisa dibaca.'}}
+  Object.assign(ACT,{
+    alarmtest:()=>{try{KebunApp.askNotif();KebunApp.testAlarm();toast('Alarm tes dipasang. Tutup aplikasi, notifikasi muncul sekitar 1 menit lagi.')}catch(e){toast('Fitur ini butuh aplikasi versi terbaru.')}setTimeout(fillAlarm,300)},
+    alarmbatt:()=>{try{KebunApp.askBattery()}catch(e){toast('Butuh aplikasi versi terbaru.')}},
+    alarmexact:()=>{try{KebunApp.askExact()}catch(e){toast('Butuh aplikasi versi terbaru.')}}});
+  const oR=renderPage;renderPage=function(){const x=oR.apply(this,arguments);try{if(typeof cur!=='undefined'&&cur==='akun')setTimeout(fillAlarm,80)}catch(e){}return x};
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(fillAlarm,500)});
   const oB=bootApp;bootApp=function(u){oB(u);setTimeout(sync,2500)};
   document.addEventListener('visibilitychange',()=>{if(document.hidden)sync()});
 })();
@@ -6085,6 +6116,430 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
   PAGES.push('mushaf');P.mushaf=pMushaf;
 })();
 
+/* ============ sekolah, guru, peringatan, dan rekam suara murojaah ============ */
+/* Alur singkat:
+   - Admin membuat sekolah (kode + daftar username guru). Admin juga bisa menghentikan sekolah.
+   - Murid daftar akun biasa, lalu memasukkan KODE SEKOLAH di menu "sekolah".
+   - Murid merekam bacaannya di menu "rekam suara". Rekaman tersimpan di perangkat; kalau murid tergabung di sekolah,
+     rekaman juga dikirim ke Firestore supaya guru bisa mendengarnya.
+   - Guru melihat daftar murid (hari ini sudah murojaah atau belum), mendengar rekaman, dan mengirim peringatan. */
+(function sekolah(){
+  const RMAX=180;                 /* detik maksimum satu rekaman */
+  const SZMAX=720000;             /* byte maksimum yang dikirim ke Firestore (batas dokumen 1 MiB) */
+  const X=async()=>{const fb=await cloudInit();if(!fb.fs||!fb.db)throw new Error('no-fs');return fb};
+  const online=()=>cloudOn()&&!!CL.uid&&!!curUser&&curUser!==GUEST;
+  const isSiswa=()=>!!(S&&S.school&&S.school.role==='siswa');
+  const isGuru=()=>!!(S&&S.school&&S.school.role==='guru');
+  const dt=ts=>{const d=new Date(ts);return d.getDate()+' '+MONTHS[d.getMonth()].slice(0,3)+' '+pad(d.getHours())+':'+pad(d.getMinutes())};
+  const mmss=s=>pad(Math.floor(s/60))+':'+pad(Math.floor(s%60));
+  let SCH=null;                   /* dokumen sekolah milik akun ini */
+
+  /* ---------- penyimpanan lokal rekaman (IndexedDB) ---------- */
+  let _db=null;
+  const idb=()=>_db||(_db=new Promise((res,rej)=>{try{const r=indexedDB.open('km-rec',1);r.onupgradeneeded=()=>r.result.createObjectStore('r',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}}));
+  const tx=(mode,fn)=>idb().then(db=>new Promise((res,rej)=>{const t=db.transaction('r',mode),rq=fn(t.objectStore('r'));t.oncomplete=()=>res(rq&&rq.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)}));
+  const recPut=o=>tx('readwrite',s=>s.put(o));
+  const recDel=id=>tx('readwrite',s=>s.delete(id));
+  const recAll=()=>tx('readonly',s=>s.getAll()).then(a=>(a||[]).filter(x=>x.u===curUser).sort((a,b)=>b.ts-a.ts));
+
+  /* ---------- rekam ---------- */
+  const R={st:'idle',sec:0,blob:null,url:'',mime:'',surah:1,from:1,to:7,list:null,err:'',msg:'',mr:null,stream:null,timer:null,up:'',playing:''};
+  function recCleanup(){
+    clearInterval(R.timer);R.timer=null;
+    try{R.stream&&R.stream.getTracks().forEach(t=>t.stop())}catch(e){}
+    R.stream=null;
+  }
+  async function recStart(){
+    R.err='';R.msg='';
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){R.err='Browser ini belum mendukung rekam suara. Coba Chrome, atau pakai aplikasinya.';paint();return}
+    try{
+      const st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+      const types=['audio/webm;codecs=opus','audio/mp4','audio/webm','audio/ogg;codecs=opus'];
+      const mt=types.find(t=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t))||'';
+      let mr;try{mr=new MediaRecorder(st,mt?{mimeType:mt,audioBitsPerSecond:20000}:{audioBitsPerSecond:20000})}catch(e){mr=new MediaRecorder(st)}
+      const chunks=[];
+      mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+      mr.onstop=()=>{
+        recCleanup();
+        const type=mr.mimeType||mt||'audio/webm';
+        R.blob=new Blob(chunks,{type});R.mime=type;
+        if(R.url)URL.revokeObjectURL(R.url);
+        R.url=URL.createObjectURL(R.blob);R.st=R.blob.size>0?'review':'idle';
+        if(!R.blob.size)R.err='Rekaman kosong. Coba lagi.';
+        paint();
+      };
+      mr.start(1000);
+      R.mr=mr;R.stream=st;R.st='rec';R.sec=0;R.blob=null;
+      const lim=/mp4/.test(mt)?60:RMAX;
+      R.timer=setInterval(()=>{R.sec++;if(R.sec>=lim){recStop();toast('Batas waktu rekaman tercapai.')}else tick()},1000);
+      paint();
+    }catch(e){
+      recCleanup();R.st='idle';
+      R.err=(e&&(e.name==='NotAllowedError'||e.name==='SecurityError'))?'Izin mikrofon ditolak. Izinkan mikrofon untuk Kebun Murojaah di pengaturan HP atau browser, lalu coba lagi.':(e&&e.name==='NotFoundError'?'Mikrofon tidak ditemukan di perangkat ini.':'Rekaman tidak bisa dimulai. Coba lagi.');
+      paint();
+    }
+  }
+  function recStop(){try{if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}catch(e){recCleanup()}}
+  function tick(){const e=$('#recT');if(e)e.textContent=mmss(R.sec)+' / '+mmss(/mp4/.test(R.mime||'')?60:RMAX)}
+  const lbl=()=>sur(R.surah).tl+' ayat '+R.from+(R.to!==R.from?'-'+R.to:'');
+  const b64=blob=>new Promise((res,rej)=>{const f=new FileReader();f.onload=()=>res(String(f.result).split(',')[1]||'');f.onerror=()=>rej(f.error);f.readAsDataURL(blob)});
+  const unb64=(s,type)=>{const bin=atob(s),a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new Blob([a],{type})};
+  function shouldSend(){return online()&&isSiswa()&&!(SCH&&SCH.active===false)}
+  async function upload(o){
+    const fb=await X(),F=fb.fs;
+    if(o.blob.size>SZMAX)throw Object.assign(new Error('big'),{code:'km/big'});
+    const data=await b64(o.blob);
+    await F.setDoc(F.doc(fb.db,'recs',o.id),{uid:CL.uid,u:curUser,sc:S.school.code,ts:o.ts,dur:o.dur,mime:o.mime,lbl:o.lbl,chk:0});
+    await F.setDoc(F.doc(fb.db,'recs',o.id,'a','0'),{b:data});
+    o.sent=1;await recPut(o);
+  }
+  async function recSave(){
+    if(!R.blob)return;
+    const o={id:uid()+Date.now().toString(36),u:curUser,ts:Date.now(),dur:R.sec,mime:R.mime,lbl:lbl(),blob:R.blob,sent:0};
+    try{await recPut(o)}catch(e){R.err='Rekaman tidak bisa disimpan di perangkat ini (penyimpanan penuh atau diblokir).';paint();return}
+    R.msg='Rekaman tersimpan.';
+    if(shouldSend()){
+      R.up='Mengirim ke guru...';R.st='idle';R.blob=null;paint();
+      try{await upload(o);R.msg='Rekaman tersimpan dan terkirim ke gurumu.';bump(o.ts)}
+      catch(e){R.msg=e&&e.code==='km/big'?'Rekaman tersimpan di perangkat, tapi terlalu besar untuk dikirim. Rekam lebih pendek (maksimal sekitar 1 menit).':'Rekaman tersimpan di perangkat, tapi belum terkirim ke guru (periksa internet). Kamu bisa kirim ulang dari daftar di bawah.'}
+      R.up='';
+    }else{R.st='idle';R.blob=null}
+    try{S.recN=(S.recN||0)+1;save()}catch(e){}
+    R.list=null;paint();
+  }
+  function bump(ts){try{const k='km-rc-'+curUser,o=JSON.parse(localStorage.getItem(k)||'{}');o.n=(o.n||0)+1;o.last=Math.max(o.last||0,ts);localStorage.setItem(k,JSON.stringify(o));pushSum(true)}catch(e){}}
+  async function resend(id){
+    const all=await recAll(),o=all.find(x=>x.id===id);if(!o)return;
+    if(!shouldSend()){toast('Kirim ke guru butuh akun online dan sekolah yang aktif.');return}
+    R.up='Mengirim...';paint();
+    try{await upload(o);bump(o.ts);R.msg='Terkirim ke guru.'}catch(e){R.msg=e&&e.code==='km/big'?'Terlalu besar untuk dikirim.':'Gagal mengirim. Periksa internet.'}
+    R.up='';R.list=null;paint();
+  }
+  let AUD=null;
+  function playLocal(id){
+    recAll().then(a=>{const o=a.find(x=>x.id===id);if(!o)return;playBlob(o.blob,id)});
+  }
+  function playBlob(blob,key){
+    try{if(AUD){AUD.pause();URL.revokeObjectURL(AUD.src)}}catch(e){}
+    AUD=new Audio(URL.createObjectURL(blob));R.playing=key;
+    AUD.onended=()=>{R.playing='';paint()};AUD.onerror=()=>{R.playing='';toast('Rekaman tidak bisa diputar.');paint()};
+    AUD.play().catch(()=>{R.playing='';toast('Rekaman tidak bisa diputar.')});paint();
+  }
+
+  /* ---------- halaman rekam ---------- */
+  function pRekam(){
+    if(R.list===null){R.list=[];recAll().then(a=>{R.list=a;if(cur==='rekam')paint()}).catch(()=>{R.list=[]})}
+    const surOpts=SUR.map(r=>`<option value="${r.id}" ${r.id===R.surah?'selected':''}>${r.id}. ${esc(r.tl)}</option>`).join('');
+    const sendNote=isSiswa()?`<p class="small" style="margin:0 0 10px">Rekamanmu juga <b>dikirim ke guru</b> di ${esc(S.school.name||'sekolahmu')} sebagai bukti murojaah.</p>`:'<p class="small muted" style="margin:0 0 10px">Rekaman disimpan di perangkat ini saja. Kalau kamu bergabung ke sekolah (menu sekolah), rekamannya juga dikirim ke guru.</p>';
+    const big=R.st==='rec'?`<button type="button" class="rec-btn on" data-act="recstop" aria-label="Berhenti rekam"><span class="rec-sq"></span></button><div class="rec-t" id="recT">${mmss(R.sec)}</div><p class="small muted" style="margin:0">Merekam... ketuk untuk berhenti.</p>`
+      :R.st==='review'?`<audio controls src="${R.url}" style="width:100%"></audio><div class="row" style="gap:8px;margin-top:10px"><button type="button" class="btn y" data-act="recsave">Simpan${isSiswa()?' dan kirim ke guru':''}</button><button type="button" class="btn ghost" data-act="recredo">Ulangi</button></div>`
+      :`<button type="button" class="rec-btn" data-act="recstart" aria-label="Mulai rekam"><svg class="i"><use href="#i-sound"/></svg></button><p class="small muted" style="margin:6px 0 0">Ketuk untuk mulai merekam bacaanmu.</p>`;
+    const rows=(R.list||[]).map(x=>`<div class="rec-row"><div style="min-width:0"><b class="small">${esc(x.lbl||'Rekaman')}</b><br><span class="small muted">${dt(x.ts)} · ${mmss(x.dur||0)}${x.sent?' · <span style="color:var(--ok,#2e8b57)">terkirim ke guru</span>':''}</span></div><div class="row" style="gap:6px;flex:none"><button type="button" class="btn sm ${R.playing===x.id?'b':''}" data-act="recplay" data-id="${x.id}">${R.playing===x.id?'Putar lagi':'Putar'}</button>${(!x.sent&&shouldSend())?`<button type="button" class="btn sm y" data-act="recsend" data-id="${x.id}">Kirim</button>`:''}<button type="button" class="btn sm ghost" data-act="recdel" data-id="${x.id}" aria-label="Hapus rekaman">Hapus</button></div></div>`).join('');
+    return `<div class="ribbon"><span class="star">${ico('star')}</span><h2>Rekam suara</h2></div>
+    <div class="card cream" style="margin-bottom:16px">${sendNote}
+      <div class="row" style="gap:8px;margin-bottom:10px"><div class="field" style="flex:2 1 160px"><label for="recS">Surah yang dibaca</label><select id="recS" ${R.st!=='idle'?'disabled':''}>${surOpts}</select></div>
+        <div class="field" style="flex:1 1 70px"><label for="recF">Dari ayat</label><input type="number" id="recF" min="1" max="${sur(R.surah).n}" value="${R.from}" ${R.st!=='idle'?'disabled':''}></div>
+        <div class="field" style="flex:1 1 70px"><label for="recTo">Sampai</label><input type="number" id="recTo" min="1" max="${sur(R.surah).n}" value="${R.to}" ${R.st!=='idle'?'disabled':''}></div></div>
+      <div class="rec-box">${big}</div>
+      ${R.up?`<p class="small" role="status" style="margin:8px 0 0">${esc(R.up)}</p>`:''}
+      ${R.err?`<p class="small" role="alert" style="color:var(--warn);margin:8px 0 0">${esc(R.err)}</p>`:''}
+      ${R.msg?`<p class="small" role="status" style="margin:8px 0 0">${esc(R.msg)}</p>`:''}
+      <p class="small muted" style="margin:10px 0 0">Maksimal ${mmss(RMAX)} per rekaman. Rekaman suara hanya didengar gurumu, bukan orang lain.</p></div>
+    <div class="card"><h3 style="margin-top:0">Rekamanku</h3>${rows||'<p class="small muted" style="margin:0">Belum ada rekaman.</p>'}</div>`;
+  }
+  function paint(){if(cur==='rekam')renderPage();else if(cur==='sekolah')renderPage()}
+  document.addEventListener('change',e=>{
+    const t=e.target;if(!t||!t.id)return;
+    if(t.id==='recS'){R.surah=+t.value;R.from=1;R.to=Math.min(7,sur(R.surah).n);paint()}
+    else if(t.id==='recF'){R.from=clamp(+t.value||1,1,sur(R.surah).n);if(R.to<R.from)R.to=R.from;paint()}
+    else if(t.id==='recTo'){R.to=clamp(+t.value||R.from,R.from,sur(R.surah).n);paint()}
+  });
+
+  /* ---------- ringkasan murid untuk guru ---------- */
+  let pushT=null;
+  function pushSum(now){
+    if(!online()||!isSiswa()||CL.hold)return;
+    if(pushT&&!now)return;          /* sudah ada jadwal kirim */
+    clearTimeout(pushT);
+    pushT=setTimeout(async()=>{
+      pushT=null;
+      try{
+        const fb=await X(),sm=admSum(S),dm=dayMap()[today()]||{n:0,min:0,ayat:0};
+        let rc={};try{rc=JSON.parse(localStorage.getItem('km-rc-'+curUser)||'{}')}catch(e){}
+        await fb.fs.setDoc(fb.fs.doc(fb.db,'students',CL.uid),{sc:S.school.code,u:curUser,name:(S.user&&S.user.name)||curUser,ts:Date.now(),
+          streak:sm.streak,sessions:sm.sessions,min:sm.min,ayat:sm.ayat,pages:sm.pages,last:sm.last,
+          todayN:dm.n,todayMin:dm.min,todayAyat:dm.ayat,todayOk:!!tgDay(today(),dayMap()),day:today(),rc:rc.n||0,lrec:rc.last||0});
+      }catch(e){}
+    },now?300:15000);
+  }
+  const oSv=save;
+  save=function(){const x=oSv.apply(this,arguments);try{pushSum(false)}catch(e){}return x};
+
+  /* ---------- bergabung ke sekolah ---------- */
+  const codeOK=c=>/^[A-Z0-9-]{3,20}$/.test(c);
+  async function join(){
+    const code=(($('#schCode')||{}).value||'').trim().toUpperCase();
+    SC.msg='';
+    if(!codeOK(code)){SC.msg='Kode sekolah 3 sampai 20 huruf atau angka.';return renderPage()}
+    if(!online()){SC.msg='Bergabung ke sekolah butuh akun online. Masuk dengan akun (bukan tamu) dan pastikan ada internet.';return renderPage()}
+    try{
+      const fb=await X(),F=fb.fs,d=await F.getDoc(F.doc(fb.db,'schools',code));
+      if(!d.exists()){SC.msg='Kode sekolah tidak ditemukan. Periksa lagi kodenya.';return renderPage()}
+      const sc=d.data();
+      if(sc.active===false){SC.msg='Sekolah ini sedang tidak aktif. Hubungi pihak sekolah.';return renderPage()}
+      const role=(sc.teachers||[]).map(x=>String(x).toLowerCase()).includes(curUser)?'guru':'siswa';
+      await F.setDoc(F.doc(fb.db,'members',CL.uid),{u:curUser,sc:code,role,ts:Date.now()});
+      S.school={code,name:sc.name||code,role};SCH=sc;save();
+      if(role==='siswa')pushSum(true);
+      SC.msg='Berhasil bergabung ke '+(sc.name||code)+' sebagai '+(role==='guru'?'guru':'murid')+'.';
+      TD.rows=null;
+    }catch(e){SC.msg='Gagal bergabung. Periksa internet, atau aturan Firestore untuk sekolah belum dipasang (lihat firestore-rules.txt).'}
+    renderPage();
+  }
+  async function leave(){
+    try{
+      if(online()){const fb=await X(),F=fb.fs;await F.deleteDoc(F.doc(fb.db,'members',CL.uid));try{await F.deleteDoc(F.doc(fb.db,'students',CL.uid))}catch(e){}}
+    }catch(e){SC.msg='Gagal keluar dari sekolah. Periksa internet.';return renderPage()}
+    S.school=null;SCH=null;save();SC.leave=false;SC.msg='Kamu sudah keluar dari sekolah.';block(false);renderPage();
+  }
+
+  /* ---------- peringatan dari guru ---------- */
+  const SC={msg:'',leave:false,warns:[],wLoaded:false};
+  let seenW=new Set();
+  async function warnLoad(){
+    if(!online()||!isSiswa())return;
+    try{
+      const fb=await X(),F=fb.fs,q=F.query(F.collection(fb.db,'warns'),F.where('to','==',CL.uid)),s=await F.getDocs(q);
+      const all=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);
+      SC.warns=all;SC.wLoaded=true;
+      const fresh=all.filter(w=>!w.read&&!seenW.has(w.id));
+      fresh.forEach(w=>seenW.add(w.id));
+      if(fresh.length){
+        toast('Peringatan dari gurumu: '+fresh[0].msg.slice(0,80));
+        try{window.KebunApp&&KebunApp.notifyNow&&KebunApp.notifyNow('Peringatan dari guru',fresh[0].msg)}catch(e){}
+        try{sfx('oops')}catch(e){}
+      }
+      if(cur==='beranda'||cur==='sekolah')renderPage();
+    }catch(e){}
+  }
+  const unread=()=>(SC.warns||[]).filter(w=>!w.read);
+  async function warnRead(id){
+    const w=(SC.warns||[]).find(x=>x.id===id);if(w)w.read=true;
+    try{const fb=await X();await fb.fs.updateDoc(fb.fs.doc(fb.db,'warns',id),{read:true})}catch(e){}
+    renderPage();
+  }
+  const oHE=homeExtras;
+  homeExtras=function(){
+    let h=oHE(),u=unread().slice(0,3);
+    if(u.length)h=`<div class="card solid" style="margin-bottom:16px;border-color:var(--warn)"><b class="small">Peringatan dari gurumu</b>`+u.map(w=>`<div class="row sp" style="margin-top:8px;gap:8px"><span class="small" style="flex:1 1 160px">${esc(w.msg)}<br><span class="muted">${esc(w.from||'guru')} · ${dt(w.ts)}</span></span><button type="button" class="btn sm" data-act="warnok" data-id="${w.id}">Oke, mengerti</button></div>`).join('')+`<div class="row" style="margin-top:10px"><button type="button" class="btn sm y" data-go="rekam">Rekam murojaah sekarang</button></div></div>`+h;
+    return h;
+  };
+
+  /* ---------- sekolah dihentikan admin: layar blokir ---------- */
+  function block(on,name){
+    let el=$('#schBlock');
+    if(!on){if(el)el.hidden=true;return}
+    if(!el){el=document.createElement('div');el.id='schBlock';document.body.appendChild(el)}
+    el.hidden=false;
+    el.innerHTML=`<div class="card solid" style="max-width:420px;margin:auto"><h3 style="margin-top:0">Layanan sekolah dihentikan sementara</h3><p>Akses ${esc(name||'sekolahmu')} sedang dinonaktifkan. Hubungi pihak sekolah atau admin Kebun Murojaah untuk mengaktifkannya lagi.</p><div class="row" style="gap:8px"><button type="button" class="btn y" data-act="schrecheck">Cek lagi</button><button type="button" class="btn ghost" data-act="logout">Keluar akun</button></div></div>`;
+  }
+  async function gate(){
+    if(!online()||!S||!S.school||isAdmin())return;
+    try{
+      const fb=await X(),d=await fb.fs.getDoc(fb.fs.doc(fb.db,'schools',S.school.code));
+      if(d.exists()){SCH=d.data();if(SCH.name&&S.school.name!==SCH.name){S.school.name=SCH.name}block(SCH.active===false,SCH.name)}
+    }catch(e){}
+  }
+
+  /* ---------- dasbor guru ---------- */
+  const TD={code:'',rows:null,loading:false,filter:'all',sel:'',recs:{},msg:'',all:false,err:''};
+  async function tdLoad(code){
+    TD.code=code;TD.loading=true;TD.err='';
+    try{
+      const fb=await X(),F=fb.fs,s=await F.getDocs(F.query(F.collection(fb.db,'students'),F.where('sc','==',code)));
+      TD.rows=s.docs.map(d=>Object.assign({uid:d.id},d.data()));
+    }catch(e){TD.rows=[];TD.err=(e&&e.code==='permission-denied')?'Server menolak. Aturan Firestore untuk sekolah belum dipasang atau akunmu belum terdaftar sebagai guru sekolah ini.':'Tidak bisa memuat murid. Periksa internet lalu coba lagi.'}
+    TD.loading=false;if(cur==='sekolah'||cur==='admin')renderPage();
+  }
+  const tdDone=r=>r.day===today()&&(r.todayN>0);
+  const dayOf=ts=>{const d=new Date(ts);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+  function tdHTML(){
+    const rows=TD.rows||[],all=rows.length,ok=rows.filter(tdDone).length,rc=rows.filter(r=>r.lrec&&dayOf(r.lrec)===today()).length;
+    const f=TD.filter,list=rows.filter(r=>f==='all'||(f==='belum'?!tdDone(r):tdDone(r))).sort((a,b)=>(tdDone(a)-tdDone(b))||String(a.u).localeCompare(String(b.u)));
+    const tiles=[[all,'murid'],[ok,'sudah murojaah hari ini'],[all-ok,'belum hari ini'],[rc,'rekaman hari ini']];
+    const cards=list.map(r=>{
+      const open=TD.sel===r.uid,done=tdDone(r);
+      let det='';
+      if(open){
+        const rl=TD.recs[r.uid];
+        det=`<div class="td-det"><b class="small">Rekaman ${esc(r.u)}</b>${rl===undefined?'<p class="small muted">Memuat rekaman...</p>':(rl.length?rl.map(x=>`<div class="rec-row"><div style="min-width:0"><b class="small">${esc(x.lbl||'Rekaman')}</b><br><span class="small muted">${dt(x.ts)} · ${mmss(x.dur||0)}${x.chk?' · sudah dicek':''}</span></div><div class="row" style="gap:6px;flex:none"><button type="button" class="btn sm ${R.playing===x.id?'b':''}" data-act="tdplay" data-id="${x.id}" data-u="${r.uid}">${R.playing===x.id?'Memutar':'Dengar'}</button><button type="button" class="btn sm ghost" data-act="tdchk" data-id="${x.id}" data-u="${r.uid}">${x.chk?'Batal cek':'Tandai dicek'}</button></div></div>`).join(''):'<p class="small muted" style="margin:4px 0">Belum ada rekaman dari murid ini.</p>')}
+          <div class="field" style="margin-top:10px"><label for="tdMsg">Peringatan untuk ${esc(r.u)}</label><textarea id="tdMsg" rows="2" maxlength="200">Assalamu'alaikum, ayo murojaah hari ini dan rekam bacaanmu ya.</textarea></div>
+          <div class="row" style="margin-top:6px"><button type="button" class="btn sm y" data-act="tdwarn" data-u="${r.uid}">Kirim peringatan</button></div></div>`;
+      }
+      return `<div class="td-card ${done?'ok':'no'}"><div class="row sp" style="gap:8px"><div style="min-width:0"><b>${esc(r.name||r.u)}</b> <span class="small muted">@${esc(r.u)}</span><br><span class="tag ${done?'adm-on':'adm-off'}">${done?'Sudah murojaah':'Belum murojaah'}</span> <span class="small muted">streak ${r.streak||0} hari</span></div>
+        <button type="button" class="btn sm ${open?'b':''}" data-act="tdopen" data-u="${r.uid}">${open?'Tutup':'Rekaman & peringatan'}</button></div>
+        <p class="small muted" style="margin:6px 0 0">Hari ini: ${r.day===today()?(r.todayAyat||0)+' ayat, '+(r.todayMin||0)+' menit':'belum ada'} · Total ${fmtN(r.ayat||0)} ayat · ${r.pages||0} halaman tilawah · Terakhir aktif ${r.last?fmtDate(r.last):'-'}${r.lrec?' · Rekaman terakhir '+dt(r.lrec):''}</p>${det}</div>`}).join('');
+    return `<div class="adm-tiles" style="margin-bottom:12px">${tiles.map(t=>`<div class="adm-tile"><b>${t[0]}</b><span>${t[1]}</span></div>`).join('')}</div>
+      <div class="row" style="gap:6px;margin-bottom:10px">${[['all','Semua'],['belum','Belum hari ini'],['sudah','Sudah']].map(x=>`<button type="button" class="btn sm ${f===x[0]?'b':'ghost'}" data-act="tdfilter" data-f="${x[0]}">${x[1]}</button>`).join('')}<button type="button" class="btn sm ghost" data-act="tdreload">Muat ulang</button>${all-ok>0?(TD.all?`<button type="button" class="btn sm y" data-act="tdwarnall">Ya, ingatkan ${all-ok} murid</button>`:`<button type="button" class="btn sm y" data-act="tdwarnall">Ingatkan yang belum</button>`):''}</div>
+      ${TD.err?`<p class="small" style="color:var(--warn)" role="alert">${esc(TD.err)}</p>`:''}${TD.msg?`<p class="small" role="status">${esc(TD.msg)}</p>`:''}
+      ${TD.loading&&!rows.length?'<p class="small muted">Memuat murid...</p>':(cards||'<p class="small muted">Belum ada murid yang tergabung dengan kode sekolah ini, atau tidak ada yang cocok dengan filter.</p>')}`;
+  }
+  async function recsOf(uid){
+    try{
+      const fb=await X(),F=fb.fs,s=await F.getDocs(F.query(F.collection(fb.db,'recs'),F.where('sc','==',TD.code),F.where('uid','==',uid)));
+      TD.recs[uid]=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);
+    }catch(e){TD.recs[uid]=[];TD.err='Rekaman tidak bisa dimuat. Periksa aturan Firestore atau internet.'}
+    if(cur==='sekolah'||cur==='admin')renderPage();
+  }
+  async function tdPlay(id,uidv){
+    try{
+      const fb=await X(),d=await fb.fs.getDoc(fb.fs.doc(fb.db,'recs',id,'a','0'));
+      if(!d.exists()){toast('Berkas suara tidak ditemukan.');return}
+      const x=(TD.recs[uidv]||[]).find(r=>r.id===id);
+      playBlob(unb64(d.data().b,(x&&x.mime)||'audio/webm'),id);
+    }catch(e){toast('Gagal memuat suara.')}
+  }
+
+  /* ---------- halaman sekolah ---------- */
+  function pSekolah(){
+    const head=`<div class="ribbon"><span class="star">${ico('star')}</span><h2>Sekolah</h2></div>`;
+    if(curUser===GUEST||!curUser)return head+`<div class="card"><p style="margin:0">Fitur sekolah hanya untuk akun terdaftar. Keluar dari mode tamu, lalu buat akun.</p></div>`;
+    if(!cloudOn())return head+`<div class="card"><p style="margin:0">Fitur sekolah butuh akun online (Firebase). Minta admin mengaktifkannya.</p></div>`;
+    if(!S.school){
+      return head+`<div class="card cream"><h3 style="margin-top:0">Gabung ke sekolahmu</h3><p class="small">Masukkan kode sekolah dari gurumu. Setelah bergabung, gurumu bisa melihat progres murojaahmu dan mendengar rekaman suaramu.</p>
+        <div class="row"><div class="field" style="flex:1 1 180px"><label for="schCode">Kode sekolah</label><input id="schCode" maxlength="20" autocapitalize="characters" autocomplete="off" placeholder="Contoh: SEKOLAH-A"></div><button type="button" class="btn y" data-act="schjoin">Gabung</button></div>
+        ${SC.msg?`<p class="small" role="status" style="margin:8px 0 0">${esc(SC.msg)}</p>`:''}
+        <p class="small muted" style="margin:10px 0 0">Yang dibagikan ke guru: streak, jumlah ayat dan menit murojaah, tilawah, serta rekaman suara yang kamu kirim. Kata sandimu tidak pernah dibagikan.</p></div>`;
+    }
+    const sc=S.school,stopped=SCH&&SCH.active===false;
+    let h=head+`<div class="card solid cream" style="margin-bottom:16px"><div class="row sp"><div><b>${esc(sc.name||sc.code)}</b><br><span class="small muted">Kode ${esc(sc.code)} · kamu terdaftar sebagai <b>${sc.role==='guru'?'guru':'murid'}</b></span></div>
+      ${SC.leave?`<div class="row" style="gap:6px"><button type="button" class="btn sm" style="border-color:var(--warn);color:var(--warn)" data-act="schleave2">Ya, keluar</button><button type="button" class="btn sm ghost" data-act="schleave0">Batal</button></div>`:`<button type="button" class="btn sm ghost" data-act="schleave1">Keluar dari sekolah</button>`}</div>
+      ${stopped?'<p class="small" style="color:var(--warn);margin:8px 0 0">Layanan sekolah ini sedang dihentikan.</p>':''}${SC.msg?`<p class="small" role="status" style="margin:8px 0 0">${esc(SC.msg)}</p>`:''}</div>`;
+    if(sc.role==='guru'){
+      if(TD.rows===null&&!TD.loading)tdLoad(sc.code);
+      return h+`<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Murid ${esc(sc.name||sc.code)}</h3>${tdHTML()}</div>`;
+    }
+    if(!SC.wLoaded)warnLoad();
+    const ws=(SC.warns||[]).slice(0,10);
+    h+=`<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Peringatan dari guru</h3>${ws.length?ws.map(w=>`<div class="rec-row"><span class="small" style="flex:1">${esc(w.msg)}<br><span class="muted">${esc(w.from||'guru')} · ${dt(w.ts)}</span></span>${w.read?'<span class="small muted">dibaca</span>':`<button type="button" class="btn sm" data-act="warnok" data-id="${w.id}">Oke</button>`}</div>`).join(''):'<p class="small muted" style="margin:0">Belum ada peringatan. Tetap semangat murojaah ya!</p>'}</div>
+      <div class="card cream"><p class="small" style="margin:0 0 8px">Rekaman bacaanmu dikirim ke gurumu lewat menu rekam suara.</p><button type="button" class="btn y" data-go="rekam">Rekam murojaah</button></div>`;
+    return h;
+  }
+
+  /* ---------- panel admin: sekolah ---------- */
+  const AS={list:null,mem:[],err:'',msg:'',view:''};
+  async function asLoad(){
+    AS.err='';
+    try{
+      const fb=await X(),F=fb.fs,[a,b]=await Promise.all([F.getDocs(F.collection(fb.db,'schools')),F.getDocs(F.collection(fb.db,'members'))]);
+      AS.list=a.docs.map(d=>Object.assign({code:d.id},d.data())).sort((x,y)=>String(x.name).localeCompare(String(y.name)));
+      AS.mem=b.docs.map(d=>Object.assign({uid:d.id},d.data()));
+    }catch(e){AS.list=[];AS.err='Server menolak atau belum ada data. Pasang aturan Firestore terbaru (firestore-rules.txt).'}
+    if(cur==='admin')renderPage();
+  }
+  function adminSchools(){
+    if(!cloudOn())return '';
+    if(AS.list===null)asLoad();
+    const L=AS.list||[];
+    const rows=L.map(s=>{
+      const n=AS.mem.filter(m=>m.sc===s.code&&m.role==='siswa').length,on=s.active!==false;
+      return `<div class="td-card ${on?'ok':'no'}"><div class="row sp" style="gap:8px"><div style="min-width:0"><b>${esc(s.name||s.code)}</b> <span class="tag">${esc(s.code)}</span> <span class="tag ${on?'adm-on':'adm-off'}">${on?'Aktif':'Dihentikan'}</span><br><span class="small muted">${n} murid · guru: ${esc((s.teachers||[]).join(', ')||'belum ada')}</span></div>
+        <div class="row" style="gap:6px"><button type="button" class="btn sm ${on?'y':'b'}" data-act="schtoggle" data-c="${esc(s.code)}">${on?'Hentikan':'Aktifkan'}</button><button type="button" class="btn sm" data-act="schview" data-c="${esc(s.code)}">${AS.view===s.code?'Tutup murid':'Lihat murid'}</button></div></div>
+        <div class="row" style="gap:6px;margin-top:8px"><div class="field" style="flex:1 1 200px"><label for="tc-${esc(s.code)}">Username guru (pisahkan koma)</label><input id="tc-${esc(s.code)}" value="${esc((s.teachers||[]).join(', '))}" maxlength="120"></div><button type="button" class="btn sm" data-act="schteach" data-c="${esc(s.code)}">Simpan guru</button></div>
+        ${AS.view===s.code?`<div style="margin-top:10px">${TD.code===s.code?tdHTML():'<p class="small muted">Memuat...</p>'}</div>`:''}</div>`}).join('');
+    return `<div class="card" style="margin-bottom:16px"><div class="row sp"><h3 style="margin:0">Sekolah</h3><button type="button" class="btn sm ghost" data-act="schreload">Muat ulang</button></div>
+      <p class="small muted" style="margin:6px 0 10px">Tambahkan sekolah, beri kode, dan daftar username guru. Hentikan sekolah yang belum membayar; murid dan gurunya langsung tidak bisa memakai aplikasi sampai kamu aktifkan lagi.</p>
+      ${AS.err?`<p class="small" style="color:var(--warn)" role="alert">${esc(AS.err)}</p>`:''}
+      <div class="row" style="gap:8px;margin-bottom:12px"><div class="field" style="flex:2 1 160px"><label for="scName">Nama sekolah</label><input id="scName" maxlength="60" placeholder="SD Contoh 1"></div><div class="field" style="flex:1 1 120px"><label for="scCode">Kode</label><input id="scCode" maxlength="20" autocapitalize="characters" placeholder="SEKOLAH-A"></div><div class="field" style="flex:2 1 160px"><label for="scTeach">Username guru</label><input id="scTeach" maxlength="120" placeholder="guru.a, guru.b"></div><button type="button" class="btn sm y" data-act="schadd" style="align-self:flex-end">Tambah</button></div>
+      ${AS.msg?`<p class="small" role="status">${esc(AS.msg)}</p>`:''}${rows||'<p class="small muted" style="margin:0">Belum ada sekolah.</p>'}</div>`;
+  }
+  const tList=s=>String(s||'').split(/[,\s]+/).map(x=>x.trim().toLowerCase()).filter(x=>x&&validUser(x));
+  async function schSet(code,patch,msg){
+    try{
+      const fb=await X(),F=fb.fs;
+      await F.setDoc(F.doc(fb.db,'schools',code),patch,{merge:true});
+      AS.msg=msg;AS.list=null;
+    }catch(e){AS.msg='Gagal menyimpan. Periksa internet atau aturan Firestore.'}
+    renderPage();
+  }
+
+  /* ---------- aksi ---------- */
+  Object.assign(ACT,{
+    recstart:()=>recStart(),recstop:()=>recStop(),
+    recredo:()=>{if(R.url)URL.revokeObjectURL(R.url);R.url='';R.blob=null;R.st='idle';R.msg='';paint()},
+    recsave:()=>recSave(),
+    recplay:el=>playLocal(el.dataset.id),
+    recsend:el=>resend(el.dataset.id),
+    recdel:async el=>{try{await recDel(el.dataset.id)}catch(e){}R.list=null;paint()},
+    schjoin:()=>join(),
+    schleave1:()=>{SC.leave=true;renderPage()},schleave0:()=>{SC.leave=false;renderPage()},schleave2:()=>leave(),
+    schrecheck:async()=>{await gate();if(!($('#schBlock')||{}).hidden)toast('Masih dihentikan.')},
+    warnok:el=>warnRead(el.dataset.id),
+    tdopen:el=>{const u=el.dataset.u;TD.sel=TD.sel===u?'':u;TD.msg='';if(TD.sel&&TD.recs[u]===undefined)recsOf(u);renderPage()},
+    tdfilter:el=>{TD.filter=el.dataset.f;renderPage()},
+    tdreload:()=>{TD.recs={};TD.msg='';tdLoad(TD.code||(S.school&&S.school.code))},
+    tdplay:el=>tdPlay(el.dataset.id,el.dataset.u),
+    tdchk:async el=>{
+      const id=el.dataset.id,u=el.dataset.u,x=(TD.recs[u]||[]).find(r=>r.id===id);if(!x)return;
+      const v=x.chk?0:1;
+      try{const fb=await X();await fb.fs.updateDoc(fb.fs.doc(fb.db,'recs',id),{chk:v});x.chk=v}catch(e){toast('Gagal menyimpan tanda.')}
+      renderPage();
+    },
+    tdwarn:async el=>{
+      const u=el.dataset.u,msg=(($('#tdMsg')||{}).value||'').trim().slice(0,200);
+      if(!msg){toast('Tulis peringatannya dulu.');return}
+      try{const fb=await X();await fb.fs.setDoc(fb.fs.doc(fb.db,'warns',uid()+Date.now().toString(36)),{to:u,sc:TD.code,from:curUser,msg,ts:Date.now(),read:false});TD.msg='Peringatan terkirim.';toast('Peringatan terkirim')}
+      catch(e){TD.msg='Gagal mengirim peringatan.'}
+      renderPage();
+    },
+    tdwarnall:async()=>{
+      const todo=(TD.rows||[]).filter(r=>!tdDone(r));if(!todo.length)return;
+      if(!TD.all){TD.all=true;renderPage();return}
+      TD.all=false;
+      try{
+        const fb=await X(),msg="Assalamu'alaikum, hari ini kamu belum murojaah. Ayo murojaah dan rekam bacaanmu ya.";
+        await Promise.all(todo.map(r=>fb.fs.setDoc(fb.fs.doc(fb.db,'warns',uid()+Date.now().toString(36)+r.uid.slice(0,3)),{to:r.uid,sc:TD.code,from:curUser,msg,ts:Date.now(),read:false})));
+        TD.msg='Peringatan terkirim ke '+todo.length+' murid.';toast(TD.msg);
+      }catch(e){TD.msg='Sebagian peringatan gagal terkirim.'}
+      renderPage();
+    },
+    schadd:async()=>{
+      if(!isAdmin())return;
+      const name=(($('#scName')||{}).value||'').trim(),code=(($('#scCode')||{}).value||'').trim().toUpperCase(),teach=tList(($('#scTeach')||{}).value);
+      if(!name||!codeOK(code)){AS.msg='Isi nama sekolah dan kode (3 sampai 20 huruf atau angka).';renderPage();return}
+      if((AS.list||[]).some(s=>s.code===code)){AS.msg='Kode itu sudah dipakai sekolah lain.';renderPage();return}
+      await schSet(code,{name,code,teachers:teach,active:true,created:Date.now()},'Sekolah '+name+' ditambahkan. Bagikan kode '+code+' ke murid.');
+    },
+    schtoggle:el=>{
+      if(!isAdmin())return;const s=(AS.list||[]).find(x=>x.code===el.dataset.c);if(!s)return;
+      const on=s.active===false;
+      schSet(s.code,{active:on},(on?'Sekolah diaktifkan: ':'Sekolah dihentikan: ')+(s.name||s.code));
+    },
+    schteach:el=>{if(!isAdmin())return;const c=el.dataset.c;schSet(c,{teachers:tList(($('#tc-'+c)||{}).value)},'Daftar guru disimpan.')},
+    schreload:()=>{AS.list=null;AS.msg='';renderPage()},
+    schview:el=>{const c=el.dataset.c;if(AS.view===c){AS.view='';renderPage();return}AS.view=c;TD.rows=null;TD.recs={};TD.sel='';TD.msg='';tdLoad(c);renderPage()}
+  });
+
+  /* ---------- pasang ke halaman ---------- */
+  PAGES.push('sekolah','rekam');P.sekolah=pSekolah;P.rekam=pRekam;
+  const oAdm=P.admin;
+  P.admin=function(){
+    const h=oAdm(),k='<div class="card cream" style="margin-bottom:16px"><h3 style="margin-top:0">Catatan penting untuk admin</h3>',i=h.indexOf(k);
+    if(!isAdmin())return h;
+    const s=adminSchools();return i<0?h+s:h.slice(0,i)+s+h.slice(i);
+  };
+  const oBoot=bootApp;
+  bootApp=function(u){
+    R.list=null;R.st='idle';R.err='';R.msg='';SC.warns=[];SC.wLoaded=false;SC.msg='';SC.leave=false;TD.rows=null;TD.recs={};TD.sel='';AS.list=null;AS.view='';SCH=null;seenW=new Set();
+    block(false);
+    oBoot(u);
+    setTimeout(()=>{gate();warnLoad();pushSum(true)},2500);
+  };
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&curUser){gate();warnLoad()}});
+  setInterval(()=>{if(!document.hidden&&curUser){warnLoad()}},90000);
+  setInterval(()=>{if(!document.hidden&&curUser){gate()}},300000);
+})();
+
 /* ============ akun cloud (Firebase) - aktif hanya jika firebase-config.js diisi ============ */
 const CL={uid:null,t:null,status:'',busy:false};
 const CL_DOM='@kebunmurojaah.app';
@@ -6098,6 +6553,7 @@ async function cloudInit(){
   const [A,Au,Fs]=await Promise.all([import(base+'firebase-app.js'),import(base+'firebase-auth.js'),import(base+'firebase-firestore.js')]);
   const app=A.initializeApp(cfg),auth=Au.getAuth(app),db=Fs.getFirestore(app);
   FBX={
+    fs:Fs,db:db,
     signIn:(e,p)=>Au.signInWithEmailAndPassword(auth,e,p).then(r=>r.user.uid),
     signUp:(e,p)=>Au.createUserWithEmailAndPassword(auth,e,p).then(r=>r.user.uid),
     signOut:()=>Au.signOut(auth),
@@ -6144,6 +6600,7 @@ async function cloudEnter(fb,uid,u){
   try{remote=await fb.getData(uid);CL.status='ok'}catch(e){CL.status='err'}
   if(remote&&okJSON(remote)&&!(dirty&&local&&okJSON(local))){try{localStorage.setItem(userKey(u),remote)}catch(e){}}
   ACC.last=u;ACC.session=null;saveAcc();
+  try{localStorage.setItem('km-fast',JSON.stringify({u,uid}))}catch(e){}
   bootApp(u);
 }
 async function cloudSubmit(mode,u,pw,pw2){
@@ -6191,6 +6648,7 @@ save=function(){
   if(!cloudOn()||!CL.uid||!curUser||curUser===GUEST)return;
   const u=curUser,uid=CL.uid;
   try{localStorage.setItem('km-dirty-'+u,'1')}catch(e){}
+  if(CL.hold)return;   /* masuk cepat: tahan unggahan sampai data server dicek */
   CL.status='sync';cloudBadge();
   clearTimeout(CL.t);CL.t=setTimeout(()=>cloudPush(uid,JSON.stringify(S),u),1500);
 };
@@ -6198,6 +6656,8 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&cloudOn()&
 const oLogout=logout;
 logout=function(msg){
   const uid=CL.uid,u=curUser,on=cloudOn()&&uid&&u&&u!==GUEST;
+  try{localStorage.removeItem('km-fast')}catch(e){}
+  CL.hold=false;
   oLogout(msg);
   if(on){clearTimeout(CL.t);CL.uid=null;let str=null;try{str=localStorage.getItem(userKey(u))}catch(e){}
     (async()=>{await cloudPush(uid,str,u);try{await FBX.signOut()}catch(e){}})()}
@@ -6208,6 +6668,7 @@ ACT.delacc2=async function(){
   const u=curUser;
   try{await FBX.deleteAll(CL.uid)}catch(e){toast('Gagal menghapus akun. Keluar, masuk lagi, lalu coba lagi.');return}
   clearTimeout(CL.t);CL.uid=null;
+  try{localStorage.removeItem('km-fast')}catch(e){}
   try{localStorage.removeItem(userKey(u));localStorage.removeItem('km-dirty-'+u)}catch(e){}
   delete ACC.users[u];if(ACC.last===u)ACC.last='';ACC.session=null;saveAcc();
   showAuth('Akun '+u+' sudah dihapus.');
@@ -6225,6 +6686,31 @@ startApp=async function(){
   const rm=$('#aRemember');if(rm&&rm.closest('label'))rm.closest('label').hidden=true;
   const note=$('#authNote');if(note)note.textContent='Akunmu tersimpan di server, jadi bisa dipakai di HP atau laptop mana pun. Jangan pakai kata sandi yang sama dengan akun pentingmu.';
   if(ACC.session===GUEST){bootApp(GUEST);return}
+  /* MASUK CEPAT: kalau perangkat ini sudah pernah masuk, langsung buka akunnya (tanpa layar login).
+     Pengecekan sesi, status akun, dan data server berjalan di belakang. */
+  let fast=null;try{fast=JSON.parse(localStorage.getItem('km-fast')||'null')}catch(e){}
+  let have=null;try{have=fast&&fast.u?localStorage.getItem(userKey(fast.u)):null}catch(e){}
+  if(fast&&fast.u&&fast.uid&&have&&okJSON(have)){
+    let dirty=false;try{dirty=localStorage.getItem('km-dirty-'+fast.u)==='1'}catch(e){}
+    CL.uid=fast.uid;CL.hold=true;ACC.last=fast.u;ACC.session=null;saveAcc();
+    bootApp(fast.u);
+    (async()=>{
+      try{
+        const fb=await cloudInit(),u=await fb.whenUser();
+        if(!u||u.uid!==fast.uid){CL.hold=false;CL.uid=null;try{localStorage.removeItem('km-fast')}catch(e){}showAuth('Sesimu sudah berakhir. Masuk lagi ya.');return}
+        let off=false;try{off=!!(fb.getDisabled&&await fb.getDisabled(u.uid))}catch(e){}
+        if(off){CL.hold=false;CL.uid=null;try{localStorage.removeItem('km-fast');await fb.signOut()}catch(e){}showAuth('Akun ini dinonaktifkan oleh admin.');return}
+        if(!dirty){
+          try{const remote=await fb.getData(u.uid);CL.status='ok';
+            if(remote&&okJSON(remote)&&remote!==have){try{localStorage.setItem(userKey(fast.u),remote)}catch(e){}CL.hold=false;bootApp(fast.u);return}
+          }catch(e){CL.status='err'}
+        }
+        CL.hold=false;
+        try{if(localStorage.getItem('km-dirty-'+fast.u)==='1')cloudPush(u.uid,JSON.stringify(S),fast.u)}catch(e){}
+      }catch(e){CL.hold=false}
+    })();
+    return;
+  }
   showAuth('Memeriksa sesi...');
   try{
     const fb=await cloudInit(),u=await fb.whenUser();
