@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 
     private static final int REQ_NOTIF = 13;
     private static final int REQ_MIC = 14;
+    private static final int REQ_MIC2 = 15;
     private android.webkit.PermissionRequest micReq;
     private WebView web;
     private LinearLayout splash;
@@ -229,6 +230,17 @@ public class MainActivity extends Activity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQ_MIC2) {
+            boolean ok = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (!ok && Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
+                /* sudah ditolak permanen: Android tidak akan menampilkan jendela lagi, jadi buka pengaturan aplikasi */
+                android.widget.Toast.makeText(this, "Aktifkan izin Mikrofon untuk Kebun Murojaah", android.widget.Toast.LENGTH_LONG).show();
+                try {
+                    startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName())));
+                } catch (Exception e) { /* abaikan */ }
+            }
+            return;
+        }
         if (requestCode == REQ_MIC && micReq != null) {
             boolean ok = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
             if (ok) micReq.grant(new String[]{android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE});
@@ -314,6 +326,33 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public void notifyNow(String title, String body) {
             Notifier.show(MainActivity.this, 1999, title, body, null);
+        }
+
+        @JavascriptInterface
+        public boolean micOK() {
+            return Build.VERSION.SDK_INT < 23 || checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+        }
+
+        @JavascriptInterface
+        public void askMic() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (Build.VERSION.SDK_INT >= 23 && checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQ_MIC2);
+                    }
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void openSettings() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    try {
+                        startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName())));
+                    } catch (Exception e) { /* abaikan */ }
+                }
+            });
         }
 
         @JavascriptInterface

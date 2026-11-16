@@ -1,3 +1,73 @@
+=== v15 ===
+- Tema tetap sekarang Kelopak Sakura (Taman masih bisa dipilih). Yang masih pakai Taman dipindah ke Sakura sekali.
+- 8 tema baru: Hujan, Salju, Aurora, Lavender, Masjid, Gugur, Galaksi, Lentera (total 13 tema Kelopak + Taman).
+- Intro: perbaikan saat ditekan/ditahan (tanpa seleksi teks, menu tahan-lama, partikel dibatasi). Bug persisnya di HP kamu belum bisa direproduksi, jadi kalau masih ada kabari ya.
+- Belum dites di Firebase asli/WebView/iOS.
+- Firestore rules tidak berubah sejak v13. Tidak perlu rebuild APK.
+
+v14 - IKON TERATAI BARU (ikon web, layar utama, APK). Sisanya sama seperti v13 di bawah.
+
+v13 - TEMAN (SOSIAL), TEMA CHAT, INTRO BARU, IKON BARU
+======================================================
+1. KACA CAIR kembali kuat (efek lensa/ngaca), tanpa blur tambahan. Bug lensa pada bulatan besar sudah diperbaiki.
+2. INTRO BARU (tanpa tirai): senja berbintang dengan kunang-kunang. Tahan bunga ajaib sampai cincinnya penuh, bunganya mekar dan fajar terbit, lalu tanam bunga di taman. Ketuk cepat juga bisa menambah. Tombol Lewati tetap ada.
+3. MENU "TEMAN" (menu Chat sebelumnya) sekarang punya 3 tab:
+   - Pesan: obrolan pribadi dan grup, plus baris Cerita di atas. Streak chat (api) tampil di daftar dan di atas obrolan; naik 1 tiap hari kalau semua (minimal 2 orang) saling kirim pesan hari itu. Bisa kirim foto di chat (tombol +). Tombol kuas = tema chat (8 tema: Embun Pagi, Samudra, Senja, Hutan, Sakura, Malam Bintang, Permen, Emas), berlaku untuk semua anggota obrolan itu. Bubble tetap kaca cair.
+   - Jelajah: cari teman lewat nama pengguna, Ikuti, dan kiriman foto terbaru dari yang kamu ikuti (bisa disukai).
+   - Profil: foto profil, nama, bio, jumlah kiriman/pengikut/mengikuti, bagikan foto, tambah cerita (hilang 24 jam), saklar AKUN PRIVAT. Akun privat: orang harus minta ikut dan kamu setujui dulu; kiriman dan ceritanya terkunci untuk yang belum disetujui.
+4. IKON BARU (teratai kaca cair saat fajar): ikon web, ikon layar utama, dan ikon APK.
+
+WAJIB
+A. Firebase > Firestore > Rules: tempel isi firestore-rules.txt lalu Publish (ada aturan baru untuk profil, ikuti, kiriman, cerita).
+B. Upload SEMUA file di zip ini ke GitHub (timpa), KECUALI firebase-config.js yang tidak ada di zip ini dan jangan ditimpa. Ikon baru ada di icon-192.png, icon-512.png, icon-maskable-512.png, icon.svg.
+C. Ikon APK baru ada di folder android/ (mipmap). Untuk APK dengan ikon baru, bangun ulang APK lewat GitHub Actions seperti biasa. Isi web (tema, teman) sudah ikut otomatis tanpa bangun ulang karena APK memuat web langsung.
+D. Orang yang sudah terpasang mungkin masih melihat ikon lama di layar utama sampai dihapus dan dipasang ulang (cache Android/iPhone).
+
+CATATAN JUJUR
+- Foto disimpan langsung di Firestore (dikecilkan otomatis ke sekitar 900 px). Cukup untuk pemakaian kelompok kecil, tapi bukan pengganti Instagram: kalau pemakai ribuan, sebaiknya pindah ke Firebase Storage.
+- Akun privat dijaga oleh aturan Firestore (bukan sekadar disembunyikan di layar), jadi tidak bisa diintip lewat aplikasi lain. Tapi nama pengguna dan profil dasar tetap terlihat agar bisa dicari.
+- Suka (like) hanya bisa menambah/menghapus nama sendiri.
+- Belum ada komentar, notifikasi saat aplikasi tertutup, atau hapus pengikut.
+- Diuji dengan Chromium dan Firebase tiruan (ikuti, privat, foto, cerita, streak, tema). BELUM diuji dengan Firebase asli, WebView Android, atau iPhone.
+
+v11b - PERBAIKAN TAMPILAN + 5 TEMA PEMANDANGAN
+==============================================
+1. PERBAIKAN: kartu paling bawah di beranda tidak lagi ketimpa "Streak api" / "Karaktermu" (ada margin negatif yang salah). Berlaku juga untuk tata letak Aplikasi lama.
+2. Dok bawah: label "Beranda" tetap terbaca (tidak tertutup lensa), label "Murojaah" tidak terpotong. Kaca lebih lembut sehingga tulisan di belakang tidak jadi corat-coret.
+3. TEMA BARU (menu Tema, semuanya kaca cair, masing-masing punya mode terang dan gelap/malam):
+   - Kelopak Langit: awan berarak, burung, matahari.
+   - Kelopak Pantai: ombak bergulung, pasir, pohon kelapa.
+   - Kelopak Gunung: puncak bersalju, pinus, kabut, salju turun pelan.
+   - Kelopak Sakura: ranting sakura, kelopak berguguran.
+   - Kelopak Senja: matahari terbenam, bukit, bintang berkelip.
+   Tema lama dan Kelopak Taman tetap ada. Pilihan tema diingat di akun.
+Upload index.html + sw.js saja (firebase-config.js jangan ditimpa). Tidak perlu aturan Firestore baru dan tidak perlu bangun APK.
+Catatan: animasi latar memakai sedikit baterai; kalau HP lemot pilih Kelopak Taman atau tema lama. Belum diuji di HP asli selain tangkapan layar yang kamu kirim.
+
+v11 - TEMA KELOPAK, KEBUN BUNGA, CHAT
+=====================================
+BARU
+1. TEMA KELOPAK TAMAN jadi tema awal (web dan APK). Kaca cair asli (lensa pembias) di bilah atas, tombol, dok bawah, dan bubble chat. Semua tema lama tetap ada di menu Tema; pilih tema lain = keluar dari Kelopak, pilih Kelopak = masuk lagi. Fitur lama tidak berubah.
+2. INTRO bunga: tirai dibuka dengan digeser, lalu ketuk padang untuk menanam bunga yang tumbuh. Tampil sekali sehari; tombol "Putar intro" ada di menu Tema. Tombol Lewati selalu ada.
+3. KEBUN (menu baru): satu bunga untuk tiap surat yang sudah dimurojaahi. Makin sering diulang makin tinggi dan mekar. Ketuk bunga: terlihat surat apa, jumlah ayat, kali murojaah, tanggal terakhir. Ketuk tanah kosong: bunga hiasan.
+4. CHAT (menu baru): obrolan pribadi lewat nama pengguna teman, grup dengan kode, tombol bunga untuk kirim pengingat murojaah. Bubble kaca cair.
+5. Setiap tombol ada efek (riak, getar, percikan kelopak, suara), kartu muncul halus saat digulir.
+
+WAJIB UNTUK CHAT
+A. Firebase > Firestore > Rules: tempel isi firestore-rules.txt (sudah berisi aturan lama + chat), lalu Publish. Tanpa ini chat menampilkan pesan "pastikan aturan Firestore terbaru".
+B. Upload index.html dan sw.js ke repo (timpa). firebase-config.js JANGAN ditimpa.
+C. APK tidak perlu dibangun ulang: APK memuat web langsung.
+D. Teman baru bisa dicari setelah dia membuka menu Chat satu kali.
+
+CATATAN JUJUR
+- Diuji dengan Chromium dan server Firebase tiruan, BELUM dengan Firebase asli, WebView Android, maupun iPhone. Lensa kaca cair butuh dukungan backdrop-filter+SVG (Chrome/Android umumnya ya); di Safari/iPhone otomatis jadi kaca buram biasa.
+- Chat belum ada notifikasi saat aplikasi tertutup. Pesan terlama yang dimuat 60 terakhir.
+- Kalau tampilan di HP lemot, pilih tema lain di menu Tema.
+
+v10b - IZIN MIKROFON
+====================
+Menu "rekam suara" kini punya tombol "Izinkan mikrofon" dan "Buka pengaturan aplikasi". Kalau izin pernah ditolak permanen, aplikasi otomatis membuka pengaturan. Kalau APK masih versi lama (belum ada izin mikrofon), muncul pesan agar mengunduh APK terbaru. Upload semua, tunggu Actions hijau, unduh APK baru.
+
 v10 - SEKOLAH, AKUN GURU, REKAM SUARA, MASUK LANGSUNG
 =====================================================
 BARU
@@ -158,3 +228,6 @@ CATATAN JUJUR
 - Ringkasan dzikir untuk membantu; rujuk buku/ustadz untuk bacaan lengkap.
 - Koin disimpan di data pengguna, jadi pengguna yang paham kode bisa mengutak-atiknya. Papan peringkat grup juga bukan sistem anti-curang.
 - Font bagus dimuat dari Google Fonts (butuh internet); tanpa internet tampilan tetap jalan dengan font biasa.
+
+
+v10c: mode aplikasi sekarang menampilkan MOTIF tema (latar, bar atas, tab bawah, menu). Cukup upload index.html + sw.js. Tidak perlu build APK ulang.

@@ -84,5 +84,63 @@ service cloud.firestore {
       allow update: if signedIn() && resource.data.to == request.auth.uid
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
     }
+
+    // CHAT: nama pengguna, obrolan pribadi, grup, pesan
+    match /names/{n} {
+      allow read: if signedIn();
+      allow create, update: if signedIn() && n == uname() && request.resource.data.uid == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+    function chatMem(c) { return get(/databases/$(database)/documents/chats/$(c)).data.mem; }
+    match /chats/{c} {
+      allow get: if signedIn() && (resource == null || resource.data.t == 'grp' || uname() in resource.data.mem);
+      allow list: if signedIn() && uname() in resource.data.mem;
+      allow create: if signedIn() && uname() in request.resource.data.mem && (
+        request.resource.data.t == 'grp'
+        || (request.resource.data.t == 'dm' && request.resource.data.mem.size() == 2
+            && c == request.resource.data.mem[0] + '~' + request.resource.data.mem[1]));
+      allow update: if signedIn() && (
+        uname() in resource.data.mem
+        || (resource.data.t == 'grp' && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['mem'])
+            && uname() in request.resource.data.mem));
+      allow delete: if false;
+      match /m/{id} {
+        allow read: if signedIn() && uname() in chatMem(c);
+        allow create: if signedIn() && uname() in chatMem(c) && request.resource.data.u == uname();
+        allow delete: if signedIn() && resource.data.u == uname();
+      }
+    }
+
+    // SOSIAL: profil, ikuti, kiriman foto, cerita
+    function followOk(u) { return exists(/databases/$(database)/documents/follows/$(uname() + '~' + u))
+                                  && get(/databases/$(database)/documents/follows/$(uname() + '~' + u)).data.st == 'ok'; }
+    function canSee(u) { return u == uname() || get(/databases/$(database)/documents/profiles/$(u)).data.priv == false || followOk(u); }
+    match /profiles/{u} {
+      allow read: if signedIn();
+      allow create, update: if signedIn() && u == uname();
+      allow delete: if signedIn() && u == uname();
+    }
+    match /follows/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.a == uname() && id == request.resource.data.a + '~' + request.resource.data.b
+        && request.resource.data.a != request.resource.data.b
+        && (request.resource.data.st == 'req'
+            || (request.resource.data.st == 'ok' && get(/databases/$(database)/documents/profiles/$(request.resource.data.b)).data.priv == false));
+      allow update: if signedIn() && resource.data.b == uname() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['st']) && request.resource.data.st == 'ok';
+      allow delete: if signedIn() && (resource.data.a == uname() || resource.data.b == uname());
+    }
+    match /posts/{p} {
+      allow read: if signedIn() && canSee(resource.data.u);
+      allow create: if signedIn() && request.resource.data.u == uname() && request.resource.data.img.size() < 700000;
+      allow update: if signedIn() && canSee(resource.data.u) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+        && request.resource.data.likes.toSet().difference(resource.data.likes.toSet()).hasOnly([uname()])
+        && resource.data.likes.toSet().difference(request.resource.data.likes.toSet()).hasOnly([uname()]);
+      allow delete: if signedIn() && resource.data.u == uname();
+    }
+    match /stories/{p} {
+      allow read: if signedIn() && canSee(resource.data.u);
+      allow create: if signedIn() && request.resource.data.u == uname() && request.resource.data.img.size() < 700000;
+      allow delete: if signedIn() && resource.data.u == uname();
+    }
   }
 }
