@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     private static final int REQ_MIC2 = 15;
     private android.webkit.PermissionRequest micReq;
     private WebView web;
+    private boolean keepAlive = false;
     private LinearLayout splash;
     private ValueCallback<Uri[]> fileCallback;
     private GeolocationPermissions.Callback geoCallback;
@@ -93,7 +94,7 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(false);
         s.setGeolocationEnabled(true);
         s.setCacheMode(WebSettings.LOAD_DEFAULT);
-        s.setUserAgentString(s.getUserAgentString() + " KebunApp/8.2");
+        s.setUserAgentString(s.getUserAgentString() + " KebunApp/8.3");
 
         web.addJavascriptInterface(new Bridge(), "KebunApp");
 
@@ -266,7 +267,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        web.onPause();
+        if (!keepAlive) web.onPause();
     }
 
     @Override
@@ -314,8 +315,27 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface
+        public void audioState(final boolean playing, final String title) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    try {
+                        keepAlive = playing;
+                        Intent si = new Intent(MainActivity.this, AudioKeepService.class);
+                        if (playing) {
+                            si.putExtra("t", title == null ? "Murottal diputar" : title);
+                            if (Build.VERSION.SDK_INT >= 26) startForegroundService(si); else startService(si);
+                        } else {
+                            stopService(si);
+                            web.onPause();
+                        }
+                    } catch (Exception e) { /* abaikan: audio tetap jalan di latar bila bisa */ }
+                }
+            });
+        }
+
+        @JavascriptInterface
         public String version() {
-            return "8.2";
+            return "8.3";
         }
 
         @JavascriptInterface

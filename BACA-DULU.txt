@@ -1,3 +1,26 @@
+=== v16c ===
+PERBAIKAN MUSHAF: ayat yang sedang diputar/dipencet tidak lagi numpuk (class "pl" bentrok dengan class bunga intro). Pemutar mini tidak lagi menutupi baris terakhir halaman. Lihat juga PANDUAN-PLAYSTORE.txt.
+
+=== v16b ===
+PERBAIKAN: "penjaga performa" otomatis v16 ternyata mematikan pembiasan kaca (jadi burem) dan efek scroll/kelopak di HP. Sekarang DIHAPUS: kaca asli dan efek scroll selalu penuh. Pilihan manual "Hemat" tetap ada di Tema (default: Penuh). Pengaturan lama yang tersimpan otomatis direset.
+
+=== v16 ===
+YANG BARU
+1. MODE LAPTOP (tema Kelopak): menu fitur ada di SAMPING (panel kaca cair), bukan di bawah. Muncul otomatis di layar lebar (laptop/PC). Mode HP tidak berubah. Bisa dipaksa lewat Tema > Ukuran tampilan > Mode laptop.
+2. Tombol Menu di dock HP sekarang bisa ditekan lagi walau sedang di halaman menu (tidak perlu pindah fitur dulu).
+3. MUSHAF dibuat ulang: 604 halaman, satu halaman layar = satu halaman mushaf Madinah (nomor halaman sama dengan Al-Qur'an cetak). Geser halaman, loncat ke halaman/juz/surah, warna tajwid tetap ada. Tampilan kaca cair yang membiaskan.
+4. MUROTTAL di mushaf: ketuk ayat > Putar ayat ini / sampai akhir halaman / sampai akhir surah. Atau pilih surah/juz lalu Putar. 14 qari, kecepatan, ulangi tiap ayat, halaman ikut berpindah. Ada pemutar mini yang tetap tampil di semua menu, plus kontrol layar kunci (Media Session).
+5. Murottal TETAP JALAN saat keluar aplikasi. Di web/PWA: lewat Media Session. Di APK: ada notifikasi "sedang diputar" (layanan latar). PERLU BANGUN ULANG APK supaya ini aktif di aplikasi Android.
+6. Halaman DOWNLOAD (download.html) didesain ulang dengan kaca cair.
+7. Intro bunga ditekan: tidak lagi berat (cahaya/bulan tidak digambar ulang tiap frame, taman di balik tirai tidak dirender saat menahan).
+8. Lebih lancar: efek butiran layar penuh diganti yang ringan, pengamat kaca tidak lagi memindai ulang saat mushaf bergeser, ada penjaga performa otomatis (Tema > Kelancaran efek kaca: Otomatis / Penuh / Hemat).
+
+CATATAN JUJUR
+- Daftar awal-ayat tiap halaman (604) diunduh SEKALI dari api.alquran.cloud saat mushaf pertama dibuka dengan internet, lalu disimpan di HP. Sebelum itu (atau kalau gagal) halaman berupa PERKIRAAN (awal juz sudah pas, tengahnya dibagi rata) dan ada catatan kecil di atas halaman. Aku tidak bisa mengunduhnya dari sini, jadi bagian ini belum dites dengan data asli. Tolong cek: halaman 2 harus mulai Al-Baqarah 1, halaman 3 mulai Al-Baqarah 6, halaman 22 mulai ayat 142.
+- Ayat yang melintas dua halaman dalam mushaf cetak ditaruh utuh di halaman tempat ayat itu mulai.
+- Murottal butuh internet (diambil dari everyayah.com ayat demi ayat). Belum dites di HP asli, WebView, atau iOS. Kode Android baru (layanan latar) belum dikompilasi di sini; kalau build GitHub Actions gagal, kirim log-nya.
+- Firestore rules tidak berubah. firebase-config.js jangan ditimpa.
+
 === v15 ===
 - Tema tetap sekarang Kelopak Sakura (Taman masih bisa dipilih). Yang masih pakai Taman dipindah ke Sakura sekali.
 - 8 tema baru: Hujan, Salju, Aurora, Lavender, Masjid, Gugur, Galaksi, Lentera (total 13 tema Kelopak + Taman).

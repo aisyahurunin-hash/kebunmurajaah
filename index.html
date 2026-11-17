@@ -1516,10 +1516,11 @@ svg.fl{display:block}
 .curtain{position:absolute;inset:0;z-index:5;overflow:hidden;--p:0}.curtain.gone{display:none}
 .curtain.open{animation:klopen 1.2s cubic-bezier(.5,0,.3,1) forwards;pointer-events:none}
 @keyframes klopen{0%{opacity:1;transform:none;filter:none}35%{opacity:1;filter:brightness(1.7) saturate(1.3)}100%{opacity:0;transform:scale(1.5);filter:brightness(2.4) blur(6px)}}
-.dusk{position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 56%,rgb(255 150 140/calc(.25 + var(--p)*.6)),transparent 70%),linear-gradient(180deg,#171243 0%,#3d2275 38%,#9a3f86 70%,#ff9a7c 100%);transition:filter .3s}
+.dusk{position:absolute;inset:0;background:linear-gradient(180deg,#171243 0%,#3d2275 38%,#9a3f86 70%,#ff9a7c 100%);transform:translateZ(0);will-change:transform}
+.dglow{position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 56%,rgb(255 150 140/.85),transparent 70%);opacity:.3;will-change:opacity;pointer-events:none}
 .dusk::before{content:"";position:absolute;inset:0 0 40% 0;background-image:radial-gradient(1.6px 1.6px at 12% 18%,#fff 50%,transparent),radial-gradient(1.3px 1.3px at 30% 8%,#fff 50%,transparent),radial-gradient(1.8px 1.8px at 52% 20%,#fff 50%,transparent),radial-gradient(1.3px 1.3px at 74% 9%,#fff 50%,transparent),radial-gradient(1.6px 1.6px at 90% 24%,#fff 50%,transparent),radial-gradient(1.3px 1.3px at 20% 34%,#fff 50%,transparent),radial-gradient(1.3px 1.3px at 66% 36%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 42% 30%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 84% 40%,#fff 50%,transparent);animation:klstar 3.8s ease-in-out infinite alternate}
 .dusk::after{content:"";position:absolute;inset:0;background:var(--grain,none);opacity:.35;mix-blend-mode:multiply}
-.dmoon{position:absolute;right:11%;top:31%;width:clamp(48px,13vw,84px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 36% 34%,#fffbe6,#f6e7b6 60%,#e3cf93);box-shadow:0 0 40px 10px rgb(255 240 190/.35);opacity:calc(1 - var(--p)*.9)}
+.dmoon{position:absolute;right:11%;top:31%;width:clamp(48px,13vw,84px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 36% 34%,#fffbe6,#f6e7b6 60%,#e3cf93);box-shadow:0 0 40px 10px rgb(255 240 190/.35);will-change:opacity}
 .dhill{position:absolute;left:0;right:0;bottom:0;width:100%;height:30%}
 .ffs{position:absolute;inset:0;pointer-events:none}.ffs i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:#ffeaa0;box-shadow:0 0 10px 3px rgb(255 226 140/.7);animation:klff var(--d) ease-in-out var(--dl) infinite alternate}
 @keyframes klff{from{transform:translate(0,0);opacity:.25}50%{opacity:1}to{transform:translate(24px,-46px);opacity:.3}}
@@ -1527,7 +1528,9 @@ svg.fl{display:block}
 .ceye{font:700 .72rem 'Figtree',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ffd0e0;margin:0 0 8px}
 .ctitle h2{font:800 clamp(2.4rem,11vw,4.6rem)/1.02 var(--serif);font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.01em;margin:0;background:linear-gradient(180deg,#fff 10%,#ffe0ec 55%,#f9b6cf);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 14px rgb(40 10 70/.5))}
 .csub{font:italic 500 1.1rem var(--serif);color:#f6dcea;margin:10px 0 0}
-.orb{position:absolute;left:50%;top:54%;width:clamp(150px,44vw,200px);aspect-ratio:1;margin:calc(clamp(150px,44vw,200px)/-2) 0 0 calc(clamp(150px,44vw,200px)/-2);border-radius:50%;--r:50%;display:grid;place-items:center;touch-action:none;cursor:pointer;z-index:4;transition:transform .15s;box-shadow:0 0 calc(30px + var(--p)*70px) calc(var(--p)*18px) rgb(255 170 190/calc(.35 + var(--p)*.5))}
+.orb{position:absolute;left:50%;top:54%;width:clamp(150px,44vw,200px);aspect-ratio:1;margin:calc(clamp(150px,44vw,200px)/-2) 0 0 calc(clamp(150px,44vw,200px)/-2);border-radius:50%;--r:50%;display:grid;place-items:center;touch-action:none;cursor:pointer;z-index:4;transition:transform .15s;box-shadow:0 0 40px 4px rgb(255 170 190/.4)}
+.orb .oglow{position:absolute;inset:-34%;border-radius:50%;background:radial-gradient(circle,rgb(255 170 190/.85),rgb(255 170 190/.25) 45%,transparent 68%);opacity:0;z-index:-1;pointer-events:none;will-change:opacity,transform}
+#intro:not(.seen) .kstage{visibility:hidden}
 #intro .orb>.oring{position:absolute;inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px);transform:rotate(-90deg);overflow:visible;pointer-events:none}
 .oring circle{fill:none;stroke-width:2.6;stroke-linecap:round}.oring .rt{stroke:rgb(255 255 255/.28)}.oring .rp{stroke:#ffe6a6;stroke-dashoffset:289;filter:drop-shadow(0 0 4px #ffd36a)}
 .obud{width:62%;display:grid;place-items:center;transform:scale(.28);filter:drop-shadow(0 4px 10px rgb(60 10 70/.45));pointer-events:none}
@@ -1785,6 +1788,108 @@ html[data-kel][data-lay][data-skin=k-lentera][data-dark]{--page:#150f04;--dot:#1
 .skp[data-skin=k-gugur]{background:linear-gradient(180deg,#f4b97a,#fff0d6 60%,#cf8a3c 60%)}
 .skp[data-skin=k-galaksi]{background:linear-gradient(180deg,#07041c,#3d1670 65%,#10052a 65%)}
 .skp[data-skin=k-lentera]{background:linear-gradient(180deg,#0e1b44,#3a6aa0 65%,#0b1a3a 65%)}
+/* ===== MODE LAPTOP (Kelopak): menu kaca di samping, bukan di bawah. Mode HP tidak berubah. ===== */
+@media (min-width:900px){
+html[data-kel][data-laptop][data-lay][data-fx] #tabbar,html[data-kel][data-laptop][data-lay][data-fx] #sheet{display:none!important}
+html[data-kel][data-laptop][data-lay][data-fx] .frame{max-width:1380px;padding:0 22px}
+html[data-kel][data-laptop][data-lay][data-fx] .window>.inner{display:grid;grid-template-columns:268px minmax(0,1fr);grid-template-areas:"top top" "nav main";column-gap:22px;align-items:start;padding:0}
+html[data-kel][data-laptop][data-lay][data-fx][data-pg=beranda] .window>.inner{grid-template-columns:268px minmax(0,1fr) 320px;grid-template-areas:"top top top" "nav main side"}
+html[data-kel][data-laptop][data-lay][data-fx] .content{display:contents}
+html[data-kel][data-laptop][data-lay][data-fx] .top{grid-area:top;margin:12px 0 6px}
+html[data-kel][data-laptop][data-lay][data-fx] .main{grid-area:main;padding:10px 0 48px;min-width:0}
+html[data-kel][data-laptop][data-lay][data-fx] .side{grid-area:side;padding:10px 0 48px;min-width:0}
+html[data-kel][data-laptop][data-lay][data-fx] .nav{grid-area:nav;display:block;position:sticky;top:calc(84px + env(safe-area-inset-top,0px));height:calc(100vh - 104px);padding:0;border:0;background:none;box-shadow:none;align-self:start}
+html[data-kel][data-laptop][data-lay][data-fx] .nav-in{position:static;height:100%;max-height:none;display:flex;flex-direction:column;gap:3px;padding:16px 12px 18px;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;--r:30px}
+html[data-kel][data-laptop][data-lay][data-fx] .nav-in::-webkit-scrollbar{display:none}
+html[data-kel][data-laptop] .nav-in .deco{align-self:center;opacity:.8}
+html[data-kel][data-laptop] .nav-h{font:700 .66rem var(--font-num);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:14px 12px 4px;padding:0;border:0}
+html[data-kel][data-laptop] .nav button{width:100%;display:flex;align-items:center;gap:11px;justify-content:flex-start;padding:10px 14px;font:600 .95rem var(--font-body);color:var(--ink);background:transparent;border:0;border-radius:17px;box-shadow:none;transition:background .25s,transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
+html[data-kel][data-laptop] .nav button svg{width:21px;height:21px;flex:none;opacity:.85}
+html[data-kel][data-laptop] .nav button:hover{background:rgb(255 255 255/.24);transform:translateX(4px)}
+html[data-kel][data-laptop] .nav button:active{transform:scale(.97)}
+html[data-kel][data-laptop] .nav button[aria-current=page]{color:var(--ink)!important;background:linear-gradient(135deg,rgb(255 255 255/.6),rgb(255 255 255/.2));box-shadow:inset 0 0 0 1px rgb(255 255 255/.75),inset 1px 1px 2px rgb(255 255 255/.9),0 8px 18px -8px rgb(30 15 50/.45);font-weight:700}
+html[data-kel][data-laptop] .nav button[aria-current=page] svg{color:var(--accent);opacity:1}
+html[data-kel][data-laptop][data-lay][data-fx] .main .page:not([hidden]){max-width:none}
+html[data-kel][data-laptop][data-lay][data-fx] #mf .mf-paper{max-width:760px}
+}
+/* ===== MUSHAF 604 halaman + murottal + kaca cair ===== */
+#mf{background:var(--cream);--mt:calc(88px + env(safe-area-inset-top,0px));--mb:calc(98px + env(safe-area-inset-bottom,0px));padding-top:0}
+#mf .mf-paper{position:absolute;inset:0;margin:0;border:0;border-radius:0;box-shadow:none;background:var(--paper);flex:none;overflow:hidden}
+#mf .mf-view{position:absolute;inset:0;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#mf .mf-pane{position:absolute;inset:0;will-change:transform;contain:layout paint style;backface-visibility:hidden}
+#mf .mf-pane::before{content:"";position:absolute;left:12px;right:12px;top:var(--mt);bottom:var(--mb);border:2px solid color-mix(in srgb,var(--pink-deep) 60%,transparent);border-radius:12px;box-shadow:inset 0 0 0 5px var(--paper),inset 0 0 0 6.5px color-mix(in srgb,var(--pink-deep) 35%,transparent);pointer-events:none}
+#mf .mf-txt{position:absolute;left:30px;right:30px;top:calc(var(--mt) + 14px);bottom:calc(var(--mb) + 34px);display:flex;flex-direction:column;justify-content:center;overflow:hidden;font-family:var(--font-ar);color:var(--ink);font-size:24px}
+#mf .mf-txt.scr{justify-content:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+#mf .mf-in{display:block;text-align:justify;text-align-last:center;text-justify:inter-word;line-height:1.95}
+#mf .mf-sur{height:auto;padding:.22em 0;margin:.28em 0;border-width:2px}
+#mf .mf-bsm{height:auto;line-height:1.9;margin:.05em 0}
+#mf .mf-foot{position:absolute;left:30px;right:30px;bottom:calc(var(--mb) + 8px);display:flex;justify-content:space-between;align-items:center;font:700 .74rem var(--font-body);color:var(--ink-soft)}
+#mf .mf-foot b{font:800 1rem var(--font-ar);color:var(--pink-deep)}
+#mf .mf-foot span:first-child,#mf .mf-foot span:last-child{font-family:var(--font-ar);font-size:.9rem;min-width:5em}
+#mf .mf-foot span:last-child{text-align:left}
+#mf .mf-ay.nowp{background:color-mix(in srgb,var(--pink-deep) 22%,transparent);box-decoration-break:clone;-webkit-box-decoration-break:clone;animation:mfpl 1.6s ease-in-out infinite}
+@keyframes mfpl{50%{background:color-mix(in srgb,var(--pink-deep) 38%,transparent)}}
+#mf .mf-top{position:absolute;z-index:6;left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));top:calc(8px + env(safe-area-inset-top,0px));border:0;border-radius:999px;padding:6px 8px;gap:8px;min-height:54px;box-shadow:0 8px 22px -8px rgba(60,20,50,.35)}
+#mf .mf-bar{position:absolute;z-index:6;left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));border:0;border-radius:30px;padding:8px 6px;box-shadow:0 8px 22px -8px rgba(60,20,50,.35)}
+#mf .mf-b i{width:42px;height:42px}
+#mf .mf-b.on i{background:var(--pink-deep);color:var(--paper)}
+#mf .mf-sheet{bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:7;max-height:min(58vh,520px);border:0;border-radius:26px}
+#mf .mf-pg{border:0;background:none;cursor:pointer;padding:6px 8px;border-radius:12px}
+#mf .mf-note{position:absolute;z-index:5;left:50%;transform:translateX(-50%);top:calc(68px + env(safe-area-inset-top,0px));width:min(94%,440px);text-align:center;font:600 .66rem var(--font-body);color:var(--ink-soft);background:color-mix(in srgb,var(--paper) 82%,transparent);border-radius:12px;padding:5px 10px;pointer-events:none}
+#mf .mf-edge{z-index:4}
+#mf .mf-acts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+#mf .mf-h4{margin:16px 0 6px;font:800 .78rem var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--pink-deep)}
+#mf .mf-ql{display:flex;flex-direction:column;gap:5px}
+#mf .mf-q{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:2px solid color-mix(in srgb,var(--line) 40%,transparent);background:var(--paper);color:var(--ink);border-radius:12px;padding:8px 12px;cursor:pointer;font:700 .9rem var(--font-body)}
+#mf .mf-q i{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none}
+#mf .mf-q.on{border-color:var(--pink-deep);background:color-mix(in srgb,var(--pink-deep) 14%,var(--paper))}
+#mf .mf-q.on i{background:var(--pink-deep);border-color:var(--pink-deep);box-shadow:inset 0 0 0 3px var(--paper)}
+#mf .mf-seg{display:flex;gap:6px}#mf .mf-seg button{flex:1}
+#mf select,#mf input[type=number]{font:700 .95rem var(--font-body);padding:9px 10px;border-radius:12px;border:2px solid var(--line);background:var(--paper);color:var(--ink)}
+#mf.notj .tj{background:none;border-color:transparent;color:inherit}
+/* pemutar mini */
+#murBar{position:fixed;z-index:960;left:50%;transform:translateX(-50%);bottom:calc(104px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 24px));display:flex;align-items:center;gap:4px;padding:7px 8px 7px 16px;border-radius:999px;background:var(--paper);border:2.5px solid var(--line);color:var(--ink);box-shadow:0 8px 24px -8px rgba(40,10,40,.45)}
+#murBar[hidden]{display:none}
+#murBar .mb-t{flex:1;min-width:0;text-align:left;background:none;border:0;color:inherit;padding:0;cursor:pointer;display:flex;flex-direction:column;gap:1px}
+#murBar .mb-t b{font:800 .95rem var(--font-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#murBar .mb-t span{font:600 .72rem var(--font-body);color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#murBar .mb-b{width:40px;height:40px;flex:none;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:inherit;cursor:pointer;padding:0}
+#murBar .mb-b svg{width:22px;height:22px}
+#murBar .mb-p{background:var(--pink-deep);color:var(--paper);width:44px;height:44px}
+body.mf-open #murBar{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){
+#mf .mf-paper{left:50%;right:auto;width:min(100%,680px);transform:translateX(-50%)}
+#mf .mf-top,#mf .mf-bar{left:50%;right:auto;transform:translateX(-50%);width:min(560px,calc(100% - 20px))}
+#mf .mf-sheet{left:50%;right:auto;transform:translateX(-50%);width:min(540px,calc(100% - 20px))}
+html[data-laptop] #murBar{left:auto;right:24px;transform:none;bottom:22px;width:400px}
+html[data-laptop] body.mf-open #murBar{bottom:22px}
+}
+/* kaca cair (Kelopak) */
+html[data-kel] #mf .mf-top,html[data-kel] #mf .mf-bar,html[data-kel] #mf .mf-sheet,html[data-kel] #mf .mf-round,html[data-kel] #mf .mf-pill,html[data-kel] #mf .mf-edge,html[data-kel] #murBar{
+background:linear-gradient(145deg,rgb(var(--gt)/calc(.42*var(--ga)*var(--gi))),rgb(var(--gt)/calc(.1*var(--ga)*var(--gi))) 55%,rgb(var(--gt)/calc(.24*var(--ga)*var(--gi))));border:0;
+-webkit-backdrop-filter:blur(calc(10px*var(--gi))) saturate(1.8) brightness(1.05);backdrop-filter:blur(calc(10px*var(--gi))) saturate(1.8) brightness(1.05);
+box-shadow:0 0 0 .5px rgb(255 255 255/.55),inset 1.5px 1.5px 1px -.5px rgb(255 255 255/.95),inset -1.5px -1.5px 1px -.5px rgb(255 255 255/.55),inset 0 0 16px rgb(255 255 255/.16),inset 0 -9px 14px -9px rgb(255 255 255/.55),0 12px 28px -8px rgb(30 15 50/.32)}
+html[data-kel] #mf .mf-sheet{background:linear-gradient(145deg,rgb(var(--gt)/.88),rgb(var(--gt)/.74));-webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8)}
+html[data-kel] #mf .mf-round,html[data-kel] #mf .mf-pill{box-shadow:0 0 0 .5px rgb(255 255 255/.55),inset 1.5px 1.5px 1px -.5px rgb(255 255 255/.95),inset -1.5px -1.5px 1px -.5px rgb(255 255 255/.5),0 4px 12px -4px rgb(30 15 50/.35)}
+html[data-kel] #mf .mf-b i{background:rgb(255 255 255/.28);border:0;box-shadow:inset 0 0 0 1px rgb(255 255 255/.6),inset 1px 1px 2px rgb(255 255 255/.8)}
+html[data-kel] #mf .mf-b.on i{background:var(--accent);color:#fff}
+html[data-kel] #mf .mf-jb,html[data-kel] #mf .mf-sr,html[data-kel] #mf .mf-q,html[data-kel] #mf .mf-lg,html[data-kel] #mf .mf-frag{background:rgb(255 255 255/.22);border:0;box-shadow:inset 0 0 0 1px rgb(255 255 255/.45)}
+html[data-kel] #mf .mf-jb.on,html[data-kel] #mf .mf-sr.on,html[data-kel] #mf .mf-q.on{background:linear-gradient(135deg,rgb(255 255 255/.6),rgb(255 255 255/.2));box-shadow:inset 0 0 0 1.5px var(--accent)}
+html[data-kel] #mf .mf-x{background:rgb(255 255 255/.3);border:0}
+html[data-kel] #mf .mf-sh{border-bottom-color:rgb(255 255 255/.3)}
+html[data-kel] #murBar .mb-p{background:var(--accent);color:#fff;box-shadow:0 4px 12px -2px rgb(0 0 0/.3)}
+html[data-kel] #mf .mf-pane::before{border-color:color-mix(in srgb,var(--accent) 70%,transparent);box-shadow:inset 0 0 0 5px var(--paper),inset 0 0 0 6.5px color-mix(in srgb,var(--accent) 38%,transparent)}
+/* ===== ringan: tanpa blend-mode layar penuh, dan mode hemat ===== */
+html[data-kel][data-lay][data-fx] body::after{mix-blend-mode:normal;opacity:.07}
+html[data-kel][data-lay][data-dark] body::after{opacity:.05}
+html[data-perf="2"] .klcorner *,html[data-perf="2"] .plant .sway{animation:none!important}
+html[data-perf="2"][data-kel] .glass,html[data-perf="2"][data-kel] .gbg{-webkit-backdrop-filter:blur(8px) saturate(1.5);backdrop-filter:blur(8px) saturate(1.5)}
+html[data-perf="2"] #fx{display:none}
+#mf .mf-sheet{position:absolute}
+#mf .mf-edge{position:absolute}
+
+#mf.mf-murup{--mb:calc(170px + env(safe-area-inset-bottom,0px))}
+html[data-laptop] #mf.mf-murup{--mb:calc(98px + env(safe-area-inset-bottom,0px))}
 
 </style>
 </head>
@@ -6363,34 +6468,209 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
   P.tema=function(){const h=oT();return '<div class="card cream" style="margin-bottom:16px"><h3 style="margin-top:0">Unduh aplikasi</h3><p class="small muted" style="margin:0 0 8px">Pasang Kebun Murojaah di HP supaya terasa seperti aplikasi, lengkap dengan pengingat bersuara (Android).</p><a class="btn sm y" href="download.html">Halaman unduh</a></div>'+h};
 })();
 
-/* ============ Mushaf: baca Al-Qur'an per halaman + warna tajwid ============ */
+/* ============ MUROTTAL: pemutar ayat demi ayat, tetap jalan di latar belakang ============ */
+const MUR=(function(){
+  const KEY='km-mur',p3=n=>String(n).padStart(3,'0');
+  const QARI=[
+    ['Alafasy_128kbps','Mishary Rashid Alafasy'],['Abdul_Basit_Murattal_192kbps','Abdul Basit (Murattal)'],['Abdurrahmaan_As-Sudais_192kbps','Abdurrahman As-Sudais'],
+    ['Husary_128kbps','Mahmoud Khalil Al-Husary'],['Minshawy_Murattal_128kbps','Muhammad Al-Minshawi'],['Saood_ash-Shuraym_128kbps','Saud Asy-Syuraim'],
+    ['Maher_AlMuaiqly_64kbps','Maher Al-Muaiqly'],['Abu_Bakr_Ash-Shaatree_128kbps','Abu Bakr Asy-Syatiri'],['Hudhaify_128kbps','Ali Al-Hudzaifi'],
+    ['Muhammad_Ayyoub_128kbps','Muhammad Ayyub'],['Hani_Rifai_192kbps','Hani Ar-Rifai'],['Ahmed_ibn_Ali_al-Ajamy_128kbps_ketaballah.net','Ahmad Al-Ajmi'],
+    ['Ali_Jaber_64kbps','Ali Jaber'],['Yasser_Ad-Dussary_128kbps','Yasser Ad-Dausari']];
+  const M={rec:QARI[0][0],rate:1,rep:1,follow:1,q:[],i:-1,playing:false,ls:[]};
+  try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){if(QARI.some(x=>x[0]===o.rec))M.rec=o.rec;if([.75,1,1.25,1.5].includes(o.rate))M.rate=o.rate;if([1,2,3,5].includes(o.rep))M.rep=o.rep;if(o.follow===0)M.follow=0}}catch(e){}
+  const keep=()=>{try{localStorage.setItem(KEY,JSON.stringify({rec:M.rec,rate:M.rate,rep:M.rep,follow:M.follow}))}catch(e){}};
+  const au=new Audio();au.preload='auto';au.setAttribute('playsinline','');
+  const pre=new Audio();pre.preload='auto';pre.muted=true;
+  let left=0,fail=0;
+  const url=it=>`https://everyayah.com/data/${M.rec}/${it.b?'001001':p3(it.s)+p3(it.a)}.mp3`;
+  const emit=t=>M.ls.forEach(f=>{try{f(t,M)}catch(e){}});
+  function native(){try{if(window.KebunApp&&KebunApp.audioState)KebunApp.audioState(M.playing,M.i>=0&&M.q[M.i]?title(M.q[M.i]):'')}catch(e){}}
+  const qname=()=>(QARI.find(x=>x[0]===M.rec)||QARI[0])[1];
+  const title=it=>it.b?'Bismillah':(SUR[it.s-1].tl+' : '+it.a);
+  function media(){
+    if(!('mediaSession' in navigator))return;
+    try{
+      const it=M.q[M.i];if(!it)return;
+      navigator.mediaSession.metadata=new MediaMetadata({title:title(it),artist:qname(),album:'Kebun Murojaah',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]});
+      navigator.mediaSession.playbackState=M.playing?'playing':'paused';
+    }catch(e){}
+  }
+  function setup(){
+    if(!('mediaSession' in navigator))return;
+    const h=(n,f)=>{try{navigator.mediaSession.setActionHandler(n,f)}catch(e){}};
+    h('play',()=>toggle(true));h('pause',()=>toggle(false));h('nexttrack',()=>next());h('previoustrack',()=>prev());h('stop',()=>stop());
+  }
+  function load(i,warm){
+    const it=M.q[i];if(!it)return;
+    au.src=url(it);au.playbackRate=M.rate;au.defaultPlaybackRate=M.rate;
+    left=M.rep-1;
+    const p=au.play();if(p&&p.catch)p.catch(e=>{if(e&&e.name==='NotAllowedError'){M.playing=false;emit('state');native();media()}});
+    const n=M.q[i+1];if(n){pre.src=url(n);try{pre.load()}catch(e){}}
+  }
+  function start(list,i0){
+    if(!list||!list.length)return;
+    M.q=list;M.i=i0||0;M.playing=true;fail=0;setup();load(M.i);emit('item');emit('state');native();media();
+  }
+  function go(i){
+    if(i<0){i=0}
+    if(i>=M.q.length){stop();return}
+    M.i=i;fail=0;load(i);M.playing=true;emit('item');emit('state');native();media();
+  }
+  const next=()=>{if(M.q.length)go(M.i+1)};
+  const prev=()=>{if(!M.q.length)return;if(au.currentTime>3){au.currentTime=0;return}go(Math.max(0,M.i-1))};
+  function toggle(force){
+    if(!M.q.length)return;
+    const want=typeof force==='boolean'?force:!M.playing;
+    if(want){if(!au.src||au.ended){load(M.i)}else{const p=au.play();if(p&&p.catch)p.catch(()=>{})}M.playing=true}else{au.pause();M.playing=false}
+    emit('state');native();media();
+  }
+  function stop(){
+    au.pause();M.playing=false;M.q=[];M.i=-1;
+    try{au.removeAttribute('src');au.load()}catch(e){}
+    emit('item');emit('state');native();
+    if('mediaSession' in navigator){try{navigator.mediaSession.playbackState='none'}catch(e){}}
+  }
+  au.addEventListener('ended',()=>{if(!M.q.length)return;if(left>0){left--;au.currentTime=0;au.play().catch(()=>{});return}go(M.i+1)});
+  au.addEventListener('error',()=>{
+    if(!M.q.length)return;
+    if(fail<1){fail++;setTimeout(()=>{if(M.q.length&&M.playing){au.load();au.play().catch(()=>{})}},900);return}
+    M.playing=false;emit('state');native();try{toast('Murottal butuh internet. Cek sinyalmu, lalu coba lagi.')}catch(e){}
+  });
+  au.addEventListener('playing',()=>{if(!M.playing){M.playing=true;emit('state');native();media()}});
+  M.QARI=QARI;M.name=qname;M.title=title;M.start=start;M.go=go;M.next=next;M.prev=prev;M.toggle=toggle;M.stop=stop;
+  M.cur=()=>M.i>=0?M.q[M.i]:null;
+  M.on=f=>M.ls.push(f);
+  M.set=(k,v)=>{
+    if(k==='rec'&&QARI.some(x=>x[0]===v)){M.rec=v;if(M.q.length&&M.i>=0)load(M.i)}
+    else if(k==='rate'){M.rate=+v;au.playbackRate=M.rate;au.defaultPlaybackRate=M.rate}
+    else if(k==='rep')M.rep=+v;
+    else if(k==='follow')M.follow=v?1:0;
+    keep();emit('cfg');media();
+  };
+  /* daftar putar */
+  M.range=(i0,i1,bsm)=>{ // indeks mutlak ayat i0..i1
+    const out=[];
+    for(let i=i0;i<=i1;i++){
+      let lo=0,hi=113;while(lo<hi){const m=(lo+hi+1)>>1;if(CUM[m]<=i)lo=m;else hi=m-1}
+      const s=lo+1,a=i-CUM[lo]+1;
+      if(a===1&&bsm&&s!==1&&s!==9)out.push({b:1,s,a:1});
+      out.push({s,a});
+    }
+    return out;
+  };
+  return M;
+})();
+
+/* ============ Mushaf: 604 halaman seperti mushaf cetak + warna tajwid + murottal ============ */
 (function mushaf(){
-  const KEY2='km-mf';
+  const KEY2='km-mf',KMP='km-mp1',TOT=CUM[114],NP=604;
   const AD=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
-  let ST={size:24,last:null};
+  let ST={size:26,fit:1,last:null};
   try{const o=JSON.parse(localStorage.getItem(KEY2)||'null');if(o&&typeof o==='object')ST=Object.assign(ST,o)}catch(e){}
   const keep=()=>{try{localStorage.setItem(KEY2,JSON.stringify(ST))}catch(e){}};
-  const M={j:1,p:0,pages:1,pad:14,W:0,H:0,lh:50,sel:null,sheet:null,list:[],open:false,drag:null,moved:false,built:0};
-  const juzOf=(s,a)=>{const i=absIdx(s,a);let j=1;for(let k=0;k<30;k++){if(absIdx(JUZ_START[k][0],JUZ_START[k][1])<=i)j=k+1}return j};
-  const htmlCache={};
+  const M={p:1,sel:null,sheet:null,open:false,W:0,H:0,drag:null,moved:false,built:0,pn:[null,null,null],pp:[0,0,0],busy:false,base:0};
+  const fromAbs=i=>{let lo=0,hi=113;while(lo<hi){const m=(lo+hi+1)>>1;if(CUM[m]<=i)lo=m;else hi=m-1}return [lo+1,i-CUM[lo]+1]};
+  const juzOfAbs=i=>{let j=1;for(let k=0;k<30;k++){if(absIdx(JUZ_START[k][0],JUZ_START[k][1])<=i)j=k+1}return j};
+  const juzOf=(s,a)=>juzOfAbs(absIdx(s,a));
 
-  /* ---------- isi satu juz ---------- */
-  function juzHTML(j){
-    if(htmlCache[j])return htmlCache[j];
-    const bsm=Q.a[1][0][0].replace(/\s*$/,'');
-    let h='';
-    juzSegs(j).forEach(g=>{
-      const sr=sur(g.s);
-      if(g.from===1){
-        h+=`<div class="mf-sur"><span class="mf-surn" lang="ar">سورة ${esc(sr.ar)}</span><span class="mf-surs">${esc(sr.tl)} · ${sr.n} ayat</span></div>`;
-        if(g.s!==1&&g.s!==9)h+=`<div class="mf-bsm" lang="ar">${bsm}</div>`;
+  /* ---------- tabel awal-ayat tiap halaman ---------- */
+  let MPI=null,approx=true,mpTry=0;
+  function setMP(arr,ap){MPI=arr.map(x=>absIdx(x[0],x[1]));approx=ap;fitC.clear()}
+  function validMP(a){
+    if(!Array.isArray(a)||a.length!==NP)return false;
+    for(let i=0;i<NP;i++){const x=a[i];if(!Array.isArray(x)||!(x[0]>=1&&x[0]<=114)||!(x[1]>=1&&x[1]<=SUR[x[0]-1].n))return false;if(i&&absIdx(x[0],x[1])<=absIdx(a[i-1][0],a[i-1][1]))return false}
+    return a[0][0]===1&&a[0][1]===1&&a[1][0]===2&&a[1][1]===1&&a[21][0]===2&&a[21][1]===142&&a[581][0]===78&&a[581][1]===1;
+  }
+  function approxMP(){
+    const ps=j=>j===1?1:2+20*(j-1);const out=[];
+    for(let j=1;j<=30;j++){
+      let i0=absIdx(JUZ_START[j-1][0],JUZ_START[j-1][1]);const i1=j<30?absIdx(JUZ_START[j][0],JUZ_START[j][1]):TOT;let n=(j<30?ps(j+1):NP+1)-ps(j);
+      if(j===1){out.push([1,1]);i0=CUM[1];n-=1}
+      const w=[];let tot=0;for(let i=i0;i<i1;i++){const [s,a]=fromAbs(i);const x=Q.a[s][a-1][0].length+(a===1?55:0);w.push(x);tot+=x}
+      let acc=0,k=0,last=-1;
+      for(let pg=0;pg<n;pg++){
+        const goal=tot*pg/n;let idx=0,c=0;while(idx<w.length&&c+w[idx]/2<=goal){c+=w[idx];idx++}
+        if(pg===0)idx=0;else if(idx<=last)idx=last+1;
+        if(idx>w.length-(n-pg))idx=Math.max(last+1,w.length-(n-pg));
+        last=idx;out.push(fromAbs(i0+idx));
       }
-      for(let a=g.from;a<=g.to;a++){
-        const ar=Q.a[g.s][a-1][0];
-        h+=`<span class="mf-ay" id="mf-${g.s}-${a}" data-act="mfay" data-s="${g.s}" data-a="${a}">${tajwidize(ar).html} <span class="mf-no">${AD(a)}</span></span> `;
-      }
-    });
-    return htmlCache[j]=h+'<span id="mfEnd"></span>';
+    }
+    return out;
+  }
+  function loadMP(){
+    let a=null;try{a=JSON.parse(localStorage.getItem(KMP)||'null')}catch(e){}
+    if(validMP(a)){setMP(a,false);return}
+    setMP(approxMP(),true);
+  }
+  async function fetchMP(){
+    if(!approx||mpTry>=2||!navigator.onLine)return;
+    mpTry++;
+    try{
+      const r=await fetch('https://api.alquran.cloud/v1/meta',{cache:'force-cache'});if(!r.ok)throw 0;
+      const j=await r.json();const refs=j&&j.data&&j.data.pages&&j.data.pages.references;
+      const a=(refs||[]).map(x=>[+x.surah,+x.ayah]);
+      if(!validMP(a))throw 0;
+      try{localStorage.setItem(KMP,JSON.stringify(a))}catch(e){}
+      const was=M.sel||curFirst();setMP(a,false);
+      if(M.open){const t=was?pageOf(was.s,was.a):M.p;show(t,false);info()}
+      try{if(cur==='mushaf')renderPage()}catch(e){}
+    }catch(e){setTimeout(fetchMP,8000)}
+  }
+  const fitC=new Map();
+  function prange(p){return [MPI[p-1],(p<NP?MPI[p]:TOT)-1]}
+  function pageOf(s,a){const i=absIdx(s,a);let lo=1,hi=NP;while(lo<hi){const m=(lo+hi+1)>>1;if(MPI[m-1]<=i)lo=m;else hi=m-1}return lo}
+  const firstOf=p=>fromAbs(MPI[p-1]);
+  const juzOfPage=p=>juzOfAbs(MPI[p-1]);
+  function curFirst(){const f=firstOf(M.p);return {s:f[0],a:f[1]}}
+
+  /* ---------- isi satu halaman ---------- */
+  const ayC=new Map();
+  function ayHTML(s,a){
+    const k=s*1000+a;let h=ayC.get(k);if(h)return h;
+    h=`<span class="mf-ay" id="mf-${s}-${a}" data-act="mfay" data-s="${s}" data-a="${a}">${tajwidize(Q.a[s][a-1][0]).html} <span class="mf-no">${AD(a)}</span></span> `;
+    if(ayC.size>1500)ayC.clear();ayC.set(k,h);return h;
+  }
+  const bsm=()=>Q.a[1][0][0].replace(/\s*$/,'');
+  function pageHTML(p){
+    const [i0,i1]=prange(p);let h='';
+    for(let i=i0;i<=i1;i++){
+      const [s,a]=fromAbs(i);
+      if(a===1){const sr=sur(s);h+=`<div class="mf-sur"><span class="mf-surn" lang="ar">سورة ${esc(sr.ar)}</span><span class="mf-surs">${esc(sr.tl)} · ${sr.n} ayat</span></div>`;if(s!==1&&s!==9)h+=`<div class="mf-bsm" lang="ar">${bsm()}</div>`}
+      h+=ayHTML(s,a);
+    }
+    return h;
+  }
+  function paint(pane,p){
+    pane.dataset.p=p;
+    if(p<1||p>NP){pane.innerHTML='';return}
+    const f=firstOf(p),jz=juzOfPage(p);
+    pane.innerHTML=`<div class="mf-txt" dir="rtl" lang="ar"><div class="mf-in">${pageHTML(p)}</div></div><div class="mf-foot" aria-hidden="true"><span>${esc(SUR[f[0]-1].ar)}</span><b>${AD(p)}</b><span>الجزء ${AD(jz)}</span></div>`;
+    fitTxt(pane.firstChild,p);
+    markIn(pane);
+  }
+  function fitTxt(txt,p){
+    const inn=txt.firstChild;
+    if(!ST.fit){txt.style.fontSize=ST.size+'px';txt.classList.add('scr');return}
+    txt.classList.remove('scr');
+    const key=p+'|'+M.W+'x'+M.H;let f=fitC.get(key);
+    if(!f){
+      const maxH=txt.clientHeight;if(!maxH){txt.style.fontSize='22px';return}
+      let lo=12,hi=Math.min(54,M.W/8.5);
+      for(let k=0;k<7;k++){const mid=(lo+hi)/2;txt.style.fontSize=mid+'px';if(inn.offsetHeight<=maxH)lo=mid;else hi=mid}
+      f=Math.floor(lo*10)/10;
+      if(!M.base&&p>=3&&p<=600)M.base=f;
+      fitC.set(key,f);
+    }
+    const cap=M.base?M.base*1.12:f;
+    txt.style.fontSize=Math.min(f,cap)+'px';
+  }
+  function markIn(root){
+    const c=MUR.cur();
+    root.querySelectorAll('.mf-ay.nowp').forEach(e=>e.classList.remove('nowp'));
+    if(c&&!c.b){const e=root.querySelector('#mf-'+c.s+'-'+c.a);if(e)e.classList.add('nowp')}
+    if(M.sel){const e=root.querySelector('#mf-'+M.sel.s+'-'+M.sel.a);if(e)e.classList.add('sel')}
+    const b=S.bookmark;if(b){const e=root.querySelector('#mf-'+b.s+'-'+b.a);if(e)e.classList.add('bm')}
   }
 
   /* ---------- kerangka overlay ---------- */
@@ -6398,37 +6678,40 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
     if(M.built)return;M.built=1;
     const d=document.createElement('div');d.id='mf';d.hidden=true;d.setAttribute('role','dialog');d.setAttribute('aria-label','Mushaf Al-Qur\'an');
     d.innerHTML=`
-    <div class="mf-top">
-      <button type="button" class="mf-round" data-act="mfclose" aria-label="Kembali"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button type="button" class="mf-pill" id="mfJ" data-act="mfsheet" data-k="juz">Juz 1</button>
-      <span class="mf-pg" id="mfPg">1</span>
-      <button type="button" class="mf-pill mf-sp" id="mfS" data-act="mfsheet" data-k="sur">Surah</button>
+    <div class="mf-top glass">
+      <button type="button" class="mf-round glass" data-act="mfclose" aria-label="Kembali"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="mf-pill glass" id="mfJ" data-act="mfsheet" data-k="juz">Juz 1</button>
+      <button type="button" class="mf-pg" id="mfPg" data-act="mfsheet" data-k="pg" aria-label="Ke halaman">1</button>
+      <button type="button" class="mf-pill mf-sp glass" id="mfS" data-act="mfsheet" data-k="sur">Surah</button>
     </div>
-    <div class="mf-paper"><div class="mf-view" id="mfView"><div class="mf-cols" id="mfCols" dir="rtl"></div></div>
-      <button type="button" class="mf-edge l" data-act="mfnext" aria-label="Halaman berikutnya"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button type="button" class="mf-edge r" data-act="mfprev" aria-label="Halaman sebelumnya"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="mf-paper"><div class="mf-view" id="mfView"><div class="mf-pane" id="mfP0"></div><div class="mf-pane" id="mfP1"></div><div class="mf-pane" id="mfP2"></div></div>
+      <button type="button" class="mf-edge l glass" data-act="mfnext" aria-label="Halaman berikutnya"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="mf-edge r glass" data-act="mfprev" aria-label="Halaman sebelumnya"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="mf-note" id="mfNote" hidden>Halaman perkiraan. Buka sekali dengan internet agar sama dengan mushaf cetak.</div>
     </div>
-    <div class="mf-sheet" id="mfSheet" hidden></div>
-    <div class="mf-bar">
+    <div class="mf-sheet glass" id="mfSheet" hidden></div>
+    <div class="mf-bar glass">
       <button type="button" class="mf-b" data-act="mfmark"><i>${ico('star')}</i><span>Markah</span></button>
       <button type="button" class="mf-b" data-act="mftomark"><i>${ico('heart')}</i><span>Penanda</span></button>
+      <button type="button" class="mf-b" data-act="mfsheet" data-k="mur" id="mfMurB"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i><span>Murottal</span></button>
       <button type="button" class="mf-b" data-act="mfsheet" data-k="tr"><i>${ico('book')}</i><span>Terjemah</span></button>
       <button type="button" class="mf-b" data-act="mfsheet" data-k="legend" id="mfTjB"><i>${ico('flower')}</i><span>Tajwid</span></button>
       <button type="button" class="mf-b" data-act="mfsheet" data-k="size"><i class="aa">Aa</i><span>Huruf</span></button>
     </div>`;
     document.body.appendChild(d);
+    M.pn=[$('#mfP0'),$('#mfP1'),$('#mfP2')];
     const v=$('#mfView');
-    // geser halaman
-    v.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;M.drag={x:e.clientX,y:e.clientY,dx:0,on:false};M.moved=false});
+    v.addEventListener('pointerdown',e=>{if(M.busy)return;if(e.pointerType==='mouse'&&e.button!==0)return;M.drag={x:e.clientX,y:e.clientY,dx:0,on:false,t:performance.now()};M.moved=false});
     v.addEventListener('pointermove',e=>{
       const g=M.drag;if(!g)return;const dx=e.clientX-g.x,dy=e.clientY-g.y;
       if(!g.on){if(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)*1.3){g.on=true;M.moved=true;try{v.setPointerCapture(e.pointerId)}catch(_){}}else return}
-      g.dx=dx;const c=$('#mfCols');c.style.transition='none';c.style.transform=`translateX(${M.p*M.W+dx}px)`;
+      let x=dx;if((x>0&&M.p>=NP)||(x<0&&M.p<=1))x*=.25;
+      g.dx=x;if(!g.raf)g.raf=requestAnimationFrame(()=>{g.raf=0;setX(g.dx,false)});
     });
     const end=()=>{
       const g=M.drag;M.drag=null;if(!g||!g.on)return;
-      const c=$('#mfCols');c.style.transition='';
-      if(g.dx>M.W*.18)next();else if(g.dx<-M.W*.18)prev();else place();
+      const v=g.dx/Math.max(1,performance.now()-g.t)*1000;
+      if(g.dx>M.W*.2||v>600)turn(1);else if(g.dx<-M.W*.2||v<-600)turn(-1);else setX(0,true);
     };
     v.addEventListener('pointerup',end);v.addEventListener('pointercancel',end);
     v.addEventListener('click',e=>{
@@ -6436,95 +6719,88 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
       const tj=e.target.closest('.tj');
       if(tj&&S.settings.tajwid){e.stopPropagation();ruleSheet(tj)}
     },true);
-    // tap di luar sheet menutupnya
     d.addEventListener('click',e=>{
-      if(M.sheet&&!e.target.closest('#mfSheet,.mf-bar,.mf-top,.tj,.mf-ay')){closeSheet()}
+      if(M.sheet&&!e.target.closest('#mfSheet,.mf-bar,.mf-top,.tj,.mf-ay,#murBar')){closeSheet()}
     });
-    window.addEventListener('resize',()=>{if(M.open){clearTimeout(M.rt);M.rt=setTimeout(()=>relayout(),120)}});
+    window.addEventListener('resize',()=>{if(M.open){clearTimeout(M.rt);M.rt=setTimeout(()=>relayout(),140)}});
     document.addEventListener('keydown',e=>{
       if(!M.open)return;
-      if(e.key==='ArrowLeft')next();else if(e.key==='ArrowRight')prev();else if(e.key==='Escape')close();
+      if(e.target&&/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+      if(e.key==='ArrowLeft')turn(1);else if(e.key==='ArrowRight')turn(-1);else if(e.key==='Escape')close();
+      else if(e.key===' '){e.preventDefault();if(MUR.q.length)MUR.toggle();else playPage()}
     });
     window.addEventListener('popstate',()=>{if(M.open)close(true)});
+    try{if(window.klOn&&klOn())KL.G.scan(d)}catch(e){}
   }
 
-  /* ---------- ukuran & halaman ---------- */
-  function measure(){
-    const v=$('#mfView'),c=$('#mfCols');
-    M.W=v.clientWidth;M.H=v.clientHeight;
-    M.pad=Math.round(clamp(M.W*.05,18,30));
-    const fs=ST.size;M.lh=Math.round(fs*1.95);
-    const rows=Math.max(3,Math.floor((M.H-14)/M.lh)),h=rows*M.lh;
-    const cw=M.W-2*M.pad;
-    c.style.cssText=`--fs:${fs}px;--lh:${M.lh}px;width:${cw}px;height:${h}px;column-width:${cw}px;column-gap:${2*M.pad}px;right:${M.pad}px;top:${Math.round((M.H-h)/2)}px`;
+  /* ---------- geser halaman (3 panel: berikut | sekarang | sebelum) ---------- */
+  function setX(dx,anim){
+    const W=M.W||innerWidth;
+    [-W,0,W].forEach((b,i)=>{const el=M.pn[i];el.style.transition=anim?'transform .36s cubic-bezier(.22,.9,.28,1)':'none';el.style.transform=`translate3d(${b+dx}px,0,0)`});
   }
-  function pageOfRect(r,cr){return Math.max(0,Math.floor((cr.right-r.right+2)/M.W))}
-  function index(){
-    const c=$('#mfCols');M.list=[];
-    c.style.transition='none';c.style.transform='translateX(0)';
-    const cr=c.getBoundingClientRect();
-    $$('.mf-ay',c).forEach(el=>{
-      const rs=el.getClientRects();if(!rs.length)return;
-      M.list.push({s:+el.dataset.s,a:+el.dataset.a,pg:pageOfRect(rs[0],cr),el});
-    });
-    const en=$('#mfEnd').getBoundingClientRect();
-    M.pages=Math.max(1,pageOfRect(en,cr)+1);
+  function turn(dir){ // +1 = halaman berikut (geser ke kanan)
+    if(M.busy)return;
+    if((dir>0&&M.p>=NP)||(dir<0&&M.p<=1)){if(dir>0)toast('Akhir Al-Qur\'an. Barakallahu fiik!');setX(0,true);return}
+    M.busy=true;closeSheet(1);const W=M.W||innerWidth;
+    setX(dir>0?W:-W,true);
+    let done=false;const fin=()=>{
+      if(done)return;done=true;
+      const o=M.pn;
+      if(dir>0){M.p++;M.pn=[o[2],o[0],o[1]];paint(M.pn[0],M.p+1)}
+      else{M.p--;M.pn=[o[1],o[2],o[0]];paint(M.pn[2],M.p-1)}
+      setX(0,false);M.busy=false;info();selMark();
+    };
+    M.pn[1].addEventListener('transitionend',fin,{once:true});setTimeout(fin,430);
   }
-  function place(){
-    const c=$('#mfCols');M.p=clamp(M.p,0,M.pages-1);
-    c.style.transform=`translateX(${M.p*M.W}px)`;
-    info();
+  function show(p,anim){
+    p=clamp(Math.round(p)||1,1,NP);
+    const adj=Math.abs(p-M.p)===1&&anim&&!M.busy;
+    if(adj){turn(p>M.p?1:-1);return}
+    M.p=p;M.busy=false;paint(M.pn[1],p);paint(M.pn[0],p+1);paint(M.pn[2],p-1);setX(0,false);closeSheet(1);info();
   }
-  function firstOn(p){return M.list.find(x=>x.pg>=p)||M.list[M.list.length-1]}
-  function curAyah(p){let r=M.list[0];for(const x of M.list){if(x.pg<=p)r=x;else break}return r}
+  function measure(){const v=$('#mfView');M.W=v.clientWidth;M.H=v.clientHeight}
+  function relayout(){measure();fitC.clear();M.base=0;show(M.p,false)}
+
+  /* ---------- info header ---------- */
   function info(){
-    const a=curAyah(M.p),f=firstOn(M.p)||a;
-    $('#mfJ').textContent='Juz '+M.j;
-    $('#mfPg').textContent=(M.p+1)+' / '+M.pages;
-    $('#mfS').textContent=a?(a.s+' '+sur(a.s).tl):'';
-    if(f){ST.last={j:M.j,s:f.s,a:f.a};keep()}
+    const f=firstOf(M.p);
+    $('#mfJ').textContent='Juz '+juzOfPage(M.p);
+    $('#mfPg').textContent=M.p;
+    $('#mfS').textContent=f[0]+' '+sur(f[0]).tl;
+    ST.last={s:f[0],a:f[1],p:M.p};keep();
     $('#mfTjB').classList.toggle('off',!S.settings.tajwid);
     $('#mf').classList.toggle('notj',!S.settings.tajwid);
-    $$('.mf-edge').forEach(b=>b.hidden=false);
-    markBm();
+    $('#mfNote').hidden=!approx;
+    $('#mfMurB').classList.toggle('on',!!MUR.q.length);
     if(M.sheet==='tr')sheet('tr');
+  }
+  function selMark(){
+    $$('.mf-ay.sel').forEach(e=>e.classList.remove('sel'));
+    if(M.sel){const e=$('#mf-'+M.sel.s+'-'+M.sel.a);if(e)e.classList.add('sel')}
   }
   function markBm(){
     $$('.mf-ay.bm').forEach(e=>e.classList.remove('bm'));
     const b=S.bookmark;if(b){const e=$('#mf-'+b.s+'-'+b.a);if(e)e.classList.add('bm')}
   }
-  function relayout(){
-    const keepA=M.list.length?firstOn(M.p):null;
-    measure();index();
-    M.p=keepA?(M.list.find(x=>x.s===keepA.s&&x.a===keepA.a)||keepA).pg:0;
-    const c=$('#mfCols');c.style.transition='none';place();void c.offsetWidth;c.style.transition='';
+  function playMark(){
+    $$('.mf-ay.nowp').forEach(e=>e.classList.remove('nowp'));
+    const c=MUR.cur();if(c&&!c.b){const e=$('#mf-'+c.s+'-'+c.a);if(e)e.classList.add('nowp')}
+    $('#mfMurB')&&$('#mfMurB').classList.toggle('on',!!MUR.q.length);
   }
-  function load(j,target){
-    M.j=j;
-    $('#mfCols').innerHTML=juzHTML(j);
-    $('#mfCols').style.transition='none';
-    measure();index();
-    let p=0;
-    if(target==='last')p=M.pages-1;
-    else if(target&&target.s){const x=M.list.find(y=>y.s===target.s&&y.a===target.a);if(x)p=x.pg}
-    M.p=p;place();
-    requestAnimationFrame(()=>{$('#mfCols').style.transition=''});
-    if(M.sel)selMark();
-  }
-  function next(){if(M.p<M.pages-1){M.p++;closeSheet(1);place()}else if(M.j<30){closeSheet(1);load(M.j+1)}else toast('Akhir Al-Qur\'an. Barakallahu fiik!')}
-  function prev(){if(M.p>0){M.p--;closeSheet(1);place()}else if(M.j>1){closeSheet(1);load(M.j-1,'last')}}
 
   /* ---------- buka / tutup ---------- */
   function openAt(o){
-    build();
-    let j=1,t=null;
-    if(o&&o.j){j=o.j}
-    else if(o&&o.s){j=juzOf(o.s,o.a||1);t={s:o.s,a:o.a||1}}
-    else if(ST.last){j=ST.last.j;t={s:ST.last.s,a:ST.last.a}}
+    build();loadMP();
+    let p=null;
+    if(o&&o.p)p=o.p;
+    else if(o&&o.j){p=pageOf(JUZ_START[o.j-1][0],JUZ_START[o.j-1][1])}
+    else if(o&&o.s){p=pageOf(o.s,o.a||1)}
+    else if(ST.last&&ST.last.s){p=pageOf(ST.last.s,ST.last.a||1)}
+    else p=1;
     const m=$('#mf');m.hidden=false;M.open=true;document.body.classList.add('mf-open');
     try{history.pushState({mf:1},'')}catch(e){}
-    M.sel=null;closeSheet(1);
-    requestAnimationFrame(()=>{load(j,t);if(t&&o&&o.s)flash(t.s,t.a)});
+    M.sel=(o&&o.s)?{s:o.s,a:o.a||1}:null;closeSheet(1);
+    requestAnimationFrame(()=>{measure();fitC.clear();M.base=0;show(p,false);selMark();fetchMP()});
   }
   function close(fromPop){
     if(!M.open)return;M.open=false;
@@ -6532,31 +6808,30 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
     if(!fromPop){try{if(history.state&&history.state.mf)history.back()}catch(e){}}
     if(cur==='mushaf')renderPage();
   }
-  function flash(s,a){
-    M.sel={s,a};selMark();
-  }
-  function selMark(){
-    $$('.mf-ay.sel').forEach(e=>e.classList.remove('sel'));
-    if(M.sel){const e=$('#mf-'+M.sel.s+'-'+M.sel.a);if(e)e.classList.add('sel')}
-  }
 
   /* ---------- sheet bawah ---------- */
-  function closeSheet(silent){
-    M.sheet=null;const s=$('#mfSheet');if(s){s.hidden=true;s.innerHTML=''}
-  }
+  function closeSheet(){M.sheet=null;const s=$('#mfSheet');if(s){s.hidden=true;s.innerHTML=''}}
+  function pageItems(){const [i0,i1]=prange(M.p),out=[];for(let i=i0;i<=i1;i++){const [s,a]=fromAbs(i);out.push({s,a})}return out}
   function sheet(k,extra){
     const s=$('#mfSheet');M.sheet=k;s.hidden=false;
     const head=t=>`<div class="mf-sh"><b>${t}</b><button type="button" class="mf-x" data-act="mfshut" aria-label="Tutup">✕</button></div>`;
     let h='';
+    const cp=MUR.cur();
     if(k==='tr'){
-      const a0=curAyah(M.p),items=M.list.filter(x=>x.pg===M.p);
-      if(a0&&!items.some(x=>x.s===a0.s&&x.a===a0.a))items.unshift(a0);
-      h=head('Terjemah halaman ini')+'<div class="mf-sb">'+items.map(x=>{
+      const items=pageItems();
+      h=head('Terjemah halaman '+M.p)+'<div class="mf-sb">'+items.map(x=>{
         const tr=Q.a[x.s][x.a-1][1];
         return `<div class="mf-tr ${M.sel&&M.sel.s===x.s&&M.sel.a===x.a?'on':''}"><b>${sur(x.s).tl} : ${x.a}</b><span>${esc(tr)}</span></div>`}).join('')+'</div>';
     }else if(k==='ay'&&M.sel){
-      const x=M.sel,tr=Q.a[x.s][x.a-1][1],mk=S.bookmark&&S.bookmark.s===x.s&&S.bookmark.a===x.a;
-      h=head(sur(x.s).tl+' : '+x.a)+`<div class="mf-sb"><p class="mf-tr1">${esc(tr)}</p><div class="row" style="gap:8px"><button type="button" class="btn sm y" data-act="mfmark">${mk?'Ayat ini sudah ditandai':'Tandai terakhir dibaca'}</button><button type="button" class="btn sm ghost" data-act="mfsheet" data-k="tr">Terjemah halaman</button></div></div>`;
+      const x=M.sel,tr=Q.a[x.s][x.a-1][1],mk=S.bookmark&&S.bookmark.s===x.s&&S.bookmark.a===x.a,here=cp&&cp.s===x.s&&cp.a===x.a&&MUR.playing;
+      h=head(sur(x.s).tl+' : '+x.a)+`<div class="mf-sb"><p class="mf-tr1">${esc(tr)}</p>
+        <div class="mf-acts">
+          <button type="button" class="btn sm y" data-act="mfplay" data-m="ay">${here?'⏸ Jeda':'▶ Putar ayat ini'}</button>
+          <button type="button" class="btn sm" data-act="mfplay" data-m="page">▶ Lanjut sampai akhir halaman</button>
+          <button type="button" class="btn sm" data-act="mfplay" data-m="sur">▶ Lanjut sampai akhir surah</button>
+          <button type="button" class="btn sm ghost" data-act="mfmark">${mk?'Ayat ini sudah ditandai':'Tandai terakhir dibaca'}</button>
+          <button type="button" class="btn sm ghost" data-act="mfsheet" data-k="tr">Terjemah halaman</button>
+        </div></div>`;
     }else if(k==='legend'){
       h=head('Warna tajwid')+`<div class="mf-sb"><label class="mf-sw"><input type="checkbox" data-act="mftjtog" ${S.settings.tajwid?'checked':''}> <b>Tampilkan warna tajwid</b></label><p class="small muted" style="margin:4px 0 8px">Ketuk huruf berwarna di halaman untuk melihat penjelasan hukumnya, atau ketuk salah satu warna di bawah.</p>`+
         TJ_ORDER.map(q=>`<button type="button" class="mf-lg" data-act="mfrule" data-k="${q}"><i class="sw k-${q}"></i><span><b>${esc(TJ[q].n)}</b><br><span class="small muted">${esc(TJ_SHORT[q]==='Mim sukun'?'ب · م · lainnya':TJ[q].letters)}</span></span></button>`).join('')+
@@ -6569,27 +6844,108 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
         <p style="margin:6px 0">${esc(t.d)}</p>
         <button type="button" class="btn sm ghost" data-act="mfsheet" data-k="legend">Lihat semua warna</button></div>`;
     }else if(k==='size'){
-      h=head('Ukuran huruf')+`<div class="mf-sb"><div class="row" style="gap:10px;align-items:center"><button type="button" class="btn sm" data-act="mfsz" data-d="-2" aria-label="Kecilkan">A−</button><input type="range" id="mfSz" min="18" max="46" step="1" value="${ST.size}" data-in="mfsize" style="flex:1"><button type="button" class="btn sm" data-act="mfsz" data-d="2" aria-label="Besarkan">A+</button></div><p class="small muted" style="margin:8px 0 0">Makin besar hurufnya, makin sedikit baris per halaman.</p></div>`;
+      h=head('Ukuran huruf')+`<div class="mf-sb"><label class="mf-sw"><input type="checkbox" data-act="mffit" ${ST.fit?'checked':''}> <b>Pas satu halaman (seperti mushaf cetak)</b></label><div class="row" style="gap:10px;align-items:center;margin-top:10px;${ST.fit?'opacity:.45':''}"><button type="button" class="btn sm" data-act="mfsz" data-d="-2" aria-label="Kecilkan">A−</button><input type="range" id="mfSz" min="18" max="46" step="1" value="${ST.size}" data-in="mfsize" style="flex:1" ${ST.fit?'disabled':''}><button type="button" class="btn sm" data-act="mfsz" data-d="2" aria-label="Besarkan">A+</button></div><p class="small muted" style="margin:8px 0 0">${ST.fit?'Satu halaman layar = satu halaman mushaf. Matikan pilihan ini kalau mau huruf lebih besar (halaman jadi bisa digulir).':'Huruf besar membuat halaman perlu digulir ke bawah.'}</p></div>`;
     }else if(k==='juz'){
-      h=head('Pilih juz')+'<div class="mf-sb"><div class="mf-jg">'+Array.from({length:30},(_,i)=>`<button type="button" class="mf-jb ${i+1===M.j?'on':''}" data-act="mfjuz" data-j="${i+1}">${i+1}</button>`).join('')+'</div></div>';
+      const jp=juzOfPage(M.p);
+      h=head('Pilih juz')+'<div class="mf-sb"><div class="mf-jg">'+Array.from({length:30},(_,i)=>`<button type="button" class="mf-jb ${i+1===jp?'on':''}" data-act="mfjuz" data-j="${i+1}">${i+1}</button>`).join('')+'</div></div>';
     }else if(k==='sur'){
-      h=head('Pilih surah')+'<div class="mf-sb"><div class="mf-sl">'+SUR.map(r=>`<button type="button" class="mf-sr" data-act="mfsur" data-s="${r.id}"><span class="n">${r.id}</span><span>${esc(r.tl)}</span><span lang="ar" class="ar">${esc(r.ar)}</span></button>`).join('')+'</div></div>';
+      const f=firstOf(M.p)[0];
+      h=head('Pilih surah')+'<div class="mf-sb"><div class="mf-sl">'+SUR.map(r=>`<button type="button" class="mf-sr ${r.id===f?'on':''}" data-act="mfsur" data-s="${r.id}"><span class="n">${r.id}</span><span>${esc(r.tl)}</span><span lang="ar" class="ar">${esc(r.ar)}</span></button>`).join('')+'</div></div>';
+    }else if(k==='pg'){
+      h=head('Ke halaman')+`<div class="mf-sb"><div class="row" style="gap:8px;align-items:center"><input type="number" id="mfPgIn" min="1" max="${NP}" value="${M.p}" inputmode="numeric" style="flex:1;min-width:0"><button type="button" class="btn y" data-act="mfgopg">Buka</button></div><input type="range" id="mfPgR" min="1" max="${NP}" value="${M.p}" data-in="mfpg" style="width:100%;margin-top:12px"><p class="small muted" style="margin:6px 0 0">Mushaf Madinah, 1 sampai ${NP}. Nomor halaman sama dengan Al-Qur'an cetak.</p></div>`;
+    }else if(k==='mur'){
+      const q=MUR.QARI.map(x=>`<button type="button" class="mf-q ${x[0]===MUR.rec?'on':''}" data-act="mfqari" data-id="${esc(x[0])}"><span>${esc(x[1])}</span><i></i></button>`).join('');
+      const seg=(arr,val,act,fmt)=>`<div class="seg mf-seg">`+arr.map(v=>`<button type="button" data-act="${act}" data-v="${v}" aria-pressed="${v===val}">${fmt(v)}</button>`).join('')+'</div>';
+      const f=firstOf(M.p)[0];
+      h=head('Murottal')+`<div class="mf-sb">
+        <div class="mf-acts"><button type="button" class="btn sm y" data-act="mfplay" data-m="page">▶ Putar halaman ${M.p}</button>${cp?`<button type="button" class="btn sm" data-act="mfmurtog">${MUR.playing?'⏸ Jeda':'▶ Lanjut'}</button><button type="button" class="btn sm ghost" data-act="mfmurstop">■ Berhenti</button>`:''}</div>
+        <h4 class="mf-h4">Putar surah atau juz</h4>
+        <div class="row" style="gap:8px"><select id="mfPlS2" style="flex:1;min-width:0">${SUR.map(r=>`<option value="${r.id}" ${r.id===f?'selected':''}>${r.id}. ${esc(r.tl)}</option>`).join('')}</select><button type="button" class="btn sm" data-act="mfplay" data-m="surah">▶ Putar</button></div>
+        <div class="row" style="gap:8px;margin-top:8px"><select id="mfPlJ2" style="flex:1;min-width:0">${Array.from({length:30},(_,i)=>`<option value="${i+1}" ${i+1===juzOfPage(M.p)?'selected':''}>Juz ${i+1}</option>`).join('')}</select><button type="button" class="btn sm" data-act="mfplay" data-m="juz">▶ Putar</button></div>
+        <h4 class="mf-h4">Qari</h4><div class="mf-ql">${q}</div>
+        <h4 class="mf-h4">Kecepatan</h4>${seg([.75,1,1.25,1.5],MUR.rate,'mfrate',v=>v+'x')}
+        <h4 class="mf-h4">Ulangi tiap ayat</h4>${seg([1,2,3,5],MUR.rep,'mfrep',v=>v===1?'Tidak':v+'x')}
+        <label class="mf-sw" style="margin-top:12px"><input type="checkbox" data-act="mffollow" ${MUR.follow?'checked':''}> <b>Halaman ikut berpindah saat murottal jalan</b></label>
+        <p class="small muted" style="margin:8px 0 0">Murottal diambil dari internet, ayat demi ayat. Tetap berjalan saat kamu pindah menu atau keluar dari aplikasi.</p></div>`;
     }
     s.innerHTML=h;
-    const on=s.querySelector('.mf-jb.on,.mf-tr.on');if(on)on.scrollIntoView({block:'center'});
+    try{if(window.klOn&&klOn())KL.G.scan(s)}catch(e){}
+    const on=s.querySelector('.mf-jb.on,.mf-tr.on,.mf-sr.on,.mf-q.on');if(on)on.scrollIntoView({block:'center'});
   }
   function ruleSheet(tj){
     const q=tj.dataset.k;if(!TJ[q])return;
     sheet('rule',{k:q,n:tj.dataset.n,frag:tj.innerHTML});
   }
 
+  /* ---------- murottal ---------- */
+  function playPage(){
+    const [i0,i1]=prange(M.p);MUR.start(MUR.range(i0,i1,true),0);
+  }
+  function play(m,el){
+    const sel=M.sel;
+    if(m==='ay'&&sel){
+      const c=MUR.cur();if(c&&c.s===sel.s&&c.a===sel.a&&MUR.playing){MUR.toggle(false);sheet('ay');return}
+      MUR.start([{s:sel.s,a:sel.a}],0);
+    }else if(m==='page'&&sel&&M.sheet==='ay'){
+      const i0=absIdx(sel.s,sel.a),pg=pageOf(sel.s,sel.a),i1=prange(pg)[1];MUR.start(MUR.range(i0,i1,false),0);
+    }else if(m==='page'){playPage()}
+    else if(m==='sur'&&sel){
+      const i0=absIdx(sel.s,sel.a),i1=CUM[sel.s]-1;MUR.start(MUR.range(i0,i1,false),0);
+    }else if(m==='surah'){
+      const s=+($('#mfPlS2')||{}).value||1;MUR.start(MUR.range(CUM[s-1],CUM[s]-1,true),0);show(pageOf(s,1),true);
+    }else if(m==='juz'){
+      const j=+($('#mfPlJ2')||{}).value||1,i0=absIdx(JUZ_START[j-1][0],JUZ_START[j-1][1]),i1=j<30?absIdx(JUZ_START[j][0],JUZ_START[j][1])-1:TOT-1;
+      MUR.start(MUR.range(i0,i1,true),0);show(pageOf(...JUZ_START[j-1]),true);
+    }
+    if(M.sheet==='ay'||M.sheet==='mur')closeSheet();
+    if(M.sheet===null)sheet2();
+  }
+  function sheet2(){} // tidak membuka sheet lagi
+  MUR.on((t)=>{
+    if(t==='item'){
+      playMark();
+      const c=MUR.cur();
+      if(c&&!c.b&&M.open&&MUR.follow){const pg=pageOf(c.s,c.a);if(pg!==M.p&&!M.busy)show(pg,true)}
+    }
+    if(t==='state'||t==='item'){
+      if(M.open&&M.sheet==='mur')sheet('mur');
+      barUpdate();
+    }
+  });
+
+  /* mini player */
+  let bar=null;
+  function barBuild(){
+    if(bar)return;
+    bar=document.createElement('div');bar.id='murBar';bar.className='glass';bar.hidden=true;
+    bar.innerHTML=`<button type="button" class="mb-t" data-act="murbaropen" aria-label="Buka mushaf"><b id="mbT">Murottal</b><span id="mbQ"></span></button>
+      <button type="button" class="mb-b" data-act="murprev" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg></button>
+      <button type="button" class="mb-b mb-p" data-act="murtog" aria-label="Putar atau jeda" id="mbP"></button>
+      <button type="button" class="mb-b" data-act="murnext" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+      <button type="button" class="mb-b" data-act="murstop" aria-label="Berhenti"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h12v12H6z"/></svg></button>`;
+    document.body.appendChild(bar);
+    try{if(window.klOn&&klOn())KL.G.scan(bar)}catch(e){}
+  }
+  const ICP='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',ICQ='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+  function barUpdate(){
+    barBuild();
+    const c=MUR.cur();
+    bar.hidden=!c;document.body.classList.toggle('mur-on',!!c);
+    const mf=$('#mf');if(mf&&mf.classList.contains('mf-murup')!==!!c){mf.classList.toggle('mf-murup',!!c);if(M.p&&$('#mfView')){try{relayout()}catch(e){}}}
+    if(!c)return;
+    $('#mbT').textContent=MUR.title(c);$('#mbQ').textContent=MUR.name();
+    $('#mbP').innerHTML=MUR.playing?ICQ:ICP;
+    try{if(window.klOn&&klOn()&&!bar.classList.contains('lensed'))KL.G.scan(bar)}catch(e){}
+  }
+
   /* ---------- aksi ---------- */
   Object.assign(ACT,{
-    mfopen:el=>{const d=el.dataset;openAt(d.j?{j:+d.j}:d.s?{s:+d.s,a:+(d.a||1)}:null)},
+    mfopen:el=>{const d=el.dataset;openAt(d.j?{j:+d.j}:d.s?{s:+d.s,a:+(d.a||1)}:d.p?{p:+d.p}:null)},
     mfresume:()=>openAt(null),
     mfsurpick:()=>{const v=+($('#mfSurPick')||{}).value||1;openAt({s:v,a:1})},
+    mfpgpick:()=>{const v=+($('#mfPgPick')||{}).value;if(v>=1&&v<=NP)openAt({p:v});else toast('Isi nomor halaman 1 sampai '+NP)},
     mfclose:()=>close(),
-    mfnext:()=>next(),mfprev:()=>prev(),
+    mfnext:()=>turn(1),mfprev:()=>turn(-1),
     mfshut:()=>closeSheet(),
     mfsheet:el=>{const k=el.dataset.k;if(M.sheet===k&&k!=='rule'&&k!=='ay'){closeSheet();return}sheet(k)},
     mfay:el=>{
@@ -6599,52 +6955,77 @@ ACT.tkhear=el=>{const p=S.settings.sfxpack,t=el.dataset.id;S.settings.sfxpack=t;
       M.sel={s,a};selMark();sheet('ay');
     },
     mfmark:()=>{
-      const t=M.sel||firstOn(M.p);if(!t)return;
+      const t=M.sel||curFirst();if(!t)return;
       S.bookmark={s:t.s,a:t.a};save();markBm();toast('Ditandai: '+sur(t.s).tl+' ayat '+t.a);sfx('on');
       if(M.sheet==='ay')sheet('ay');
     },
     mftomark:()=>{
       const b=S.bookmark;if(!b){toast('Belum ada penanda. Ketuk ayat lalu pilih Markah.');return}
-      const j=juzOf(b.s,b.a);
-      if(j!==M.j)load(j,{s:b.s,a:b.a});else{const x=M.list.find(y=>y.s===b.s&&y.a===b.a);if(x){M.p=x.pg;place()}}
-      M.sel={s:b.s,a:b.a};selMark();toast('Ke penanda: '+sur(b.s).tl+' ayat '+b.a);
+      show(pageOf(b.s,b.a),true);M.sel={s:b.s,a:b.a};setTimeout(selMark,420);toast('Ke penanda: '+sur(b.s).tl+' ayat '+b.a);
     },
-    mfjuz:el=>{closeSheet();load(+el.dataset.j)},
-    mfsur:el=>{
-      const s=+el.dataset.s,j=juzOf(s,1);closeSheet();
-      load(j,{s,a:1});
-    },
+    mfjuz:el=>{closeSheet();const j=+el.dataset.j;show(pageOf(JUZ_START[j-1][0],JUZ_START[j-1][1]),true)},
+    mfsur:el=>{closeSheet();show(pageOf(+el.dataset.s,1),true)},
+    mfgopg:()=>{const v=+($('#mfPgIn')||{}).value;if(v>=1&&v<=NP){closeSheet();show(v,true)}else toast('Isi nomor halaman 1 sampai '+NP)},
     mfrule:el=>{const q=el.dataset.k;sheet('rule',{k:q,n:TJ[q].n})},
     mftjtog:el=>{S.settings.tajwid=!!el.checked;save();applyReaderClasses();info();sheet('legend')},
-    mfsz:el=>{setSize(ST.size+(+el.dataset.d))}
+    mfsz:el=>{setSize(ST.size+(+el.dataset.d))},
+    mffit:el=>{ST.fit=el.checked?1:0;keep();relayout();sheet('size')},
+    mfplay:el=>play(el.dataset.m,el),
+    mfmurtog:()=>MUR.toggle(),mfmurstop:()=>{MUR.stop();if(M.sheet==='mur')sheet('mur')},
+    mfqari:el=>{MUR.set('rec',el.dataset.id);sheet('mur')},
+    mfrate:el=>{MUR.set('rate',+el.dataset.v);sheet('mur')},
+    mfrep:el=>{MUR.set('rep',+el.dataset.v);sheet('mur')},
+    mffollow:el=>{MUR.set('follow',el.checked)},
+    murtog:()=>MUR.toggle(),murnext:()=>MUR.next(),murprev:()=>MUR.prev(),murstop:()=>MUR.stop(),
+    murbaropen:()=>{const c=MUR.cur();if(c&&!c.b)openAt({s:c.s,a:c.a})}
   });
   function setSize(v){
     ST.size=clamp(Math.round(v),18,46);keep();
     const r=$('#mfSz');if(r)r.value=ST.size;
-    clearTimeout(M.zt);M.zt=setTimeout(()=>relayout(),60);
+    clearTimeout(M.zt);M.zt=setTimeout(()=>{if(!ST.fit)show(M.p,false)},60);
   }
-  document.addEventListener('input',e=>{const el=e.target.closest('[data-in="mfsize"]');if(el)setSize(+el.value)});
+  document.addEventListener('input',e=>{
+    const el=e.target.closest('[data-in]');if(!el)return;
+    if(el.dataset.in==='mfsize')setSize(+el.value);
+    else if(el.dataset.in==='mfpg'){const n=$('#mfPgIn');if(n)n.value=el.value}
+  });
+  document.addEventListener('change',e=>{
+    const el=e.target.closest&&e.target.closest('[data-in="mfpg"]');if(el){closeSheet();show(+el.value,true)}
+  });
+  document.addEventListener('change',e=>{if(e.target.id==='mfQariPick')MUR.set('rec',e.target.value)});
 
   /* ---------- halaman peluncur ---------- */
   function pMushaf(){
     const l=ST.last,b=S.bookmark;
     const surOpts=SUR.map(r=>`<option value="${r.id}">${r.id}. ${esc(r.tl)} — ${esc(r.ar)}</option>`).join('');
     const juzBtns=Array.from({length:30},(_,i)=>`<button type="button" class="mf-jb" data-act="mfopen" data-j="${i+1}">${i+1}</button>`).join('');
+    const qopts=MUR.QARI.map(x=>`<option value="${esc(x[0])}" ${x[0]===MUR.rec?'selected':''}>${esc(x[1])}</option>`).join('');
     return `<div class="ribbon"><span class="star">${ico('star')}</span><h2>Mushaf Al-Qur'an</h2></div>
-    <p class="small muted" style="margin-top:-6px">Baca per halaman seperti mushaf. Geser halaman, ketuk huruf berwarna untuk belajar hukum tajwidnya.</p>
+    <p class="small muted" style="margin-top:-6px">604 halaman seperti mushaf cetak. Geser halaman, ketuk ayat untuk mendengar murottal, ketuk huruf berwarna untuk belajar hukum tajwidnya.</p>
     <div class="card cream mf-hero" style="margin-bottom:16px">
       <div class="mf-mini" aria-hidden="true"><span lang="ar" dir="rtl">${tajwidize(Q.a[2][4][0]).html}</span></div>
       <div class="row" style="gap:8px;margin-top:10px">
-        <button type="button" class="btn y" data-act="${l?'mfresume':'mfopen'}" ${l?'':'data-j="1"'}>${l?'Lanjut membaca · '+esc(sur(l.s).tl)+' : '+l.a:'Mulai membaca'}</button>
+        <button type="button" class="btn y" data-act="${l&&l.s?'mfresume':'mfopen'}" ${l&&l.s?'':'data-p="1"'}>${l&&l.s?'Lanjut membaca · '+esc(sur(l.s).tl)+' : '+l.a+(l.p?' · hal '+l.p:''):'Mulai membaca'}</button>
         ${b?`<button type="button" class="btn ghost" data-act="mfopen" data-s="${b.s}" data-a="${b.a}">Ke penanda · ${esc(sur(b.s).tl)} : ${b.a}</button>`:''}
       </div></div>
+    <div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Murottal</h3><p class="small muted" style="margin:0 0 8px">Pilih qari, lalu putar surah atau juz. Suaranya terus jalan walau kamu pindah menu atau keluar dari aplikasi.</p>
+      <div class="field"><label for="mfQariPick">Qari</label><select id="mfQariPick">${qopts}</select></div>
+      <div class="row" style="gap:8px;margin-top:8px"><select id="mfPlS" style="flex:1 1 150px;min-width:0">${SUR.map(r=>`<option value="${r.id}">${r.id}. ${esc(r.tl)}</option>`).join('')}</select><button type="button" class="btn b" data-act="mfplaysur">▶ Putar surah</button></div>
+      <div class="row" style="gap:8px;margin-top:8px"><select id="mfPlJ" style="flex:1 1 150px;min-width:0">${Array.from({length:30},(_,i)=>`<option value="${i+1}">Juz ${i+1}</option>`).join('')}</select><button type="button" class="btn b" data-act="mfplayjuz">▶ Putar juz</button></div></div>
+    <div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Ke halaman</h3><div class="row"><div class="field" style="flex:1 1 140px"><label for="mfPgPick" class="sr">Nomor halaman</label><input type="number" id="mfPgPick" min="1" max="${NP}" placeholder="1 – ${NP}" inputmode="numeric"></div><button class="btn b" type="button" data-act="mfpgpick">Buka</button></div></div>
     <div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Pilih juz</h3><div class="mf-jg">${juzBtns}</div></div>
     <div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Atau pilih surah</h3>
       <div class="row"><div class="field" style="flex:1 1 200px"><label for="mfSurPick" class="sr">Pilih surah</label><select id="mfSurPick">${surOpts}</select></div><button class="btn b" type="button" data-act="mfsurpick">Buka</button></div></div>
     <div class="card cream"><h3 style="margin-top:0">Arti warna</h3><div class="row" style="gap:6px">${tjLegend()}</div>
-      <p class="small muted" style="margin:8px 0 0">Halaman disusun otomatis menurut ukuran layar dan huruf, jadi nomor halamannya tidak sama dengan mushaf cetak. Ayat bisa ditandai lewat tombol Markah.</p></div>`;
+      <p class="small muted" style="margin:8px 0 0">Satu halaman layar sama dengan satu halaman mushaf Madinah. Ayat bisa ditandai lewat tombol Markah.</p></div>`;
   }
+  Object.assign(ACT,{
+    mfplaysur:()=>{loadMP();const s=+($('#mfPlS')||{}).value||1;MUR.start(MUR.range(CUM[s-1],CUM[s]-1,true),0);toast('Memutar '+sur(s).tl)},
+    mfplayjuz:()=>{loadMP();const j=+($('#mfPlJ')||{}).value||1,i0=absIdx(JUZ_START[j-1][0],JUZ_START[j-1][1]),i1=j<30?absIdx(JUZ_START[j][0],JUZ_START[j][1])-1:TOT-1;MUR.start(MUR.range(i0,i1,true),0);toast('Memutar juz '+j)}
+  });
   PAGES.push('mushaf');P.mushaf=pMushaf;
+  loadMP();
+  setTimeout(()=>{try{barUpdate()}catch(e){}},0);
 })();
 
 /* ============ sekolah, guru, peringatan, dan rekam suara murojaah ============ */
@@ -7273,7 +7654,7 @@ const ro=('ResizeObserver'in window)?new ResizeObserver(es=>{es.forEach(e=>{cons
 let active=0;const fresh=new Set();
 function paint(el){
  const o=lensed.get(el);if(!o)return;
- if(!lensOK||!o.vis||document.documentElement.dataset.nolens==='1'){el.style.backdropFilter='';el.style.webkitBackdropFilter='';return}
+ if(!lensOK||!o.vis||document.documentElement.dataset.nolens==='1'||+document.documentElement.dataset.perf>=2){el.style.backdropFilter='';el.style.webkitBackdropFilter='';return}
  const w=Math.round(el.offsetWidth),h=Math.round(el.offsetHeight);if(w<14||h<14||w*h>150000)return;
  const rs=getComputedStyle(el).borderTopLeftRadius;const r=Math.min((/%$/.test(rs)?parseFloat(rs)/100*Math.min(w,h):parseFloat(rs))||h/2,w/2,h/2);
  const big=h>46;const bez=o.bezf?Math.max(4,Math.round(h*o.bezf)):Math.min(h*.5,big?26:14),mag=o.mag??(big?.17:.09);
@@ -7288,7 +7669,7 @@ function scan(root=document){try{root.querySelectorAll('.glass:not(.nolens):has(
 addEventListener('pointermove',e=>{const g=e.target.closest&&e.target.closest('.glass,.gsplit');if(!g)return;const b=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-b.left)+'px');g.style.setProperty('--my',(e.clientY-b.top)+'px');g.classList.add('lit')},{passive:true});
 addEventListener('pointerout',e=>{const g=e.target.closest&&e.target.closest('.glass,.gsplit');if(g)g.classList.remove('lit')},{passive:true});
 /* kontrol segmented / dock dengan lensa yang bisa digeser */
-function seg(host,items,value,onChange,cls=''){
+function seg(host,items,value,onChange,cls='',onSame){
  host.classList.add('ksg','gsplit');if(cls)host.classList.add(...cls.split(' '));
  const btn=items.map(it=>`<button type="button" data-k="${it.k}">${it.icon?`<i>${it.icon}</i>`:''}<span>${it.l}</span></button>`).join('');
  host.innerHTML=`<i class="glass gbg" aria-hidden="true"></i><div class="kl-lay kb-base">${btn}</div><div class="kl-lay kb-act" aria-hidden="true">${btn}</div><div class="kb-thumb glass"></div>`;
@@ -7311,14 +7692,14 @@ function seg(host,items,value,onChange,cls=''){
   if(drag||Math.abs(target-x)>.2||Math.abs(v)>.2||sq>.003){raf=requestAnimationFrame(tick)}else{raf=0;lastT=0;th.classList.remove('moving')}
  }
  const go=()=>{if(!raf){lastT=0;raf=requestAnimationFrame(tick)}};
- function select(i,fire=true){i=Math.max(0,Math.min(items.length-1,i));const ch=i!==idx;idx=i;target=i*tw;th.classList.add('moving');go();if(fire&&ch){SFX.play('tab');onChange&&onChange(items[i].k)}}
+ function select(i,fire=true,tap=false){i=Math.max(0,Math.min(items.length-1,i));const ch=i!==idx;idx=i;target=i*tw;th.classList.add('moving');go();if(fire&&ch){SFX.play('tab');onChange&&onChange(items[i].k)}else if(fire&&tap&&!ch&&onSame){onSame(items[i].k)}}
  host.addEventListener('pointerdown',e=>{if(e.button>0)return;drag=true;moved=false;sx0=e.clientX;x0=x;const b=base.getBoundingClientRect();const rel=e.clientX-b.left-tw/2;
   const onThumb=Math.abs(rel-x)<tw*.6;if(!onThumb){x0=x;}host.setPointerCapture(e.pointerId);th.classList.add('moving','held');host._rel=onThumb?0:rel-x;go()});
  host.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-sx0;if(Math.abs(dx)>4)moved=true;
   const b=base.getBoundingClientRect();const nx=moved?(x0+dx+(host._rel||0)*0):x;const lim=base.offsetWidth-tw;const px=Math.max(-8,Math.min(lim+8,nx));v=px-x;x=px});
  const end=e=>{if(!drag)return;drag=false;th.classList.remove('held');let i;
   if(moved){i=Math.round(x/tw)}else{const b=base.getBoundingClientRect();i=Math.floor((e.clientX-b.left)/tw)}
-  select(i);v=Math.max(-60,Math.min(60,v))};
+  select(i,true,!moved);v=Math.max(-60,Math.min(60,v))};
  host.addEventListener('pointerup',end);host.addEventListener('pointercancel',end);
  host.addEventListener('keydown',e=>{if(e.key==='ArrowRight')select(idx+1);if(e.key==='ArrowLeft')select(idx-1)});
  if('ResizeObserver'in window)new ResizeObserver(()=>measure()).observe(host);
@@ -7395,7 +7776,7 @@ function buildKelDock(){
   const tb=document.getElementById('tabbar');if(!tb||!isKel())return;
   tb.innerHTML='';const host=document.createElement('div');tb.appendChild(host);
   const items=DOCK.map(([k,l])=>({k,l,icon:k==='menu'?MENUSVG:tabIcon(k)}));
-  dock=G.seg(host,items,dockKey(),k=>{if(k==='menu'){openSheet();setTimeout(syncDock,60)}else go(k)});
+  dock=G.seg(host,items,dockKey(),k=>{if(k==='menu'){openSheet();setTimeout(syncDock,60)}else go(k)},'',k=>{if(k==='menu')openSheet();else if(k===cur){try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){}}});
   host.setAttribute('role','tablist');
 }
 const oBT=buildTabbar;buildTabbar=function(){oBT();if(isKel())buildKelDock()};
@@ -7459,7 +7840,7 @@ const oGo=go;go=function(n,sc){revealWin=true;clearTimeout(rvT);rvT=setTimeout((
 let mo=null;
 function watch(){
   if(mo||!document.body)return;
-  mo=new MutationObserver(()=>{if(decT||!isKel())return;decT=requestAnimationFrame(()=>{decT=0;decorate(document);revealScan()})});
+  mo=new MutationObserver(ms=>{if(decT||!isKel())return;if(ms.every(m=>{const t=m.target;return t.nodeType===1&&t.closest&&t.closest('#mf .mf-view,#intro,#fx')}))return;decT=requestAnimationFrame(()=>{decT=0;decorate(document);revealScan()})});
   mo.observe(document.body,{childList:true,subtree:true});
 }
 const oRP=renderPage;renderPage=function(){oRP();if(isKel()){syncDock();revealScan()}};
@@ -7542,13 +7923,13 @@ const Intro=(()=>{
      <div class="bfl" id="klbf"></div>
     </div>
     <div class="curtain" id="klcurtain">
-     <div class="dusk"></div><div class="dmoon"></div>
+     <div class="dusk"></div><div class="dglow" id="kldg"></div><div class="dmoon" id="klmoon"></div>
      <svg class="dhill" viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0 120C170 50 330 120 520 80S850 40 1000 110V300H0Z" fill="#3a1f66"/><path d="M0 190C200 130 380 200 580 160S870 150 1000 190V300H0Z" fill="#26134a"/></svg>
      <div class="ffs" id="klff"></div>
      <div class="ctitle"><p class="ceye">selamat datang di</p><h2>Kebun Murojaah</h2><p class="csub">setiap surat adalah satu bunga</p></div>
      <div class="orb glass nolens" id="klorb" role="button" tabindex="0" aria-label="Tahan untuk menumbuhkan bunga">
       <svg class="oring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" class="rt"/><circle cx="50" cy="50" r="46" class="rp" id="klring"/></svg>
-      <div class="obud">${A.flower('rose',null,64)}</div>
+      <i class="oglow n" id="klog"></i><div class="obud">${A.flower('rose',null,64)}</div>
      </div>
      <p class="orbhint" id="klorbh">tahan untuk menumbuhkan bunga</p>
     </div>
@@ -7559,11 +7940,12 @@ const Intro=(()=>{
     for(let i=0;i<16;i++){const f=document.createElement('i');f.style.cssText=`left:${Math.random()*100}%;top:${30+Math.random()*60}%;--d:${(6+Math.random()*8).toFixed(1)}s;--dl:${(-Math.random()*8).toFixed(1)}s;--s:${(3+Math.random()*4).toFixed(1)}px`;ffs.appendChild(f)}
     const C=2*Math.PI*46;ring.style.strokeDasharray=C;
     let p=0,hold=false,raf=0,done=false,last=0,t0=0,ping=0;
-    const apply=()=>{ring.style.strokeDashoffset=C*(1-p);bud.style.transform=`scale(${(.28+p*.95).toFixed(3)}) rotate(${(p*40).toFixed(1)}deg)`;orb.style.setProperty('--p',p.toFixed(3));ring.style.opacity=1;cur.style.setProperty('--p',p.toFixed(3));ct.style.opacity=1-p*.75;oh.style.opacity=Math.max(0,1-p*3)};
+    const dg=qs('#kldg',root),mo_=qs('#klmoon',root),og=qs('#klog',root);
+    const apply=()=>{ring.style.strokeDashoffset=C*(1-p);bud.style.transform=`scale(${(.28+p*.95).toFixed(3)}) rotate(${(p*40).toFixed(1)}deg)`;ring.style.opacity=1;dg.style.opacity=(.3+p*.6).toFixed(3);mo_.style.opacity=(1-p*.9).toFixed(3);og.style.opacity=Math.min(1,.15+p).toFixed(3);og.style.transform=`scale(${(.8+p*.45).toFixed(3)})`;ct.style.opacity=1-p*.75;oh.style.opacity=Math.max(0,1-p*3)};
     const tick=t=>{raf=0;const dt=Math.min(.05,(t-last)/1000||.016);last=t;
       if(!done){p=Math.max(0,Math.min(1,p+(hold?dt*.8:-dt*.4)));apply();
         if(hold&&t-(root._sp||0)>110){root._sp=t;const b=orb.getBoundingClientRect();FX.spawn(b.left+b.width/2,b.top+b.height/2,2,{sp:3,up:1.2,sz:.8})}
-        if(hold&&(t-ping>240)){ping=t;try{KS.play('tap')}catch(e){}}
+        if(hold&&(t-ping>320)){ping=t;try{KS.play('tap')}catch(e){}}
         if(p>=1){done=true;bloom();return}
         if(hold||p>0)raf=requestAnimationFrame(tick)}};
     const go_=()=>{if(!raf&&!done){last=performance.now();raf=requestAnimationFrame(tick)}};
@@ -7571,7 +7953,7 @@ const Intro=(()=>{
     const up=()=>{if(!hold)return;hold=false;if(!done&&performance.now()-t0<230){p=Math.min(1,p+.28);apply();try{KS.play('pop')}catch(e){}}go_()};
     orb.addEventListener('pointerup',up);orb.addEventListener('pointercancel',up);orb.addEventListener('lostpointercapture',up);orb.addEventListener('contextmenu',e=>e.preventDefault());orb.addEventListener('dragstart',e=>e.preventDefault());
     orb.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();p=Math.min(1,p+.34);apply();go_()}});
-    function bloom(){hold=false;p=1;apply();cur.classList.add('bloom');try{KS.play('curtain')}catch(e){}
+    function bloom(){hold=false;p=1;apply();root.classList.add('seen');cur.classList.add('bloom');try{KS.play('curtain')}catch(e){}
       const b=orb.getBoundingClientRect();FX.spawn(b.left+b.width/2,b.top+b.height/2,46,{up:7,sp:9,dec:.008});setTimeout(openDone,700)}
     root._open=()=>{if(!done){done=true;bloom()}};
     const mead=qs('#klmeadow',root);
@@ -8179,6 +8561,85 @@ function openStory(u){
 function closeStory(){if(!sv)return;clearTimeout(sv.t);document.removeEventListener('keydown',sv.kd);const o=sv.o;sv=null;o.classList.remove('on');setTimeout(()=>o.remove(),250);rerender()}
 /* bersihkan saat ganti akun */
 const oB2=bootApp;bootApp=function(u){if(SO.started&&u!==window.__soUser)reset();window.__soUser=u;oB2(u)};
+})();
+
+/* ============ MODE LAPTOP: deteksi + kaca cair pada menu samping ============ */
+(function laptop(){
+  const R=document.documentElement;
+  function calc(){
+    let v='auto';try{v=localStorage.getItem('km-view')||'auto'}catch(e){}
+    const sw=Math.min(screen.width||999,screen.height||999),phone=sw<=520;
+    const on=(v==='desktop')||(v==='auto'&&!phone&&innerWidth>=980);
+    if(on)R.setAttribute('data-laptop','1');else R.removeAttribute('data-laptop');
+    glassNav();
+  }
+  function glassNav(){
+    const n=document.querySelector('#nav .nav-in');if(!n)return;
+    const want=R.hasAttribute('data-laptop')&&R.hasAttribute('data-kel')&&innerWidth>=900;
+    if(want&&!n.classList.contains('glass')){n.classList.add('glass');try{KL.G.scan(document.getElementById('nav'))}catch(e){}}
+    else if(!want&&n.classList.contains('glass')){n.classList.remove('glass','lensed');n.style.removeProperty('backdrop-filter');n.style.removeProperty('-webkit-backdrop-filter')}
+  }
+  const oLA=layoutApply;layoutApply=function(id){oLA(id);calc()};
+  const oVM=ACT.viewmode;if(oVM)ACT.viewmode=function(el){oVM(el);calc()};
+  let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(calc,160)},{passive:true});
+  calc();
+  document.addEventListener('DOMContentLoaded',calc);
+  setTimeout(calc,600);
+})();
+
+/* ============ PENJAGA PERFORMA: kaca tetap kaca, tapi diringankan otomatis kalau HP terasa berat ============ */
+(function perf(){
+  const R=document.documentElement,KP='km-perf',KM='km-perfm';
+  const get=k=>{try{return localStorage.getItem(k)}catch(e){return null}},put=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  let mode=get(KM)==='lite'?'lite':'full';put(KP,'0');let lvl=mode==='lite'?2:0;
+  function apply(l,save){
+    lvl=l;R.dataset.perf=String(l);
+    R.classList.toggle('lens-no',l>=2||!(typeof KL!=='undefined'&&KL.G&&KL.G.lensOK));
+    try{document.querySelectorAll('.lensed').forEach(e=>KL.G.paint(e))}catch(e){}
+    try{if(l>=2)KL.FX.set(false)}catch(e){}
+    
+  }
+  apply(lvl,false);
+  /* ukur kelancaran saat pengguna menggulir / mengetuk */
+  let sampling=false,tries=0;
+  function sample(){
+    if(sampling||mode!=='auto'||lvl>=2||tries>=3||document.hidden)return;
+    sampling=true;tries++;
+    const dts=[];let last=0,n=0;
+    const step=t=>{
+      if(last){const d=t-last;if(d<200)dts.push(d)}
+      last=t;n++;
+      if(n<110&&!document.hidden){requestAnimationFrame(step);return}
+      sampling=false;
+      if(dts.length<60)return;
+      dts.sort((a,b)=>a-b);const p75=dts[Math.floor(dts.length*.75)];
+      if(p75>27){apply(lvl+1,true);setTimeout(()=>{window.__perfNext&&window.__perfNext()},3500)}
+    };
+    requestAnimationFrame(step);
+  }
+  window.__perfNext=()=>{waitIdle=false;arm()};
+  let waitIdle=false;
+  function arm(){
+    return;
+    const h=()=>{if(waitIdle)return;waitIdle=true;setTimeout(()=>{waitIdle=false;sample()},500)};
+    ['scroll','pointerdown'].forEach(ev=>addEventListener(ev,h,{passive:true,once:true,capture:true}));
+  }
+  setTimeout(arm,2500);
+  /* pilihan di halaman Tema */
+  const oT=P.tema;
+  P.tema=function(){
+    let h=oT();
+    const m=get(KM)==='lite'?'lite':'full';
+    const card='<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Kelancaran efek kaca</h3><div class="seg" role="group" aria-label="Kelancaran">'+[['full','Penuh (kaca asli)'],['lite','Hemat']].map(x=>'<button type="button" data-act="perfmode" data-v="'+x[0]+'" aria-pressed="'+(m===x[0])+'">'+x[1]+'</button>').join('')+'</div><p class="small muted" style="margin:8px 0 0">Penuh: liquid glass asli dengan pembiasan dan semua efek scroll. Hemat: kaca tanpa pembiasan dan animasi latar dikurangi.</p></div>';
+    const mark='<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Ukuran tampilan</h3>';
+    return h.includes(mark)?h.replace(mark,card+mark):card+h;
+  };
+  ACT.perfmode=el=>{
+    mode=el.dataset.v;put(KM,mode);put(KP,'0');tries=0;
+    apply(mode==='lite'?2:0,false);
+    try{renderPage()}catch(e){}
+    try{toast(mode==='full'?'Efek kaca penuh':mode==='lite'?'Mode hemat aktif':'Kelancaran diatur otomatis')}catch(e){}
+  };
 })();
 
 /* ============ akun cloud (Firebase) - aktif hanya jika firebase-config.js diisi ============ */
