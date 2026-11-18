@@ -1,3 +1,22 @@
+=== v18 ===
+1. TOKO BARU: Kartu lanjut (3 / 10), Kartu 50:50, Perisai streak (otomatis menjaga streak kalau sehari bolong, maks 3), dan 6 Hiasan kebun bunga (kolam, kincir, lampu, bangku, pagar, rumah burung) yang tampil di halaman Kebun bunga.
+2. GAME: sekarang 20 level (level 7-20 bertema baru: Lembah Embun s.d. Singgasana Fajar). Level 7-20 memberi gelar + bonus koin pada kemenangan pertama; level 9+ punya 5 pilihan jawaban. Musik game diperbaiki untuk level tinggi.
+3. KARAKTER BENAR-BENAR LARI: kaki bergantian melangkah, badan memantul dan condong, ujung baju berayun, kaki ditekuk saat lompat, debu kecil saat berlari.
+4. KALAH: muncul tawaran "lanjut dengan 2 nyawa" lewat iklan / Kartu lanjut / 150 koin (maks 2x per permainan).
+5. MENANG: tombol "Gandakan koinmu" lewat iklan.
+6. IKLAN: kerangka sudah siap tapi DIMATIKAN (ADS_ENABLED=false di js37 / index.html). Tombol iklan tampil abu-abu "segera hadir". Setelah akun Google Play + AdMob siap: (a) pasang SDK AdMob di APK, (b) sediakan KebunApp.showRewardedAd(jenis) yang memanggil window.__kmAdDone(true/false), (c) ubah ADS_ENABLED jadi true. Jenis iklan: 'revive' dan 'double'. Minta aku kerjakan langkah ini nanti.
+Catatan: belum dites di HP asli. Seluruh alur (kalah, lanjut, gandakan, beli, 50:50, perisai) dites di Chromium dengan data contoh.
+
+=== v17 ===
+1. TILAWAH: tombol "Buka mushaf" di halaman Tilawah. Catat bacaan bisa per Jumlah, Hal. A-B (dari halaman sampai halaman), Juz (dari-sampai), atau Surah (surah+ayat awal sampai surah+ayat akhir). Riwayat menampilkan keterangan bacaannya.
+2. PETA AKTIVITAS: tiap kotak berisi tanggal (tanggal 1 diberi nama bulan); otomatis menggulir ke pekan terbaru.
+3. BAR ATAS HP: tombol akun tidak lagi keluar dari kacanya.
+4. TEMA: pilihan hidup/mati untuk daun & kelopak yang beterbangan (ambient dan saat scroll).
+5. HALAMAN BARU "Kenali kebunmu": penjelasan semua fitur bergambar, ada di menu (Catatan) dan kartu di beranda.
+6. MUSHAF: nomor ayat jadi rosetta bintang delapan emas-merah muda; nomor menempel ke kata terakhir ayat.
+7. Perbaikan mushaf sebelumnya (v16c): ayat diputar tidak numpuk, pemutar mini tidak menutupi halaman.
+Catatan: gambar panduan berupa ilustrasi sketsa buatan sendiri, bukan tangkapan layar asli. Belum dites di HP asli.
+
 === v16c ===
 PERBAIKAN MUSHAF: ayat yang sedang diputar/dipencet tidak lagi numpuk (class "pl" bentrok dengan class bunga intro). Pemutar mini tidak lagi menutupi baris terakhir halaman. Lihat juga PANDUAN-PLAYSTORE.txt.
 

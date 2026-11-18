@@ -590,8 +590,8 @@ input[type=file]{width:100%;min-width:0;padding:8px;border-radius:12px;border:2.
 .hchip.on{background:var(--yellow)}
 /* statistik */
 .heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;overflow-x:auto;padding-bottom:6px}
-.heat i{width:14px;height:14px;border-radius:4px;background:color-mix(in srgb,var(--line) 14%,transparent);display:block}
-.heat i.l1{background:#f9cfe0}.heat i.l2{background:#f29bbd}.heat i.l3{background:#e0689b}.heat i.l4{background:#b4507c}
+.heat i{width:30px;height:30px;border-radius:7px;position:relative;display:grid;place-items:center;font-style:normal;font:700 .72rem/1 var(--font-body);color:var(--ink-soft);background:color-mix(in srgb,var(--line) 14%,transparent);display:block}
+.heat i b{font:inherit}.heat i u{position:absolute;bottom:1px;left:0;right:0;text-align:center;text-decoration:none;font-size:.5rem;font-weight:800;opacity:.85}.heat i.m1{outline:2px solid color-mix(in srgb,var(--line) 55%,transparent);outline-offset:-2px}.heat i.l3,.heat i.l4{color:#fff}.heat i.l1{background:#f9cfe0}.heat i.l2{background:#f29bbd}.heat i.l3{background:#e0689b}.heat i.l4{background:#b4507c}
 .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
 /* ibadah */
 .ptime{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
@@ -617,6 +617,11 @@ input[type=file]{width:100%;min-width:0;padding:8px;border-radius:12px;border:2.
 .lb .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
 .lb .pts{font-family:var(--font-num);font-size:1.1rem}
 @media (max-width:520px){.hopts{grid-template-columns:1fr}}
+.row .heat i{width:16px;height:16px;font-size:0}
+
+.heat i{display:grid!important}
+.row .heat{display:inline-flex;grid-template-rows:none;gap:3px;padding:0;overflow:visible}
+#tlModes button{flex:1 1 0;min-width:0;padding:7px 4px;font-size:.82rem;text-align:center}
 /* ============ tata letak v5: menu di samping (seperti web pada umumnya) ============ */
 .window>.inner{overflow:clip}
 .frame{max-width:1260px}
@@ -1812,6 +1817,20 @@ html[data-kel][data-laptop] .nav button[aria-current=page] svg{color:var(--accen
 html[data-kel][data-laptop][data-lay][data-fx] .main .page:not([hidden]){max-width:none}
 html[data-kel][data-laptop][data-lay][data-fx] #mf .mf-paper{max-width:760px}
 }
+
+/* bar atas HP: semua tombol harus muat di dalam kaca */
+@media (max-width:560px){
+  html[data-kel][data-lay][data-fx] .top{padding:6px 8px 6px 10px;gap:5px;overflow:visible}
+  html[data-kel][data-lay][data-fx] .top .pill{font-size:.74rem;padding:4px 9px}
+  html[data-kel][data-lay][data-fx] .top .round-btns{gap:4px;flex:0 1 auto;min-width:0}
+  html[data-kel][data-lay][data-fx] .top .rbtn{width:33px;height:33px;min-width:0;flex:none}
+  html[data-kel][data-lay][data-fx] .top .rbtn .i{width:18px;height:18px}
+  html[data-kel][data-lay][data-fx] .top .rbtn .flame-svg{width:19px!important;height:19px!important}
+}
+@media (max-width:370px){
+  html[data-kel][data-lay][data-fx] .top .rbtn{width:30px;height:30px}
+  html[data-kel][data-lay][data-fx] .top .pill{padding:4px 7px;font-size:.7rem}
+}
 /* ===== MUSHAF 604 halaman + murottal + kaca cair ===== */
 #mf{background:var(--cream);--mt:calc(88px + env(safe-area-inset-top,0px));--mb:calc(98px + env(safe-area-inset-bottom,0px));padding-top:0}
 #mf .mf-paper{position:absolute;inset:0;margin:0;border:0;border-radius:0;box-shadow:none;background:var(--paper);flex:none;overflow:hidden}
@@ -1890,6 +1909,27 @@ html[data-perf="2"] #fx{display:none}
 
 #mf.mf-murup{--mb:calc(170px + env(safe-area-inset-bottom,0px))}
 html[data-laptop] #mf.mf-murup{--mb:calc(98px + env(safe-area-inset-bottom,0px))}
+
+/* nomor ayat: rosetta bintang delapan */
+#mf .mf-no{position:relative;isolation:isolate;display:inline-grid;place-items:center;width:1.95em;height:1.95em;min-width:0;padding:0;margin:-.5em .3em;border:0;border-radius:50%;vertical-align:-.5em;font-family:inherit;font-size:.6em;font-weight:700;line-height:1;color:var(--pink-deep);background:radial-gradient(circle,var(--paper) 0 50%,color-mix(in srgb,#e3b955 38%,transparent) 52% 58%,transparent 60%);direction:rtl;text-shadow:none}
+#mf .mf-no::before,#mf .mf-no::after{content:"";position:absolute;inset:.2em;z-index:-1;border-radius:.2em;border:.09em solid var(--pink-deep);background:color-mix(in srgb,var(--pink-deep) 9%,transparent)}
+#mf .mf-no::after{transform:rotate(45deg);border-color:#d4a73f;background:transparent}
+#mf .mf-no[data-l="3"]{font-size:.5em;width:2.2em;height:2.2em}
+#mf .mf-ay.bm .mf-no,#mf .mf-ay.sel .mf-no,#mf .mf-ay.nowp .mf-no{background:radial-gradient(circle,var(--pink-deep) 0 52%,transparent 54%);color:var(--paper)}
+/* panduan fitur */
+.gd-list{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.gd-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gd{padding:0!important;overflow:hidden;margin:0}
+.gd-ill{padding:12px 12px 0}.gd-ill svg{display:block;width:100%;height:auto;border-radius:16px}
+.gd-tx{position:relative;padding:12px 16px 16px}
+.gd-tx h3{margin:0 0 6px;padding-right:34px}
+.gd-tx p{margin:0 0 8px;font-size:.92rem;line-height:1.5}
+.gd-tx ol{margin:0 0 12px;padding-left:20px;font-size:.84rem;color:var(--ink-soft);display:grid;gap:3px}
+.gd-n{position:absolute;right:14px;top:10px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:800 .78rem var(--font-body);background:var(--accent,var(--pink-deep));color:#fff}
+.gd-tips{display:flex;flex-wrap:wrap;gap:8px}.gd-tips .tag{white-space:normal;line-height:1.35}
+.kb-decor{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:2px 10px;margin:8px 0 2px;position:relative;z-index:1;pointer-events:none}
+.kb-dc{width:62px;display:block}.kb-dc svg{display:block;width:100%;height:auto}
+.tkp svg{width:100%;height:auto;display:block}
 
 </style>
 </head>
@@ -2061,6 +2101,7 @@ html[data-laptop] #mf.mf-murup{--mb:calc(98px + env(safe-area-inset-bottom,0px))
         <button type="button" data-go="jurnal"><svg class="i"><use href="#i-pen"/></svg>jurnal syukur</button>
         <button type="button" data-go="kuis"><svg class="i"><use href="#i-quiz"/></svg>kuis surah</button>
         <span class="nav-h" aria-hidden="true">Catatan</span>
+        <button type="button" data-go="panduan"><svg class="i"><use href="#i-star"/></svg>kenali kebunmu</button>
         <button type="button" data-go="tema"><svg class="i"><use href="#i-brush"/></svg>tema web</button>
         <button type="button" data-go="statistik"><svg class="i"><use href="#i-chart"/></svg>statistik</button>
         <button type="button" data-go="kalender"><svg class="i"><use href="#i-cal"/></svg>kalender</button>
@@ -2087,6 +2128,7 @@ html[data-laptop] #mf.mf-murup{--mb:calc(98px + env(safe-area-inset-bottom,0px))
           <section class="page" id="p-tema" hidden></section>
           <section class="page" id="p-toko" hidden></section>
           <section class="page" id="p-mushaf" hidden></section>
+          <section class="page" id="p-panduan" hidden></section>
           <section class="page" id="p-rekam" hidden></section>
           <section class="page" id="p-sekolah" hidden></section>
           <section class="page" id="p-juz" hidden></section>
@@ -3113,10 +3155,10 @@ function tilStreak(){
 const tilMonthSum=(y,mo)=>{const pre=y+'-'+pad(mo+1)+'-';return r1((S.tilawah||[]).filter(x=>x.d.startsWith(pre)).reduce((a,x)=>a+x.p,0))};
 const tilGoalText=p=>p>=PJ&&p%PJ===0?(p/PJ)+' juz':fmtP(p)+' halaman';
 function tilReward(){return clamp(Math.round((S.goals.tilawahPages||5)*8),50,400)}
-function addTil(p,d){
+function addTil(p,d,ref){
   d=d||today();p=r1(p);if(!(p>0))return;
   const g=S.goals,before=tilDay(today()),tb=tilTotal();
-  S.tilawah.push({id:uid(),d,p,ts:new Date().toISOString()});
+  S.tilawah.push(Object.assign({id:uid(),d,p,ts:new Date().toISOString()},ref?{ref:String(ref).slice(0,80)}:{}));
   const gain=earn(Math.max(1,Math.round(p)),'Tilawah',true);
   save();
   const after=tilDay(today()),ta=tilTotal();
@@ -3127,6 +3169,31 @@ function addTil(p,d){
   else if(Math.floor(ta/PJ)>Math.floor(tb/PJ)){sfx('bloom');toast(c('Satu juz lagi selesai dibaca!'))}
   else{sfx('page');toast(c('Tilawah '+fmtP(p)+' halaman dicatat'))}
 }
+
+const _tn=id=>{const e=document.getElementById(id);return e?parseFloat(String(e.value).replace(',','.')):NaN};
+function tilRead(){
+  const m=(document.getElementById('tlMode')||{}).value||'p';
+  if(m==='r'){const a=Math.round(_tn('tlP1')),b=Math.round(_tn('tlP2'));
+    if(!(a>=1&&b>=1&&a<=FULL&&b<=FULL))return{ok:false,err:'Halaman harus 1 sampai 604'};
+    if(b<a)return{ok:false,err:'Halaman akhir tidak boleh lebih kecil'};
+    return{ok:true,p:b-a+1,ref:a===b?'Hal. '+a:'Hal. '+a+'–'+b}}
+  if(m==='j'){const a=Math.round(_tn('tlJ1')),b=Math.round(_tn('tlJ2'));
+    if(b<a)return{ok:false,err:'Juz akhir tidak boleh lebih kecil dari juz awal'};
+    return{ok:true,p:(b-a+1)*PJ,ref:a===b?'Juz '+a:'Juz '+a+'–'+b}}
+  if(m==='s'){const s1=Math.round(_tn('tlS1')),a1=Math.round(_tn('tlA1')),s2=Math.round(_tn('tlS2')),a2=Math.round(_tn('tlA2'));
+    if(!(s1>=1&&s2>=1&&a1>=1&&a2>=1))return{ok:false,err:'Isi surah dan ayatnya dulu'};
+    if(a1>SUR[s1-1].n)return{ok:false,err:SUR[s1-1].tl+' hanya '+SUR[s1-1].n+' ayat'};
+    if(a2>SUR[s2-1].n)return{ok:false,err:SUR[s2-1].tl+' hanya '+SUR[s2-1].n+' ayat'};
+    const i1=absIdx(s1,a1),i2=absIdx(s2,a2);
+    if(i2<i1)return{ok:false,err:'Ayat akhir ada sebelum ayat awal'};
+    const n=i2-i1+1;
+    return{ok:true,p:Math.max(0.1,r1(n/AYP)),ref:s1===s2?SUR[s1-1].tl+' '+a1+(a2>a1?'–'+a2:''):SUR[s1-1].tl+' '+a1+' – '+SUR[s2-1].tl+' '+a2}}
+  let v=_tn('tlAmt'),u=(document.getElementById('tlUnit')||{}).value||'p';
+  if(!(v>0))return{ok:false,err:'Isi jumlahnya dulu ya'};
+  if(u==='j')v*=PJ;else if(u==='a')v/=AYP;
+  return{ok:true,p:Math.min(FULL,v),ref:''};
+}
+function tilSum(){const e=document.getElementById('tlSum');if(!e)return;const r=tilRead();e.textContent=r.ok?'Dicatat: '+(r.ref?r.ref+' · ':'')+fmtP(r.p)+' halaman (±'+fmtJ(r.p)+' juz).':'Patokan: 1 juz = 20 halaman mushaf, 1 halaman ≈ '+Math.round(AYP)+' ayat. Koin tilawah dibatasi per hari.'}
 function tilBars(){
   const t=today(),m=tilMap(),g=S.goals.tilawahPages,vals=[];
   for(let i=6;i>=0;i--){const d=addDays(t,-i);vals.push({d,p:(m[d]||{p:0}).p,i})}
@@ -3138,6 +3205,7 @@ function ringHTML(v,goal,main,sub,done){
   return `<div class="ring"><svg viewBox="0 0 140 140" aria-hidden="true"><circle cx="70" cy="70" r="60" fill="none" style="stroke:var(--pink)" stroke-width="14" opacity=".45"/><circle cx="70" cy="70" r="60" fill="none" style="stroke:${done?'var(--green-deep)':'var(--pink-deep)'}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><div class="c"><b>${main}</b><span>${sub}</span></div></div>`;
 }
 function pTilawah(){
+  setTimeout(tilSum,40);
   const t=today(),g=S.goals,goal=g.tilawahPages,td=tilDay(t),ts=tilStreak(),total=tilTotal(),kh=Math.floor(total/FULL),cur=r1(total-kh*FULL);
   const done=td>=goal,left=r1(Math.max(0,goal-td)),now=new Date(),monthSum=tilMonthSum(now.getFullYear(),now.getMonth());
   let last14=0;for(let i=0;i<14;i++)last14+=tilDay(addDays(t,-i));
@@ -3153,15 +3221,26 @@ function pTilawah(){
       <p style="margin-bottom:6px"><b>${fmtP(td)}</b> halaman (sekitar ${fmtJ(td)} juz, ±${Math.round(td*AYP)} ayat). ${done?'Hadiah misi sudah bisa diklaim di halaman tantangan.':`Tinggal <b>${fmtP(left)}</b> halaman lagi (±${Math.round(left*AYP)} ayat).`}</p>
       <div class="row"><span class="tag">${ico('flame')} streak tilawah ${ts.cur} hari</span><span class="tag">${ico('coin','coin-i')} hadiah target +${tilReward()} koin</span></div></div>
   </div>
-  <div class="card" style="margin-bottom:16px"><h3>Catat tilawah hari ini</h3>
+  <div class="card" style="margin-bottom:16px"><div class="row sp" style="margin-bottom:8px"><h3 style="margin:0">Catat tilawah hari ini</h3><button class="btn sm b" type="button" data-go="mushaf">${ico('book')} Buka mushaf</button></div>
     <div class="row" style="margin-bottom:10px">${[[1,'+1 halaman'],[2,'+2 halaman'],[5,'+5 halaman'],[10,'+10 halaman'],[20,'+1 juz']].map(x=>`<button class="btn sm ${x[0]===20?'y':''}" type="button" data-act="tadd" data-p="${x[0]}">${x[1]}</button>`).join('')}</div>
-    <form id="tilForm" class="grid g2" autocomplete="off" novalidate>
-      <div class="field"><label for="tlAmt">Jumlah</label><input type="number" id="tlAmt" min="0.5" max="604" step="0.5" value="3" inputmode="decimal"></div>
-      <div class="field"><label for="tlUnit">Satuan</label><select id="tlUnit"><option value="p">halaman</option><option value="j">juz</option><option value="a">ayat</option></select></div>
+    <div class="seg" role="group" aria-label="Cara mencatat" id="tlModes" style="margin-bottom:10px;display:flex;flex-wrap:nowrap;width:100%">${[['p','Jumlah'],['r','Hal. A–B'],['j','Juz'],['s','Surah']].map((x,i)=>`<button type="button" class="${i?'':'on'}" data-act="tlmode" data-m="${x[0]}" aria-pressed="${i?'false':'true'}">${x[1]}</button>`).join('')}</div>
+    <form id="tilForm" class="grid g2" style="grid-template-columns:repeat(2,minmax(0,1fr))" autocomplete="off" novalidate>
+      <input type="hidden" id="tlMode" value="p">
+      <div class="field tlg" data-m="p"><label for="tlAmt">Jumlah</label><input type="number" id="tlAmt" min="0.5" max="604" step="0.5" value="3" inputmode="decimal"></div>
+      <div class="field tlg" data-m="p"><label for="tlUnit">Satuan</label><select id="tlUnit"><option value="p">halaman</option><option value="j">juz</option><option value="a">ayat</option></select></div>
+      <div class="field tlg" data-m="r" hidden><label for="tlP1">Dari halaman</label><input type="number" id="tlP1" min="1" max="604" value="1" inputmode="numeric"></div>
+      <div class="field tlg" data-m="r" hidden><label for="tlP2">Sampai halaman</label><input type="number" id="tlP2" min="1" max="604" value="5" inputmode="numeric"></div>
+      <div class="field tlg" data-m="j" hidden><label for="tlJ1">Dari juz</label><select id="tlJ1">${Array.from({length:30},(_,i)=>`<option value="${i+1}">Juz ${i+1}</option>`).join('')}</select></div>
+      <div class="field tlg" data-m="j" hidden><label for="tlJ2">Sampai juz</label><select id="tlJ2">${Array.from({length:30},(_,i)=>`<option value="${i+1}">Juz ${i+1}</option>`).join('')}</select></div>
+      <div class="field tlg" data-m="s" hidden><label for="tlS1">Dari surah</label><select id="tlS1">${SUR.map(s=>`<option value="${s.id}">${s.id}. ${esc(s.tl)}</option>`).join('')}</select></div>
+      <div class="field tlg" data-m="s" hidden><label for="tlA1">Ayat mulai</label><input type="number" id="tlA1" min="1" value="1" inputmode="numeric"></div>
+      <div class="field tlg" data-m="s" hidden><label for="tlS2">Sampai surah</label><select id="tlS2">${SUR.map(s=>`<option value="${s.id}">${s.id}. ${esc(s.tl)}</option>`).join('')}</select></div>
+      <div class="field tlg" data-m="s" hidden><label for="tlA2">Ayat selesai</label><input type="number" id="tlA2" min="1" value="7" inputmode="numeric"></div>
       <div class="field"><label for="tlDate">Tanggal</label><input type="date" id="tlDate" value="${t}" max="${t}"></div>
       <div class="field" style="justify-content:flex-end"><button class="btn g" type="submit">${ico('plus')} Catat</button></div>
     </form>
-    <p class="small muted" style="margin:8px 0 0">Patokan: 1 juz = 20 halaman mushaf, 1 halaman ≈ ${Math.round(AYP)} ayat. Koin tilawah dibatasi per hari.</p></div>
+    <p class="small muted" id="tlSum" style="margin:8px 0 0"></p>
+</div>
   <div class="card" style="margin-bottom:16px"><div class="row sp"><h3 style="margin:0">7 hari terakhir</h3><span class="small muted">hijau = target tercapai</span></div>${tilBars()}</div>
   <div class="grid g2" style="margin-bottom:16px">
     <div class="card cream stack" style="gap:10px"><h3 style="margin:0">Target</h3>
@@ -3180,7 +3259,7 @@ function pTilawah(){
     <p class="small muted">${khDays?`Dengan kecepatan 14 hari terakhir (${fmtP(avg)} halaman per hari), sekitar <b>${khDays}</b> hari lagi menuju khatam.`:'Catat tilawah beberapa hari, nanti perkiraan hari khatamnya muncul di sini.'}</p>
     <div class="garden" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,64px),1fr))">${gdn}</div></div>
   <div class="card cream"><h3>Riwayat tilawah</h3>
-    ${hist.length?`<div class="scroll-x"><table class="hist"><thead><tr><th>Tanggal</th><th class="num">Halaman</th><th class="num">≈ Juz</th><th></th></tr></thead><tbody>${hist.map(x=>`<tr><td>${fmtDate(x.d)}</td><td class="num">${fmtP(x.p)}</td><td class="num">${fmtJ(x.p)}</td><td><button class="btn sm ghost" type="button" data-act="tdel" data-id="${x.id}" aria-label="Hapus catatan ${fmtDate(x.d)}">${ico('x')}</button></td></tr>`).join('')}</tbody></table></div>`:'<p class="muted" style="margin:0">Belum ada catatan tilawah. Catatan pertamamu akan muncul di sini.</p>'}</div>`;
+    ${hist.length?`<div class="scroll-x"><table class="hist"><thead><tr><th>Tanggal</th><th class="num">Halaman</th><th class="num">≈ Juz</th><th></th></tr></thead><tbody>${hist.map(x=>`<tr><td>${fmtDate(x.d)}${x.ref?`<br><span class="small muted">${esc(x.ref)}</span>`:''}</td><td class="num">${fmtP(x.p)}</td><td class="num">${fmtJ(x.p)}</td><td><button class="btn sm ghost" type="button" data-act="tdel" data-id="${x.id}" aria-label="Hapus catatan ${fmtDate(x.d)}">${ico('x')}</button></td></tr>`).join('')}</tbody></table></div>`:'<p class="muted" style="margin:0">Belum ada catatan tilawah. Catatan pertamamu akan muncul di sini.</p>'}</div>`;
 }
 
 /* ============ sunnah ============ */
@@ -3251,6 +3330,11 @@ function pSunnah(){
 (function wireTS(){
   P.tilawah=pTilawah;P.sunnah=pSunnah;
   ACT.tadd=el=>addTil(+el.dataset.p);
+  ACT.tlmode=el=>{const m=el.dataset.m,h=$('#tlMode');if(!h)return;h.value=m;
+    $$('#tlModes button').forEach(b=>{const on=b.dataset.m===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+    $$('#tilForm .tlg').forEach(f=>{f.hidden=f.dataset.m!==m});tilSum()};
+  document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('#tilForm'))tilSum()});
+  document.addEventListener('change',e=>{if(e.target.closest&&e.target.closest('#tilForm'))tilSum()});
   ACT.tdel=el=>{S.tilawah=S.tilawah.filter(x=>x.id!==el.dataset.id);save();renderAll();toast('Catatan dihapus')};
   ACT.sntick=el=>tickSun(el.dataset.id,el.dataset.d);
   ACT.sndel1=el=>{sunDel=el.dataset.id;renderPage()};
@@ -3260,10 +3344,8 @@ function pSunnah(){
     const id=e.target.id;
     if(id==='tilForm'){
       e.preventDefault();
-      let v=parseFloat(String($('#tlAmt').value).replace(',','.')),u=$('#tlUnit').value,d=$('#tlDate').value||today();
-      if(!(v>0)){toast('Isi jumlahnya dulu ya');sfx('oops');return}
-      if(u==='j')v*=PJ;else if(u==='a')v/=AYP;
-      v=Math.min(FULL,v);if(d>today())d=today();addTil(v,d);
+      const r=tilRead();if(!r.ok){toast(r.err);sfx('oops');return}
+      let d=$('#tlDate').value||today();if(d>today())d=today();addTil(r.p,d,r.ref);
     }else if(id==='tilGoalForm'){
       e.preventDefault();
       let v=parseFloat(String($('#tgAmt').value).replace(',','.')),u=$('#tgUnit').value;
@@ -4039,6 +4121,10 @@ ITEMS.acc.push({v:'medali',n:'Medali juara',gl:3});
 ITEMS.bg.push({v:'istana',n:'Istana awan',gl:4});
 ITEMS.pet.push({v:'bintang',n:'Bintang kecil',gl:5});
 ITEMS.hat.push({v:'mahkota',n:'Mahkota raja',gl:6});
+(function extraLevels(){
+  const N=['Lembah Embun','Pantai Mutiara','Gua Kristal','Gunung Salju','Hutan Kunang-kunang','Pulau Awan','Kebun Lampion','Oase Bintang','Danau Cermin','Ladang Lavender','Lembah Pelangi','Kota Cahaya','Menara Langit','Singgasana Fajar'];
+  N.forEach((nm,i)=>{const n=7+i;GL.push({n,q:Math.min(50,40+(n-6)),opt:n>=9?5:4,base:6000+(n-6)*900,name:nm,item:null,title:'Penakluk '+nm})});
+})();
 const G={ph:'menu',juz:1,lvl:1,maxH:5,hearts:5,qs:[],i:0,ans:null,ok:0,miss:[],res:null,fresh:false,done:false,total:0,passed:0,wrong:0,pick:0};
 const shufA=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const refName=(s,a)=>'QS. '+sur(s).tl+' ('+s+') ayat '+a;
@@ -4087,9 +4173,11 @@ function gameFinish(win){
   if(!first)c*=0.3;c+=G.pick*2;c=Math.max(10,Math.round(c/10)*10);
   const gain=earn(c,'Menang game: Lv '+G.lvl+(G.juz?' Juz '+G.juz:' Acak'),false,true);
   g.best[key]=Math.max(g.best[key]||0,stars);g.wins++;g.lastWin=today();if(stars===3)g.perfect++;
-  let item=null;
-  if(!g.levels[G.lvl]){g.levels[G.lvl]=today();const [k,v]=L.item;S.owned[k+':'+v]=true;item=findItem(k,v);item._k=k}
-  G.res={win:true,stars,coins:gain,first,item,pick:G.pick};G.ph='result';save();sfx('menang');
+  let item=null,medal=null,bonus=0;
+  if(!g.levels[G.lvl]){g.levels[G.lvl]=today();
+    if(L.item){const [k,v]=L.item;S.owned[k+':'+v]=true;item=findItem(k,v);item._k=k}
+    else{medal=L.title;bonus=Math.round(L.base*0.4/10)*10;bonus=earn(bonus,'Gelar level '+L.n,false,true)||0}}
+  G.res={win:true,stars,coins:gain+bonus,first,item,medal,bonus,pick:G.pick};G.ph='result';save();sfx('menang');
   try{burst()}catch(e){}
 }
 
@@ -4111,8 +4199,8 @@ function gameResult(){
       <p class="small">${esc(L.name)} · Level ${L.n} · ${G.juz?'Juz '+G.juz:'Acak semua juz'} · ${G.total} gerbang terlewati · salah ${G.wrong}x</p>
       <div class="coin-big" style="justify-content:center">${ico('coin','coin-i')}<b>+${fmtN(r.coins)}</b><span class="small muted">koin</span></div>
       ${r.pick?`<p class="small" style="margin:4px 0 0">Termasuk bonus ${r.pick} bintang yang kamu kumpulkan.</p>`:''}${r.first?'':'<p class="small muted" style="margin:4px 0 0">Menang ulang di level dan juz yang sama dapat 30% hadiah.</p>'}
-      ${it?`<div class="gitem"><span class="th">${thumbFor(it._k,it.v)}</span><div><b>Hadiah baru: ${esc(it.n)}</b><br><span class="small muted">Sudah masuk koleksimu. Pakai di ruang ganti.</span></div></div>`:''}
-      <div class="row" style="justify-content:center;margin-top:12px">${G.lvl<5?`<button class="btn y" type="button" data-act="gnextlvl">Level ${G.lvl+1}</button>`:''}<button class="btn" type="button" data-act="gagain">Main lagi</button><button class="btn ghost" type="button" data-act="gmenu">Menu</button></div></div>`;
+      ${r.medal?`<div class="gitem"><span class="th"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="22" r="13" fill="#ffd34d" stroke="#8f5f6c" stroke-width="2.5"/><path d="M12 4l5 10M28 4l-5 10" stroke="#e0689b" stroke-width="5"/><path d="M20 15l2.200 5 5.300.5-4 3.600 1.200 5.200-4.700-2.800-4.700 2.800 1.200-5.200-4-3.600 5.300-.5z" fill="#fff"/></svg></span><div><b>Gelar baru: ${esc(r.medal)}</b><br><span class="small muted">Bonus +${fmtN(r.bonus)} koin untuk level pertama kali.</span></div></div>`:''}${it?`<div class="gitem"><span class="th">${thumbFor(it._k,it.v)}</span><div><b>Hadiah baru: ${esc(it.n)}</b><br><span class="small muted">Sudah masuk koleksimu. Pakai di ruang ganti.</span></div></div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${G.lvl<GL.length?`<button class="btn y" type="button" data-act="gnextlvl">Level ${G.lvl+1}</button>`:''}<button class="btn" type="button" data-act="gagain">Main lagi</button><button class="btn ghost" type="button" data-act="gmenu">Menu</button></div></div>`;
   }
   return `<div class="ribbon"><span class="star">${ico('star')}</span><h2>Nyawa habis</h2></div>
     <div class="card solid cream gres">${big}
@@ -4125,11 +4213,11 @@ function gameMenu(){
   const g=S.games;
   const juzOpt=['<option value="0"'+(G.juz===0?' selected':'')+'>Acak semua juz (hadiah +20%)</option>'].concat(Array.from({length:30},(_,i)=>{const j=i+1;let b=0;for(let l=1;l<=GL.length;l++)if(g.best[j+'-'+l])b=l;return `<option value="${j}" ${G.juz===j?'selected':''}>Juz ${j}${b?' · sudah menang sampai Lv '+b:''}</option>`})).join('');
   const lv=GL.map(L=>{
-    const [k,v]=L.item,it=findItem(k,v),got=!!g.levels[L.n];
+    const it=L.item?findItem(L.item[0],L.item[1]):{n:L.title},got=!!g.levels[L.n];
     return `<button type="button" class="glv" data-act="glvl" data-l="${L.n}" aria-pressed="${G.lvl===L.n}"><b>Level ${L.n}</b><span>${L.q} soal</span><span class="small muted">${esc(L.name)}</span><span class="small">${ico('coin','coin-i')} sampai ${fmtN(Math.round(L.base*1.5*1.3*(G.juz===0?1.2:1)/10)*10)}</span><span class="small ${got?'':'muted'}">${got?'✓ ':'Hadiah: '}${esc(it.n)}</span></button>`}).join('');
   const map=Array.from({length:30},(_,i)=>{const j=i+1;let b=0,st=0;for(let l=1;l<=GL.length;l++)if(g.best[j+'-'+l]){b=l;st=g.best[j+'-'+l]}
     return `<button type="button" class="juz ${b?'':'dim'}" data-act="gpickjuz" data-j="${j}" aria-label="Juz ${j}${b?', menang sampai level '+b:', belum dimainkan'}"><span class="n">${j}</span><span class="s">${b?'Lv '+b:'-'}</span>${b?starRow(st):''}</button>`}).join('');
-  const trophies=GL.map(L=>{const [k,v]=L.item,it=findItem(k,v),got=!!g.levels[L.n];return `<div class="gtro ${got?'got':''}"><span class="th">${thumbFor(k,v)}</span><b>${esc(it.n)}</b><span class="small muted">${got?'Sudah dimiliki':'Menangkan Lv '+L.n}</span></div>`}).join('');
+  const trophies=GL.map(L=>{const it=L.item?findItem(L.item[0],L.item[1]):{n:L.title},got=!!g.levels[L.n];return `<div class="gtro ${got?'got':''}"><span class="th">${L.item?thumbFor(L.item[0],L.item[1]):'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="22" r="13" fill="'+(got?'#ffd34d':'#d8d0dc')+'" stroke="#8f5f6c" stroke-width="2.5"/><path d="M12 4l5 10M28 4l-5 10" stroke="#e0689b" stroke-width="5"/></svg>'}</span><b>${esc(it.n)}</b><span class="small muted">${got?'Sudah dimiliki':'Menangkan Lv '+L.n}</span></div>`}).join('');
   return `<div class="ribbon"><span class="star">${ico('star')}</span><h2>Petualangan Sambung Ayat</h2></div>
   <div class="card solid cream row" style="gap:14px;margin-bottom:16px;align-items:center">
     <div style="width:104px;flex:none">${charSVG(Object.assign({},S.char,{bg:'none'}),'happy',{nobg:true})}</div>
@@ -4141,7 +4229,7 @@ function gameMenu(){
     <div><div class="lbl" id="lblH" style="font-weight:700;margin-bottom:6px">Jumlah nyawa</div><div class="seg" role="group" aria-labelledby="lblH"><button type="button" data-act="ghearts" data-h="5" aria-pressed="${G.maxH===5}">5 nyawa</button><button type="button" data-act="ghearts" data-h="3" aria-pressed="${G.maxH===3}">3 nyawa (hadiah +30%)</button></div></div>
     <div class="row"><button class="btn" type="button" data-act="gstart">Mulai petualangan</button><span class="small muted">${g.plays} kali main · ${g.wins} menang · ${g.perfect} sempurna</span></div>
   </div>
-  <div class="card cream" style="margin-bottom:16px"><h3 style="margin-top:0">Hadiah khusus</h3><p class="small muted" style="margin-top:0">Menangkan tiap level untuk pertama kali, dapat satu item khusus yang tidak dijual di toko.</p><div class="gtros">${trophies}</div></div>
+  <div class="card cream" style="margin-bottom:16px"><h3 style="margin-top:0">Hadiah khusus</h3><p class="small muted" style="margin-top:0">Menangkan tiap level untuk pertama kali: level 1–6 memberi item khusus yang tidak dijual di toko, level 7–20 memberi gelar dan bonus koin.</p><div class="gtros">${trophies}</div></div>
   <div class="card cream"><h3 style="margin-top:0">Peta juz</h3><p class="small muted" style="margin-top:0">Ketuk juz untuk memilihnya. Angka menunjukkan level tertinggi yang sudah kamu menangkan.</p><div class="garden" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,70px),1fr))">${map}</div></div>`;
 }
 function pGames(){return gameMenu()}
@@ -4193,6 +4281,8 @@ const THEMES={
  5:{sky:['#9cccff','#eef6ff'],far:'#d3e4fb',mid:'#c1d6f5',top:'#ffffff',dirt:'#dbe7fb',dirt2:'#c9d9f5',deco:'castle'},
  6:{sky:['#2b2260','#7a5aa6'],far:'#4a3b80',mid:'#3d3270',top:'#5b4a9a',dirt:'#3a2f66',dirt2:'#2f2658',deco:'castle'}
 };
+(function(){const P=[['#c8f0e6','#f2fffb','#a8dcc8','#86cbb0','#6fc2a0','#bfa684','#aa9170','flower'],['#8fe0ff','#fff4de','#f6e3b8','#f0d79a','#f7e6b4','#e8cf94','#d8bd80','dune'],['#3a2f66','#8b7bc8','#6a5aa8','#5a4a98','#7d6cc2','#4a3c80','#3c3070','peak'],['#bfe3ff','#ffffff','#dfeaf7','#cddcf0','#ffffff','#e3ecf8','#d0ddf0','peak'],['#17324a','#2f6b6e','#245a55','#1d4a47','#2f7a5a','#3b2f25','#2d241c','tree'],['#a6d8ff','#f6fbff','#ffffff','#eef6ff','#ffffff','#e6f0ff','#d4e3fa','castle'],['#ff9a8b','#ffe0a8','#e8907f','#d9786b','#e88f6f','#9c5a45','#85493a','tree'],['#1b2a5c','#5a6fc0','#c9a95a','#b8944a','#d4b565','#8a6e3a','#765c2e','dune'],['#b5e9ff','#f0fbff','#8fd0e6','#6fbcd8','#82cbe0','#7aa9b8','#6a96a5','flower'],['#e6d4ff','#fff0fa','#c9a8ef','#b58ee6','#a67bdc','#8c6aa8','#795a94','flower'],['#ffd1e8','#d8f0ff','#f3b6d6','#a9dcf3','#bfe9a8','#d6b4a0','#c2a08c','flower'],['#1a1440','#6a4aa0','#3a2f6a','#2e2556','#4d3c8a','#2a2250','#211a42','castle'],['#7fb8ff','#fdfdff','#d8e6fb','#c4d6f5','#ffffff','#cfdcf3','#bccbe8','castle'],['#ff8fb1','#ffe6a0','#f0a2b8','#e58aa6','#f5c46a','#a8586f','#8f485d','castle']];
+  P.forEach((a,i)=>{THEMES[7+i]={sky:[a[0],a[1]],far:a[2],mid:a[3],top:a[4],dirt:a[5],dirt2:a[6],deco:a[7],night:[3,11,12,14,18].includes(i+7)}})})();
 let GM=null;   // sesi game yang sedang berjalan
 const gmKeys={left:false,right:false,jump:false};
 const gmRand=(a,b)=>a+Math.random()*(b-a);
@@ -4299,7 +4389,7 @@ function gmKeyDown(e){
   if(!GM)return;const k=e.key;
   const map={ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right',ArrowUp:'jump',w:'jump',W:'jump',' ':'jump'};
   if(map[k]){if(GM.state==='run'||GM.state==='opening'||GM.state==='ask'){e.preventDefault()}if(!e.repeat&&map[k]==='jump')GM.p.buf=0.14;gmKeys[map[k]]=true;return}
-  if(GM.state==='ask'&&GM.q&&!GM.fb&&/^[1-4]$/.test(k)){const b=$('#gmPanel [data-i="'+(+k-1)+'"]');if(b)b.click()}
+  if(GM.state==='ask'&&GM.q&&!GM.fb&&/^[1-5]$/.test(k)){const b=$('#gmPanel [data-i="'+(+k-1)+'"]');if(b)b.click()}
   else if((k==='Enter')&&GM.fb){const b=$('#gmPanel [data-act="gmnext"]');if(b)b.click()}
   else if(k==='Escape'&&['run'].includes(GM.state)){GM.prev='run';GM.state='pause';showExit()}
 }
@@ -4404,6 +4494,7 @@ function gmStep(dt){
     else p.on=false;
     if(p.y>GY+300){sfx('jatuh');p.x=Math.max(120,p.safe-30);p.y=GY-2;p.vy=0;p.on=false;p.hurt=.6;GM.shake=.25}
     p.run+=Math.abs(p.vx)*dt*0.06;
+    if(p.on&&Math.abs(p.vx)>1){const s=Math.floor(p.run*2.4/Math.PI);if(s!==p._st){p._st=s;if(Math.random()<.7)GM.parts.push({x:p.x-p.face*12,y:p.y-2,vx:-p.face*gmRand(10,40),vy:gmRand(-30,-8),g:50,t:0,life:.35,c:'#ffffffb0',r:gmRand(2,3.6)})}}
     // bintang
     for(const s of W.stars){if(!s.got&&Math.abs(s.x-p.x)<26&&Math.abs(s.y-(p.y-GV.PH/2))<36){s.got=true;G.pick++;sfx('bintang');GM.parts.push(...sparks(s.x,s.y,6));updHUD()}}
     // pemicu rintangan
@@ -4435,7 +4526,7 @@ function gmDraw(){
   // matahari / bulan / bintang
   const ft=g.t;
   if(g.L.n===4){c.fillStyle='#ffe6a8';c.beginPath();c.arc(g.w*0.78,g.gy-g.S*150,38*S/1.2,0,7);c.fill()}
-  else if(g.L.n>=5){c.fillStyle='#fff';for(let i=0;i<14;i++){const sx=(i*137%g.w),sy=(i*71%(g.gy*0.6));c.globalAlpha=.4+.4*Math.sin(ft*2+i);c.fillRect(sx,sy,3,3)}c.globalAlpha=1}
+  else if(g.L.n>=5&&(g.L.n<=6||th.night)){c.fillStyle='#fff';for(let i=0;i<14;i++){const sx=(i*137%g.w),sy=(i*71%(g.gy*0.6));c.globalAlpha=.4+.4*Math.sin(ft*2+i);c.fillRect(sx,sy,3,3)}c.globalAlpha=1}
   else{c.fillStyle=g.L.n===3?'#ffcf6e':'#fff3a8';c.beginPath();c.arc(g.w*0.8,g.gy-g.S*170,30*S/1.2,0,7);c.fill()}
   // awan
   c.fillStyle='rgba(255,255,255,.85)';
@@ -4540,15 +4631,29 @@ function drawChest(g){
 function drawPlayer(g){
   const c=g.ctx,p=g.p,sp=g.spr;if(!sp)return;
   const mood=g.state==='won'||g.state==='wait'||g.state==='end'?(G.res&&!G.res.win?'sad':'win'):(G.hearts<=0?'sad':(p.hurt>0?'hurt':(p.happy>0?'happy':'idle')));
-  const im=sp[mood]||sp.idle,w=64,h=80;
-  // bayangan
-  c.fillStyle='rgba(0,0,0,.15)';c.beginPath();c.ellipse(p.x,GV.GY+2,18,5,0,0,7);c.fill();
-  c.save();c.translate(p.x,p.y+4);
-  const sq=p.on?(Math.abs(p.vx)>1?Math.sin(g.t*16)*0.04:0):Math.max(-0.18,Math.min(0.18,-p.vy/4500));
-  c.rotate(p.on?(Math.abs(p.vx)>1?Math.sin(g.t*16)*0.07:0):Math.max(-.2,Math.min(.2,p.vx*0.0005*p.face)));
-  c.scale(p.face<0?-1:1,1);c.scale(1-sq,1+sq);
-  const bob=p.on&&Math.abs(p.vx)>1?-Math.abs(Math.sin(g.t*16))*4:0;
-  if(im&&im.complete)c.drawImage(im,-w/2,-h+bob,w,h);
+  const im=sp[mood]||sp.idle;if(!im||!im.complete)return;
+  const w=64,h=80,CUT=.925,bodyH=h*CUT,moving=p.on&&Math.abs(p.vx)>1,air=!p.on,ph=p.run*2.4,t=g.t;
+  const gap=Math.max(0,GV.GY-p.y),sh=Math.max(.45,1-gap/220);
+  c.fillStyle='rgba(0,0,0,'+(.16*sh)+')';c.beginPath();c.ellipse(p.x,GV.GY+2,19*sh,5*sh,0,0,7);c.fill();
+  c.save();c.translate(p.x,p.y);c.scale(p.face<0?-1:1,1);
+  const footH=7,bob=moving?-Math.abs(Math.sin(ph))*5:(air?0:Math.sin(t*2.2)*.9);
+  // kaki: bergantian melangkah, terangkat, atau ditekuk saat melompat
+  for(let i=0;i<2;i++){
+    const a=ph+i*Math.PI;let fx,fy;
+    if(air){const up=p.vy<0;fx=(i?7:-7)+(up?(i?3:-3):(i?6:-6))*.5;fy=up?-9-i*2:-4+i*1}
+    else if(moving){fx=(i?4:-4)+Math.sin(a)*11;fy=-Math.max(0,Math.cos(a))*7}
+    else{fx=i?6:-6;fy=0}
+    const hx=i?5:-5,hy=-footH+bob+3;
+    c.strokeStyle='#8f5f6c';c.lineWidth=3.2;c.lineCap='round';c.beginPath();c.moveTo(hx,hy);c.lineTo(fx,fy-2.5);c.stroke();
+    c.fillStyle=i?'#d98aa6':'#c06a86';c.strokeStyle='#8f5f6c';c.lineWidth=2;c.beginPath();c.ellipse(fx+1.5,fy-2.4,8,4.4,0,0,7);c.fill();c.stroke();
+  }
+  // badan: condong ke depan, ujung baju berayun, memantul tiap langkah
+  c.translate(0,-footH+bob);
+  const sq=air?Math.max(-.16,Math.min(.16,-p.vy/4200)):(moving?Math.sin(ph*2)*.025:Math.sin(t*2.2)*.012);
+  c.rotate(moving?.07+Math.sin(ph*2)*.025:(air?Math.max(-.14,Math.min(.14,p.vy*0.0002+.04)):0));
+  c.transform(1,0,moving?Math.sin(ph)*.07:(air?-.04:0),1,0,0);
+  c.scale(1-sq,1+sq);
+  c.drawImage(im,0,0,im.width,im.height*CUT,-w/2,-bodyH,w,bodyH);
   c.restore();
 }
 
@@ -4995,9 +5100,10 @@ function heatHTML(){
   for(let i=0;i<weeks*7+tdt.getDay()+1;i++){
     const d=addDays(start,i);if(d>t)break;
     const a=actCount(d,M);if(a)active++;best=Math.max(best,a);
-    cells+=`<i class="l${a}" title="${fmtD(d)}: ${a} jenis kegiatan" aria-hidden="true"></i>`;
+    const dd=parseD(d),dn=dd.getDate();
+    cells+=`<i class="l${a}${dn===1?' m1':''}" title="${fmtD(d)}: ${a} jenis kegiatan" aria-hidden="true"><b>${dn}</b>${dn===1?'<u>'+['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][dd.getMonth()]+'</u>':''}</i>`;
   }
-  return {html:`<div class="heat" role="img" aria-label="Peta aktivitas 20 pekan terakhir">${cells}</div>`,active};
+  return {html:`<div class="heat" id="heatMap" role="img" aria-label="Peta aktivitas 20 pekan terakhir">${cells}</div>`,active};
 }
 function weekBars(){
   const t=today(),dm=dayMap(),vals=[];
@@ -5016,6 +5122,7 @@ function bestHour(){
   return {h:bi,list:h};
 }
 function pStatistik(){
+  setTimeout(()=>{const h=document.getElementById('heatMap');if(h)h.scrollLeft=h.scrollWidth},40);
   const si=streakInfo(),all=S.sessions,tot=all.reduce((a,x)=>a+x.min,0),ay=all.reduce((a,x)=>a+x.ayat,0);
   const days=Object.keys(si.map).length,tp=tilTotal(),ts=tilStreak(),hr=heatHTML(),bh=bestHour();
   const g=S.games,hs=S.haf;
@@ -5025,7 +5132,7 @@ function pStatistik(){
   const hrTxt=bh?`Kamu paling rajin murojaah sekitar <b>jam ${pad(bh.h)}.00–${pad((bh.h+1)%24)}.00</b>. Pasang pengingat sedikit sebelum jam itu supaya makin konsisten.`:'Catat minimal 3 sesi murojaah dulu, nanti kelihatan jam berapa kamu paling rajin.';
   return `<div class="ribbon"><span class="star">${ico('star')}</span><h2>Statistik &amp; lencana</h2></div>
   <div class="card solid cream" style="margin-bottom:16px"><div class="row sp"><h3 style="margin:0">Peta aktivitas</h3><span class="tag">${hr.active} hari aktif / 20 pekan</span></div>
-    <p class="small muted" style="margin:4px 0 8px">Tiap kotak = satu hari. Makin pekat, makin banyak jenis kegiatan (murojaah, tilawah, sunnah, hafalan) yang kamu kerjakan.</p>${hr.html}
+    <p class="small muted" style="margin:4px 0 8px">Tiap kotak = satu hari, angkanya tanggal (tanggal 1 diberi nama bulan). Makin pekat, makin banyak jenis kegiatan (murojaah, tilawah, sunnah, hafalan) yang kamu kerjakan.</p>${hr.html}
     <div class="row small muted" style="gap:6px;align-items:center">sedikit ${[0,1,2,3,4].map(i=>`<span class="heat"><i class="l${i}"></i></span>`).join('')} banyak</div></div>
   <div class="statgrid">${tiles.map(x=>tile(x[0],x[1])).join('')}</div>
   <div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Menit murojaah per pekan</h3><p class="small muted" style="margin-top:0">Hijau = target pekan tercapai (${S.goals.minutes*S.goals.weekDays} menit).</p>${weekBars()}</div>
@@ -5465,7 +5572,7 @@ function gsTick(){
   const vol=document.hidden?0:(over?0:(st==='ask'?0.3:(st==='pause'?0.12:1)));
   g.setTargetAtTime(vol*0.75,c.currentTime,over?0.5:0.22);
   if(over||document.hidden)return;
-  const eighth=60/GTEMPO[(GM.L.n||1)-1]/2;
+  const eighth=60/GTEMPO[Math.min(GTEMPO.length-1,(GM.L.n||1)-1)]+Math.max(0,(GM.L.n||1)-GTEMPO.length)*2/2;
   while(GS.next<c.currentTime+0.5){gsSched(GS.next,GS.step,eighth);GS.next+=eighth;GS.step++}
 }
 function gsStart(){
@@ -6364,6 +6471,7 @@ function closeBuy(){const m=document.getElementById('buyM');if(m)m.remove();BM=n
 function buyModal(o){closeBuy();BM=o;const m=document.createElement('div');m.id='buyM';
   m.innerHTML='<div class="bm" role="dialog" aria-modal="true"><h3>'+esc(o.title)+'</h3><p class="small muted">'+esc(o.desc||'')+'</p><div class="bmp">'+ico('coin','coin-i')+' <b>'+fmtN(o.price)+'</b><span class="small muted"> · saldomu '+fmtN(S.coins||0)+'</span></div><div class="row" style="gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="btn y" data-act="bmbuy">Beli</button>'+(o.tryFn?'<button type="button" class="btn ghost" data-act="bmtry">Coba dulu</button>':'')+'<button type="button" class="btn ghost" data-act="bmno">Batal</button></div></div>';
   m.addEventListener('click',e=>{if(e.target===m)ACT.bmno()});document.body.appendChild(m);sfx('pop')}
+window.kmBuy=buyModal;window.kmSpend=spend;
 ACT.bmno=()=>{if(BM&&BM.undo)BM.undo();closeBuy()};
 ACT.bmtry=()=>{if(!BM)return;const o=BM;o.tryFn();closeBuy();toast('Mencoba '+o.title+'. Ketuk lagi untuk membeli.');setTimeout(()=>{if(o.undo&&!o.bought)o.undo()},9000)};
 ACT.bmbuy=()=>{const o=BM;if(!o)return;if(!spend(o.price,o.title))return;S.owned[o.key]=true;o.bought=true;save();closeBuy();sfx('buy');try{burst()}catch(e){}
@@ -6628,7 +6736,7 @@ const MUR=(function(){
   const ayC=new Map();
   function ayHTML(s,a){
     const k=s*1000+a;let h=ayC.get(k);if(h)return h;
-    h=`<span class="mf-ay" id="mf-${s}-${a}" data-act="mfay" data-s="${s}" data-a="${a}">${tajwidize(Q.a[s][a-1][0]).html} <span class="mf-no">${AD(a)}</span></span> `;
+    h=`<span class="mf-ay" id="mf-${s}-${a}" data-act="mfay" data-s="${s}" data-a="${a}">${tajwidize(Q.a[s][a-1][0]).html}&nbsp;<span class="mf-no" data-l="${String(a).length}">${AD(a)}</span></span> `;
     if(ayC.size>1500)ayC.clear();ayC.set(k,h);return h;
   }
   const bsm=()=>Q.a[1][0][0].replace(/\s*$/,'');
@@ -7741,7 +7849,7 @@ function butterflies(host,n=3,cols){bfs.forEach(b=>b.el.remove());bfs=[];if(redu
 function bl(t){if(!bfs.length){bfRun=false;return}
  bfs.forEach((b,i)=>{b.ph+=.03;const tx=ptr.x+Math.cos(b.ph*1.3+i*2)*(70+i*30),ty=ptr.y+Math.sin(b.ph*1.7+i)*(50+i*20)-30;const ax=(tx-b.x)*.0035+Math.sin(b.ph*3)*.06,ay=(ty-b.y)*.0035+Math.cos(b.ph*2.4)*.06;b.vx=(b.vx+ax)*.965;b.vy=(b.vy+ay)*.965;b.x+=b.vx;b.y+=b.vy;const ang=Math.atan2(b.vy,b.vx)*57.3+90;b.el.style.transform=`translate3d(${b.x}px,${b.y}px,0) rotate(${ang*.3}deg) scale(${b.s})`});
  requestAnimationFrame(bl)}
-return{spawn,butterflies,set(v){on=v;if(on)start();else parts.length=0},start,clearBf(){bfs.forEach(b=>b.el.remove());bfs=[]}};
+return{spawn,butterflies,set(v){on=v;if(on)start();else parts.length=0},amb(v){amb=!!v;if(!amb)for(let i=parts.length-1;i>=0;i--)if(parts[i].amb)parts.splice(i,1);else{}if(amb&&on)start()},start,clearBf(){bfs.forEach(b=>b.el.remove());bfs=[]}};
 })();
 
 return{A,SFX,G,FX};
@@ -7881,7 +7989,7 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches){
   const cand=[()=>scrollY||0,()=>se().scrollTop||0,()=>(document.body&&document.body.scrollTop)||0,()=>(src&&src.scrollTop)||0];
   let lastC=cand.map(f=>f()),lt=0,v=0,sv=0,raf=0,dist=0,lw=0,idle=0,fx=innerWidth/2,fy=innerHeight*.7;
   const delta=()=>{let best=0;cand.forEach((f,i)=>{const n=f(),d=n-lastC[i];lastC[i]=n;if(Math.abs(d)>Math.abs(best))best=d});return best};
-  const burst=(dir,spd)=>{if(!isKel()||R.dataset.fx==='lite')return;const n=Math.min(10,5+Math.round(spd*4));FX.spawn(fx,fy,n,{sp:3.5+spd*2.5,up:dir>0?3.2:-.5,sz:1.05+spd*.25,dec:.016,g:.05})};
+  const burst=(dir,spd)=>{if(!isKel()||R.dataset.fx==='lite'||R.dataset.leaf==='0')return;const n=Math.min(10,5+Math.round(spd*4));FX.spawn(fx,fy,n,{sp:3.5+spd*2.5,up:dir>0?3.2:-.5,sz:1.05+spd*.25,dec:.016,g:.05})};
   function loop(t){
     const dt=Math.max(6,t-(lt||t-16));lt=t;const raw=delta()/dt;
     v+=(raw-v)*.4;const tg=Math.max(-1,Math.min(1,v/1.5));sv+=(tg-sv)*.28;
@@ -8631,14 +8739,252 @@ const oB2=bootApp;bootApp=function(u){if(SO.started&&u!==window.__soUser)reset()
     let h=oT();
     const m=get(KM)==='lite'?'lite':'full';
     const card='<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Kelancaran efek kaca</h3><div class="seg" role="group" aria-label="Kelancaran">'+[['full','Penuh (kaca asli)'],['lite','Hemat']].map(x=>'<button type="button" data-act="perfmode" data-v="'+x[0]+'" aria-pressed="'+(m===x[0])+'">'+x[1]+'</button>').join('')+'</div><p class="small muted" style="margin:8px 0 0">Penuh: liquid glass asli dengan pembiasan dan semua efek scroll. Hemat: kaca tanpa pembiasan dan animasi latar dikurangi.</p></div>';
+    const lf=get('km-leaf')==='0'?'0':'1';
+    const card2='<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Daun &amp; kelopak yang beterbangan</h3><div class="seg" role="group" aria-label="Daun beterbangan">'+[['1','Hidup'],['0','Mati']].map(x=>'<button type="button" data-act="leafmode" data-v="'+x[0]+'" aria-pressed="'+(lf===x[0])+'">'+x[1]+'</button>').join('')+'</div><p class="small muted" style="margin:8px 0 0">Animasi daun dan kelopak yang jatuh dan keluar saat kamu scroll. Matikan kalau mengganggu atau HP terasa berat. Kaca dan efek lainnya tetap ada.</p></div>';
     const mark='<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Ukuran tampilan</h3>';
-    return h.includes(mark)?h.replace(mark,card+mark):card+h;
+    return h.includes(mark)?h.replace(mark,card+card2+mark):card+card2+h;
   };
+  const leafApply=()=>{const off=get('km-leaf')==='0';document.documentElement.dataset.leaf=off?'0':'1';try{KL.FX.amb(!off)}catch(e){}};
+  setTimeout(leafApply,300);
+  ACT.leafmode=el=>{put('km-leaf',el.dataset.v);leafApply();try{renderPage()}catch(e){}try{toast(el.dataset.v==='0'?'Daun beterbangan dimatikan':'Daun beterbangan dihidupkan')}catch(e){}};
   ACT.perfmode=el=>{
     mode=el.dataset.v;put(KM,mode);put(KP,'0');tries=0;
     apply(mode==='lite'?2:0,false);
     try{renderPage()}catch(e){}
     try{toast(mode==='full'?'Efek kaca penuh':mode==='lite'?'Mode hemat aktif':'Kelancaran diatur otomatis')}catch(e){}
+  };
+})();
+
+/* ============ KENALI KEBUNMU: panduan fitur bergambar ============ */
+(function panduan(){
+  const A='var(--accent,var(--pink-deep))',PD='var(--pink-deep)',CR='var(--cream)',PP='var(--paper,#fff)',LN='var(--line)',YL='var(--yellow,#f7e08a)',GR='var(--green-deep,#5fa76a)',BL='var(--blue,#9bbbe8)',IK='var(--ink-soft,#7a5c66)';
+  const R=(x,y,w,h,r,f,s,o)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${f}"${s?` stroke="${s}" stroke-width="2"`:''}${o?` opacity="${o}"`:''}/>`;
+  const C=(x,y,r,f,s)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}"${s?` stroke="${s}" stroke-width="3"`:''}/>`;
+  const T=(x,y,t,z,f,a,w)=>`<text x="${x}" y="${y}" font-size="${z||11}" font-weight="${w||700}" fill="${f||IK}" text-anchor="${a||'start'}" font-family="Inter,system-ui,sans-serif">${t}</text>`;
+  const L=(x,y,w,f)=>R(x,y,w,6,3,f||LN,0,.35);
+  const flower=(x,y,r,f)=>{let s='';for(let i=0;i<5;i++){const a=i*72*Math.PI/180;s+=C(x+Math.sin(a)*r,y-Math.cos(a)*r,r*.8,f||A)}return s+C(x,y,r*.55,YL)};
+  const star8=(x,y,r)=>`<g transform="translate(${x} ${y})"><rect x="${-r}" y="${-r}" width="${2*r}" height="${2*r}" rx="3" fill="none" stroke="${PD}" stroke-width="2"/><rect x="${-r}" y="${-r}" width="${2*r}" height="${2*r}" rx="3" fill="none" stroke="#d4a73f" stroke-width="2" transform="rotate(45)"/><circle r="${r*.62}" fill="${PP}"/></g>`;
+  const phone=(inner)=>`<svg viewBox="0 0 320 150" role="img" aria-hidden="true">${R(1,1,318,148,18,CR,LN)}${R(14,12,292,22,11,A,0,.9)}${C(30,23,6,PP,0)}${R(44,19,60,8,4,PP,0,.9)}${inner}</svg>`;
+  const ring=(x,y,r,p,col)=>{const c=2*Math.PI*r;return `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${LN}" stroke-opacity=".25" stroke-width="9"/><circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${col||A}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c*p} ${c}" transform="rotate(-90 ${x} ${y})"/>`};
+  const ILL={
+    murojaah:()=>phone(ring(80,92,38,.68)+T(80,97,'12:40',17,PD,'middle',800)+R(150,60,140,16,8,PP,LN)+R(150,84,100,16,8,PP,LN)+R(150,110,60,24,12,A)+T(180,127,'Mulai',11,PP,'middle',800)+C(270,122,12,YL,LN)),
+    juz:()=>phone([0,1,2,3,4,5].map(i=>flower(46+i*46,70+(i%2)*6,10,i<3?A:BL)).join('')+[0,1,2,3,4,5].map(i=>R(30+i*46,98,32,10,5,i<3?YL:PP,LN)).join('')+L(40,124,230)),
+    mushaf:()=>phone(R(70,40,180,104,10,PP,LN)+[0,1,2,3,4,5].map(i=>L(82,50+i*13,150-(i%3)*8,PD)).join('')+star8(240,63,7)+star8(120,89,7)+R(96,122,128,18,9,A,0,.92)+C(110,131,6,PP)+R(122,128,70,6,3,PP,0,.8)+C(206,131,6,PP)),
+    tilawah:()=>phone(ring(70,90,32,.55,GR)+T(70,95,'5/9',15,PD,'middle',800)+R(122,48,170,16,8,PP,LN)+['Jumlah','Hal.','Juz','Surah'].map((x,i)=>R(122+i*43,72,39,16,8,i==3?A:PP,LN)+T(141+i*43,83,x,8,i==3?PP:IK,'middle')).join('')+R(122,96,80,16,8,PP,LN)+R(210,96,82,16,8,PP,LN)+R(122,118,170,18,9,GR)+T(207,131,'Catat',11,PP,'middle',800)),
+    hafalan:()=>phone([0,1,2].map(i=>R(26,44+i*32,268,26,10,PP,LN)+T(40,61+i*32,['Al-Fatihah','Al-Ikhlas','An-Nas'][i],11,PD)+R(160,52+i*32,120,10,5,LN,0,.2)+R(160,52+i*32,[120,84,40][i],10,5,[GR,YL,A][i])).join('')),
+    sunnah:()=>phone([0,1,2,3].map(i=>R(26+i*70,46,62,58,12,PP,LN)+C(57+i*70,66,10,i<2?YL:LN)+T(57+i*70,92,['Dhuha','Tahajud','Rawatib','Puasa'][i],9,IK,'middle')).join('')+R(26,114,268,14,7,GR,0,.85)),
+    ibadah:()=>phone([0,1,2,3,4].map(i=>C(44+i*58,70,18,i<3?GR:PP,LN)+T(44+i*58,96,['Subuh','Dzuhur','Ashar','Maghrib','Isya'][i],9,IK,'middle')).join('')+R(26,108,268,22,11,PP,LN)+T(160,123,'Dzikir pagi &amp; petang',10,PD,'middle')),
+    tajwid:()=>phone(T(280,78,'قَالَ ٱللَّهُ',20,PD,'end',700)+[['Ghunnah','#e0689b'],['Qalqalah','#4a9bd0'],['Mad','#c9a227'],['Idgham','#5fa76a']].map((x,i)=>R(26+(i%2)*134,92+Math.floor(i/2)*22,124,18,9,PP,LN)+C(40+(i%2)*134,101+Math.floor(i/2)*22,5,x[1])+T(52+(i%2)*134,104+Math.floor(i/2)*22,x[0],9,IK)).join('')),
+    games:()=>phone(R(26,44,268,34,12,PP,LN)+T(160,66,'Sambung ayat: ......',12,PD,'middle')+[0,1,2].map(i=>R(26+i*92,88,84,30,12,i==1?A:PP,LN)+T(68+i*92,107,['A','B','C'][i],12,i==1?PP:IK,'middle')).join('')+[0,1,2].map(i=>C(40+i*18,134,6,A)).join('')),
+    tantangan:()=>phone([0,1,2].map(i=>R(26,44+i*30,268,24,10,PP,LN)+C(42,56+i*30,7,i<2?GR:LN)+L(58,53+i*30,130)+R(236,48+i*30,52,16,8,YL,LN)+T(262,60+i*30,'+50',10,PD,'middle',800)).join('')),
+    karakter:()=>phone(C(90,86,34,PP,LN)+C(78,80,4,PD)+C(102,80,4,PD)+`<path d="M78 94q12 9 24 0" stroke="${PD}" stroke-width="3" fill="none" stroke-linecap="round"/>`+R(76,58,28,10,5,A)+[0,1,2].map(i=>R(160+i*46,50,40,40,12,PP,LN)+C(180+i*46,70,10,[A,BL,YL][i])).join('')+R(160,100,136,22,11,YL,LN)+T(228,115,'Beli · 150 koin',10,PD,'middle')),
+    kebun:()=>phone(R(14,92,292,44,0,GR,0,.35)+[0,1,2,3,4,5,6].map(i=>`<path d="M${40+i*40} 118v-30" stroke="${GR}" stroke-width="3"/>`+flower(40+i*40,82,9,[A,BL,YL][i%3])).join('')),
+    statistik:()=>phone([0,1,2,3,4,5,6,7,8,9,10,11].map(i=>[0,1,2,3].map(j=>R(32+i*22,46+j*20,18,16,4,[LN,'#f9cfe0','#f29bbd','#e0689b','#b4507c'][(i*3+j*2)%5],0,(i*3+j*2)%5?1:.2)+T(41+i*22,58+j*20,String(1+(i*4+j)),8,(i*3+j*2)%5>2?PP:IK,'middle')).join('')).join('')+R(32,128,120,6,3,A,0,.5)),
+    sosial:()=>phone(C(70,76,20,A)+C(130,76,20,BL)+C(190,76,20,YL)+R(50,108,220,20,10,PP,LN)+T(160,122,'Chat, grup &amp; peringkat',10,PD,'middle')+R(222,52,60,24,12,PP,LN)+T(252,68,'Ahlan!',9,PD,'middle')),
+    rekam:()=>phone([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14].map(i=>R(40+i*16,80-(6+Math.abs(Math.sin(i*1.3))*28)/2,8,6+Math.abs(Math.sin(i*1.3))*28,4,A)).join('')+C(160,122,13,PD)+C(160,122,5,PP)),
+    alat:()=>phone(R(26,44,268,24,12,PP,LN)+T(40,60,'Cari ayat…',11,IK)+R(26,78,130,50,12,PP,LN)+T(91,100,'Jurnal syukur',10,PD,'middle')+R(164,78,130,50,12,YL,LN)+T(229,100,'Kuis surah',10,PD,'middle')),
+    tema:()=>phone([A,BL,YL,GR,'#cdbff3'].map((c,i)=>R(26+i*54,48,46,46,14,c,LN)).join('')+R(26,104,268,22,11,PP,LN)+C(44,115,7,A)+R(58,111,120,8,4,LN,0,.3)+R(236,106,50,18,9,GR)),
+    akun:()=>phone(C(60,82,22,PP,LN)+C(60,76,7,A)+R(92,56,190,16,8,PP,LN)+R(92,80,190,16,8,PP,LN)+R(92,104,120,22,11,A)+T(152,119,'Simpan',10,PP,'middle',800))
+  };
+  const F=[
+    ['murojaah','murojaah','Timer murojaah','Tempat mengulang hafalan. Pilih juz atau surah, tekan Mulai, lalu baca berulang sambil timer berjalan. Setiap menit dan ayat yang diulang dihitung, menambah koin dan menjaga streak harianmu.',['Pilih juz atau surah dan bagian yang mau diulang','Tekan Mulai, baca berulang sampai puas','Tekan Selesai, menit dan ayatmu tersimpan']],
+    ['juz','juz','Kebun juz 1–30','Setiap juz adalah satu bunga. Ketuk juz untuk membaca ayat-ayatnya dengan tajwid berwarna dan terjemah, lalu uji hafalanmu lewat mode tes yang menyembunyikan teks arab.',['Ketuk bunga juz','Ketuk surah atau bagian','Baca, atau pilih Uji untuk menyembunyikan teks']],
+    ['mushaf','mushaf','Mushaf 604 halaman + murottal','Mushaf Madinah per halaman, nomor halamannya sama dengan Al-Qur\'an cetak. Geser untuk pindah halaman, ketuk ayat untuk pilihan: murottal, terjemah, tandai atau penanda. Pilih qari lalu putar satu surah, satu juz, atau satu halaman; suaranya tetap jalan saat layar mati.',['Buka Mushaf, lanjut dari halaman terakhirmu','Ketuk ayat > Putar ayat ini / sampai akhir halaman','Atau pilih surah/juz di halaman awal lalu Putar']],
+    ['tilawah','tilawah','Tilawah harian','Catat bacaan Al-Qur\'anmu tiap hari. Bisa per jumlah halaman, rentang halaman, juz, atau surah dan ayat. Ada target harian dan bulanan, streak, kebun 30 juz, serta perkiraan hari menuju khatam.',['Tekan Buka mushaf untuk membaca','Pilih cara mencatat: Jumlah / Hal. / Juz / Surah','Tekan Catat, koin dan streak bertambah']],
+    ['hafalan','hafalan','Kebun hafalan','Tandai surah dan ayat yang sudah kamu hafal. Setiap surah punya bar progres, jadi kamu tahu mana yang perlu diulang.',['Pilih surah','Tandai ayat yang sudah hafal','Lihat progres di kebunmu']],
+    ['sunnah','sunnah','Sunnah harian','Daftar shalat sunnah dan amalan yang bisa kamu centang tiap hari (Dhuha, Tahajud, Rawatib, puasa sunnah, dan lain-lain). Bisa tambah amalan pilihanmu sendiri.',['Centang amalan hari ini','Tambah sunnah sendiri jika perlu','Pantau siklus dan konsistensimu']],
+    ['ibadah','ibadah','Ibadah harian','Pelacak shalat lima waktu serta dzikir pagi dan petang. Selesaikan semuanya untuk bonus koin.',['Centang shalat saat selesai','Buka dzikir pagi atau petang','Selesai semua, bonus koin masuk']],
+    ['tajwid','tajwid','Belajar tajwid','Penjelasan hukum tajwid dengan contoh ayat. Warna yang sama dipakai di seluruh aplikasi, termasuk mushaf, jadi kamu terbiasa mengenalinya.',['Ketuk hukum tajwid','Baca penjelasan dan contoh','Lihat warnanya saat membaca']],
+    ['games','games','Games &amp; kuis','Belajar sambil bermain: sambung ayat dalam petualangan, dan tebak surah. Menang berarti koin tambahan.',['Pilih permainan','Jawab sebelum nyawa habis','Kumpulkan koin']],
+    ['tantangan','tantangan','Tantangan &amp; hadiah','Misi harian dan tantangan beruntun. Selesaikan, lalu klaim hadiah koinnya.',['Lihat misi hari ini','Kerjakan lewat fitur terkait','Klaim hadiah di sini']],
+    ['karakter','karakter','Karakter &amp; toko koin','Dandani karakter kebunmu dengan baju, aksesori, dan dekorasi yang dibeli pakai koin hasil ibadahmu.',['Kumpulkan koin','Buka toko, pilih barang','Pakai di ruang ganti']],
+    ['statistik','statistik','Statistik &amp; peta aktivitas','Peta aktivitas menampilkan tanggal tiap hari dengan warna yang makin pekat sesuai jumlah kegiatan, jadi kelihatan kapan saja kamu rajin. Ada juga lencana, menit murojaah per pekan, dan jam terbaikmu.',['Lihat kotak bertanggal di peta','Geser ke kiri untuk melihat pekan lama','Cek lencana dan statistikmu']],
+    ['grup','grup','Teman, grup &amp; chat','Ajak teman, bentuk grup, saling berbagi semangat. Ada peringkat mingguan, chat, dan cerita bergambar.',['Tambah teman lewat username','Gabung atau buat grup','Lihat peringkat pekan ini']],
+    ['rekam','rekam','Rekam suara','Rekam bacaanmu, dengarkan lagi, dan kirim ke guru bila kamu bergabung di sekolah.',['Tekan rekam, mulai baca','Putar ulang untuk mengoreksi','Simpan atau kirim']],
+    ['cari','cari','Cari ayat, jurnal &amp; kuis','Cari kata di seluruh Al-Qur\'an, tulis jurnal syukur harian, dan uji hafalan nama surah dengan kuis.',['Ketik kata di Cari ayat','Tulis satu hal yang kamu syukuri','Main kuis surah']],
+    ['tema','tema','Tema &amp; efek','Ganti tampilan dan warna, pilih mode HP atau laptop, atur kelancaran efek kaca, dan hidupkan atau matikan daun yang beterbangan.',['Buka Tema web','Pilih warna dan tampilan','Atur efek kaca dan daun']],
+    ['akun','akun','Akun &amp; target','Atur nama, target harian (menit, ayat, halaman), pengingat, dan cadangan datamu.',['Buka Akun &amp; target','Ubah target sesuai kemampuan','Simpan']]
+  ];
+  const ILLK={juz:'juz',kebun:'kebun',grup:'sosial',cari:'alat'};
+  function pPanduan(){
+    const cards=F.map((f,i)=>{
+      const ik=ILLK[f[0]]||f[0],il=(ILL[ik]||ILL.akun)();
+      return `<article class="card gd" id="gd-${f[0]}"><div class="gd-ill">${il}</div><div class="gd-tx"><span class="gd-n">${i+1}</span><h3>${f[2]}</h3><p>${f[3]}</p><ol>${f[4].map(s=>`<li>${s}</li>`).join('')}</ol><button class="btn sm b" type="button" data-go="${f[1]}">${ico('play')} Buka fitur ini</button></div></article>`}).join('');
+    return `<div class="ribbon"><span class="star">${ico('star')}</span><h2>Kenali kebunmu</h2></div>
+    <div class="card solid cream" style="margin-bottom:16px"><h3 style="margin-top:0">Selamat datang di Kebun Murojaah</h3><p style="margin:0 0 8px">Tempat menjaga hafalan, mencatat tilawah, membaca mushaf, dan mendengar murottal, dengan karakter, koin, dan kebun bunga yang tumbuh seiring rajinmu. Di bawah ini semua fitur dijelaskan satu per satu beserta gambarannya.</p>
+      <div class="gd-tips"><span class="tag">${ico('home')} Menu di HP: ketuk tombol Menu, ketuk lagi kapan saja untuk membukanya lagi</span><span class="tag">${ico('book')} Laptop: menu fitur ada di sisi kiri</span><span class="tag">${ico('coin','coin-i')} Koin didapat dari murojaah, tilawah, ibadah, dan misi</span></div></div>
+    <div class="gd-list">${cards}</div>`;
+  }
+  PAGES.push('panduan');P.panduan=pPanduan;
+  /* kartu pintu masuk di beranda */
+  const oB=P.beranda;
+  P.beranda=function(){
+    let h=oB();
+    const card=`<div class="card cream gd-door" style="margin-bottom:16px"><div class="row sp" style="align-items:center"><div style="flex:1 1 200px;min-width:0"><h3 style="margin:0 0 4px">Kenali kebunmu</h3><p class="small" style="margin:0">Penjelasan semua fitur lengkap dengan gambar: murojaah, tilawah, mushaf, murottal, tema, dan lainnya.</p></div><button class="btn sm y" type="button" data-go="panduan">${ico('book')} Lihat panduan</button></div></div>`;
+    const m=h.indexOf('<div class="card cream" style="margin-bottom:16px"><div class="row sp"><h3 style="margin:0">Tilawah hari ini');
+    return m>0?h.slice(0,m)+card+h.slice(m):h+card;
+  };
+})();
+
+/* ============ ISI TOKO BARU, LANJUT SETELAH KALAH, GANDAKAN KOIN, IKLAN BERHADIAH (SIAP, MENUNGGU AKUN GOOGLE) ============ */
+(function extras(){
+  /* ---- SAKLAR IKLAN ----
+     Ubah ke true HANYA setelah akun Google Play / AdMob siap dan APK sudah memakai SDK iklan.
+     Aplikasi Android harus menyediakan KebunApp.showRewardedAd(jenis) yang, setelah penonton selesai,
+     memanggil window.__kmAdDone(true) (atau false bila gagal / ditutup). */
+  const ADS_ENABLED=false;
+  const ADS=window.ADS={
+    ready(){return !!(ADS_ENABLED&&window.KebunApp&&typeof KebunApp.showRewardedAd==='function')},
+    show(kind){return new Promise(res=>{
+      if(!ADS.ready()){res(false);return}
+      let done=false;const fin=ok=>{if(done)return;done=true;window.__kmAdDone=null;res(!!ok)};
+      window.__kmAdDone=fin;
+      try{KebunApp.showRewardedAd(kind)}catch(e){fin(false)}
+      setTimeout(()=>fin(false),180000);
+    })}
+  };
+
+  /* ---- inventaris ---- */
+  const oM=migrate;
+  migrate=function(){oM();const v=S.inv=S.inv||{};['card','fifty','shield'].forEach(k=>v[k]=Math.max(0,+v[k]||0));S.shieldUsed=Array.isArray(S.shieldUsed)?S.shieldUsed:[]};
+  const inv=k=>(S.inv&&S.inv[k])||0;
+
+  /* ---- perisai streak ---- */
+  const oSI=streakInfo;
+  streakInfo=function(){
+    const r=oSI(),used=S.shieldUsed||[];if(!used.length)return r;
+    const m=r.map,t=today(),has=d=>!!m[d]||used.indexOf(d)>=0;
+    let cur=0,d=has(t)?t:addDays(t,-1);while(has(d)){cur++;d=addDays(d,-1)}
+    const all=Object.keys(m).concat(used).filter((x,i,a)=>a.indexOf(x)===i).sort();
+    let best=0,run=0,prev=null;for(const x of all){run=(prev&&addDays(prev,1)===x)?run+1:1;best=Math.max(best,run);prev=x}
+    return Object.assign({},r,{cur,best});
+  };
+  function shieldCheck(){
+    try{
+      if(!S||!S.inv||inv('shield')<1)return;
+      const t=today(),y=addDays(t,-1),yy=addDays(t,-2),m=dayMap();
+      if(m[t]||m[y]||!m[yy]||(S.shieldUsed||[]).indexOf(y)>=0)return;
+      S.inv.shield--;S.shieldUsed.push(y);S.shieldUsed=S.shieldUsed.slice(-60);save();
+      setTimeout(()=>{try{toast('Perisai streak menyelamatkan streakmu kemarin!');sfx('bloom')}catch(e){}},1500);
+    }catch(e){}
+  }
+  const oBoot=bootApp;bootApp=function(u){oBoot(u);setTimeout(shieldCheck,1800)};
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(shieldCheck,400)});
+  setTimeout(shieldCheck,3500);
+
+  /* ---- toko ---- */
+  const DEC=[
+    ['kolam','Kolam teratai',300,'<ellipse cx="40" cy="62" rx="34" ry="12" fill="#8fd0ef" stroke="#4f8fb5" stroke-width="2.5"/><ellipse cx="30" cy="60" rx="9" ry="4" fill="#7fc47a"/><circle cx="30" cy="57" r="4" fill="#ff9cc3"/><ellipse cx="52" cy="64" rx="7" ry="3" fill="#7fc47a"/>'],
+    ['kincir','Kincir angin',350,'<path d="M34 78V40h12v38z" fill="#d9a066" stroke="#8f5f6c" stroke-width="2.5"/><g transform="translate(40 38)" stroke="#8f5f6c" stroke-width="2"><path d="M0 0L-4-28L4-28z" fill="#ffb3cf"/><path d="M0 0L28-4L28 4z" fill="#ffd166"/><path d="M0 0L4 28L-4 28z" fill="#ffb3cf"/><path d="M0 0L-28 4L-28-4z" fill="#ffd166"/><circle r="4" fill="#fff"/></g>'],
+    ['lampu','Lampu taman',250,'<path d="M40 78V34" stroke="#8f5f6c" stroke-width="4"/><rect x="31" y="14" width="18" height="22" rx="6" fill="#fff3a8" stroke="#8f5f6c" stroke-width="2.5"/><circle cx="40" cy="25" r="16" fill="#ffe680" opacity=".35"/>'],
+    ['bangku','Bangku kayu',250,'<rect x="12" y="50" width="56" height="8" rx="3" fill="#d9a066" stroke="#8f5f6c" stroke-width="2.5"/><rect x="12" y="36" width="56" height="8" rx="3" fill="#e5b784" stroke="#8f5f6c" stroke-width="2.5"/><path d="M18 58v18M62 58v18M18 44v8M62 44v8" stroke="#8f5f6c" stroke-width="4" stroke-linecap="round"/>'],
+    ['pagar','Pagar bunga',200,'<g stroke="#8f5f6c" stroke-width="2.5" fill="#fff"><path d="M6 78V46l6-8 6 8v32zM26 78V46l6-8 6 8v32zM46 78V46l6-8 6 8v32zM66 78V46l6-8 6 8v32z"/></g><path d="M4 56h76M4 68h76" stroke="#8f5f6c" stroke-width="3"/>'],
+    ['rumahburung','Rumah burung',300,'<path d="M40 80V46" stroke="#8f5f6c" stroke-width="4"/><path d="M24 44L40 26l16 18z" fill="#ff9cc3" stroke="#8f5f6c" stroke-width="2.5" stroke-linejoin="round"/><rect x="27" y="44" width="26" height="20" rx="3" fill="#ffe3b0" stroke="#8f5f6c" stroke-width="2.5"/><circle cx="40" cy="54" r="5" fill="#8f5f6c"/>']
+  ];
+  const decSVG=d=>'<svg viewBox="0 0 80 84" aria-hidden="true">'+d[3]+'</svg>';
+  const ownDec=id=>!!(S.owned&&S.owned['dec:'+id]);
+  const pack=[
+    ['card','3 Kartu lanjut','Habis nyawa di game? Pakai kartu untuk lanjut dengan 2 nyawa tanpa mengulang. Tanpa iklan.',250,3,'🎟️'],
+    ['card','10 Kartu lanjut','Paket hemat untuk petualang sejati.',700,10,'🎟️'],
+    ['fifty','5 Kartu 50:50','Di tengah soal game, buang dua jawaban yang salah.',150,5,'✂️'],
+    ['shield','Perisai streak','Kalau sehari bolong, perisai otomatis menjaga apimu tetap menyala. Maksimal simpan 3.',300,1,'🛡️']
+  ];
+  const oT=P.toko;
+  P.toko=function(){
+    let h=oT();
+    const sk=pack.map((p,i)=>`<div class="tk"><div class="tkp"><span class="emo">${p[5]}</span></div><b>${p[1]}</b><span class="small muted">${p[2]}</span><span class="small">Punya: <b>${inv(p[0])}</b></span><button type="button" class="btn sm y" data-act="xbuy" data-i="${i}">${ico('coin','coin-i')} ${fmtN(p[3])}</button></div>`).join('');
+    const dc=DEC.map(d=>`<div class="tk ${ownDec(d[0])?'on':''}"><div class="tkp" style="width:70px;height:70px;margin:0 auto">${decSVG(d)}</div><b>${d[1]}</b><span class="small muted">Muncul di Kebun bunga</span>${ownDec(d[0])?'<span class="small"><b>Sudah dimiliki</b></span>':`<button type="button" class="btn sm y" data-act="xdec" data-id="${d[0]}">${ico('coin','coin-i')} ${fmtN(d[2])}</button>`}</div>`).join('');
+    const add=`<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Perlengkapan petualang</h3><p class="small muted" style="margin:0 0 8px">Dipakai di game Sambung Ayat dan menjaga streak.</p><div class="tkg">${sk}</div></div>
+    <div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Hiasan kebun bunga</h3><p class="small muted" style="margin:0 0 8px">Beli sekali, tampil selamanya di halaman Kebun bunga.</p><div class="tkg">${dc}</div></div>`;
+    const mark='<div class="card" style="margin-bottom:16px"><h3 style="margin-top:0">Booster koin</h3>';
+    return h.includes(mark)?h.replace(mark,add+mark):h+add;
+  };
+  ACT.xbuy=el=>{const p=pack[+el.dataset.i];if(!p)return;
+    if(p[0]==='shield'&&inv('shield')>=3){toast('Perisai sudah penuh (maksimal 3)');sfx('oops');return}
+    kmBuy({title:p[1],desc:p[2],price:p[3],key:'inv:'+p[0]+':'+Date.now(),after:()=>{S.inv[p[0]]=inv(p[0])+p[4];save()}})};
+  ACT.xdec=el=>{const d=DEC.find(x=>x[0]===el.dataset.id);if(!d||ownDec(d[0]))return;
+    kmBuy({title:d[1],desc:'Hiasan untuk kebun bungamu. Dibeli sekali, milikmu selamanya.',price:d[2],key:'dec:'+d[0]})};
+
+  /* ---- hiasan di kebun bunga ---- */
+  const oK=P.kebun;
+  P.kebun=function(){
+    let h=oK();const own=DEC.filter(d=>ownDec(d[0]));
+    if(!own.length)return h;
+    const strip='<div class="kb-decor" aria-hidden="true">'+own.map(d=>`<span class="kb-dc">${decSVG(d)}</span>`).join('')+'</div>';
+    return h.includes('<div class="kb-wild" id="kbWild"')?h.replace('<div class="kb-wild" id="kbWild"',strip+'<div class="kb-wild" id="kbWild"'):h+`<div class="kb-field" style="margin-top:10px;padding:10px">${strip}</div>`;
+  };
+
+  /* ---- game: lanjut setelah kalah ---- */
+  const REV_COIN=150,REV_MAX=2;
+  const oStart=gameStart;gameStart=function(){oStart();G.rev=0;G.doubled=false};
+  function revivePanel(){
+    const pn=$('#gmPanel');pnl(true);
+    const ad=ADS.ready(),left=REV_MAX-(G.rev||0);
+    pn.innerHTML=`<div class="card solid cream gm-q" style="text-align:center"><b style="font-size:1.1rem">Nyawa habis!</b>
+      <p class="small" style="margin:4px 0 8px">Lanjut dari sini dengan <b>2 nyawa</b>? Sudah lewat ${G.passed}/${G.total} rintangan · sisa kesempatan ${left}x</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px">
+        <button class="btn sm y" type="button" data-act="grevad" ${ad?'':'disabled'}>${ico('play')} ${ad?'Nonton iklan':'Iklan (segera)'}</button>
+        <button class="btn sm" type="button" data-act="grevcard" ${inv('card')>0?'':'disabled'}>🎟️ Kartu lanjut (${inv('card')})</button>
+        <button class="btn sm g" type="button" data-act="grevcoin" ${(S.coins||0)>=REV_COIN?'':'disabled'}>${ico('coin','coin-i')} ${REV_COIN} koin</button>
+        <button class="btn sm ghost" type="button" data-act="grevno">Lihat hasil</button>
+      </div></div>`;
+  }
+  function doRevive(){
+    G.rev=(G.rev||0)+1;G.hearts=Math.min(G.maxH,2);
+    pnl(false);if(!GM)return;
+    GM.fb=null;GM.q=nextQ();GM.p.hurt=0;GM.p.happy=1;GM.state='ask';updHUD();renderAsk();sfx('benar');
+    try{toast('Lanjut! Kamu punya '+G.hearts+' nyawa lagi.')}catch(e){}
+  }
+  const oNext=ACT.gmnext;
+  ACT.gmnext=function(){
+    if(GM&&GM.fb&&!GM.fb.ok&&G.hearts<=0&&(G.rev||0)<REV_MAX&&GM.state==='ask'){revivePanel();return}
+    return oNext.apply(this,arguments);
+  };
+  Object.assign(ACT,{
+    grevno:()=>{if(!GM)return;pnl(false);endGame(false)},
+    grevcard:()=>{if(inv('card')<1||!GM)return;S.inv.card--;save();doRevive()},
+    grevcoin:()=>{if(!GM)return;if(!kmSpend(REV_COIN,'Lanjut game'))return;try{renderHeader()}catch(e){}doRevive()},
+    grevad:async()=>{if(!GM)return;if(!ADS.ready()){toast('Iklan belum tersedia');return}
+      const ok=await ADS.show('revive');if(ok&&GM)doRevive();else try{toast('Iklan tidak selesai, nyawa tidak ditambah')}catch(e){}}
+  });
+
+  /* ---- game: gandakan koin setelah menang ---- */
+  const oRes=gameResult;
+  gameResult=function(){
+    let h=oRes();const r=G.res;
+    if(!r||!r.win||!(r.coins>0))return h;
+    const ad=ADS.ready();
+    const box=r.doubled?`<div class="gitem"><span class="th">${ico('coin','coin-i')}</span><div><b>Koin sudah digandakan!</b><br><span class="small muted">+${fmtN(r.coins)} koin tambahan masuk.</span></div></div>`
+      :`<div class="gitem" style="flex-wrap:wrap"><span class="th">${ico('coin','coin-i')}</span><div style="flex:1 1 160px"><b>Gandakan koinmu (+${fmtN(r.coins)})</b><br><span class="small muted">${ad?'Tonton satu iklan pendek.':'Fitur iklan segera hadir.'}</span></div><button class="btn sm y" type="button" data-act="gdouble" ${ad?'':'disabled'}>${ico('play')} Nonton iklan</button></div>`;
+    const m='<div class="row" style="justify-content:center;margin-top:12px">';
+    return h.includes(m)?h.replace(m,box+m):h+box;
+  };
+  ACT.gdouble=async()=>{const r=G.res;if(!r||!r.win||r.doubled)return;if(!ADS.ready()){toast('Iklan belum tersedia');return}
+    const ok=await ADS.show('double');
+    if(!ok){try{toast('Iklan tidak selesai, koin tidak digandakan')}catch(e){}return}
+    r.doubled=true;earn(r.coins,'Gandakan koin game (iklan)',false,true);save();try{renderHeader();renderSide()}catch(e){}
+    const box=document.querySelector('.gm-res');if(box)box.innerHTML=gameResult();sfx('menang')};
+
+  /* ---- game: kartu 50:50 ---- */
+  const oAsk=renderAsk;
+  renderAsk=function(){
+    oAsk.apply(this,arguments);
+    try{
+      const q=GM&&GM.q,pn=$('#gmPanel');if(!q||!pn)return;
+      if(q.half)q.half.forEach(i=>{const b=pn.querySelector('.opt[data-i="'+i+'"]');if(b){b.disabled=true;b.style.opacity='.28';b.style.textDecoration='line-through'}});
+      if(!GM.fb&&!q.half&&q.opts.length>2){
+        const n=inv('fifty'),row=document.createElement('div');row.style.cssText='margin-top:8px;text-align:center';
+        row.innerHTML=`<button class="btn sm ghost" type="button" data-act="g5050" ${n>0?'':'disabled'}>✂️ 50:50 (punya ${n})</button>`;
+        const o=pn.querySelector('.opts');if(o)o.after(row);
+      }
+    }catch(e){}
+  };
+  ACT.g5050=()=>{
+    if(!GM||GM.state!=='ask'||GM.fb||!GM.q||GM.q.half||inv('fifty')<1)return;
+    const wrong=GM.q.opts.map((o,i)=>o.ok?-1:i).filter(i=>i>=0);
+    for(let i=wrong.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[wrong[i],wrong[j]]=[wrong[j],wrong[i]]}
+    GM.q.half=wrong.slice(0,Math.max(1,Math.floor(GM.q.opts.length/2)));
+    S.inv.fifty--;save();sfx('pop');renderAsk();
   };
 })();
 
