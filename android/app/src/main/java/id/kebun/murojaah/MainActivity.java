@@ -47,6 +47,21 @@ public class MainActivity extends Activity {
     private static final int REQ_MIC2 = 15;
     private android.webkit.PermissionRequest micReq;
     private WebView web;
+    private android.speech.SpeechRecognizer sr;
+
+    private void srText(String type, Bundle b) {
+        java.util.ArrayList<String> l = b == null ? null : b.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION);
+        srJs(type, (l != null && l.size() > 0) ? l.get(0) : "");
+    }
+
+    private void srJs(final String type, final String data) {
+        final String js = "window.__krNative&&window.__krNative(" + org.json.JSONObject.quote(type) + "," + org.json.JSONObject.quote(data) + ")";
+        runOnUiThread(new Runnable() {
+            public void run() { try { web.evaluateJavascript(js, null); } catch (Exception e) { } }
+        });
+    }
+
+
     private boolean keepAlive = false;
     private LinearLayout splash;
     private ValueCallback<Uri[]> fileCallback;
@@ -346,6 +361,71 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public void notifyNow(String title, String body) {
             Notifier.show(MainActivity.this, 1999, title, body, null);
+        }
+
+        /* ===== pengenalan suara bawaan Android (untuk Koreksi Murojaah) ===== */
+        @JavascriptInterface
+        public boolean srAvailable() {
+            try { return android.speech.SpeechRecognizer.isRecognitionAvailable(MainActivity.this); } catch (Exception e) { return false; }
+        }
+
+        @JavascriptInterface
+        public void srStart(final String lang) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (Build.VERSION.SDK_INT >= 23 && checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQ_MIC2);
+                        srJs("error", "not-allowed");
+                        return;
+                    }
+                    try {
+                        if (sr != null) { try { sr.destroy(); } catch (Exception e) { } sr = null; }
+                        sr = android.speech.SpeechRecognizer.createSpeechRecognizer(MainActivity.this);
+                        sr.setRecognitionListener(new android.speech.RecognitionListener() {
+                            public void onReadyForSpeech(Bundle b) { srJs("ready", ""); }
+                            public void onBeginningOfSpeech() { }
+                            public void onRmsChanged(float v) { }
+                            public void onBufferReceived(byte[] b) { }
+                            public void onEndOfSpeech() { }
+                            public void onEvent(int i, Bundle b) { }
+                            public void onError(int code) {
+                                String e = "error";
+                                if (code == android.speech.SpeechRecognizer.ERROR_NO_MATCH || code == android.speech.SpeechRecognizer.ERROR_SPEECH_TIMEOUT) e = "no-speech";
+                                else if (code == android.speech.SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS) e = "not-allowed";
+                                else if (code == android.speech.SpeechRecognizer.ERROR_NETWORK || code == android.speech.SpeechRecognizer.ERROR_NETWORK_TIMEOUT) e = "network";
+                                else if (code == android.speech.SpeechRecognizer.ERROR_AUDIO) e = "audio-capture";
+                                srJs("error", e);
+                            }
+                            public void onPartialResults(Bundle b) { srText("partial", b); }
+                            public void onResults(Bundle b) { srText("final", b); }
+                        });
+                        Intent it = new Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                        it.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                        it.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE, lang);
+                        it.putExtra(android.speech.RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+                        it.putExtra(android.speech.RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+                        it.putExtra(android.speech.RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2500);
+                        it.putExtra(android.speech.RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 2500);
+                        sr.startListening(it);
+                    } catch (Exception e) {
+                        srJs("error", "service-not-allowed");
+                    }
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void srStop() {
+            runOnUiThread(new Runnable() {
+                public void run() { try { if (sr != null) sr.stopListening(); } catch (Exception e) { } }
+            });
+        }
+
+        @JavascriptInterface
+        public void srCancel() {
+            runOnUiThread(new Runnable() {
+                public void run() { try { if (sr != null) { sr.cancel(); sr.destroy(); sr = null; } } catch (Exception e) { } }
+            });
         }
 
         @JavascriptInterface
