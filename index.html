@@ -11473,7 +11473,24 @@ return {av,setAv,wire,fullImg,drawRoom,open:openWD};
 /* ============ KOREKSI MUROJAAH INTERAKTIF ============ */
 const KR=(function(){
 "use strict";
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const WEB_SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const NATIVE=!WEB_SR&&!!(window.KebunApp&&typeof KebunApp.srAvailable==='function'&&(()=>{try{return KebunApp.srAvailable()}catch(e){return false}})());
+/* pengenalan suara bawaan Android (aplikasi), dibuat mirip SpeechRecognition browser */
+class NativeSR{
+  constructor(){this.lang='ar-SA';this.onresult=null;this.onend=null;this.onerror=null;this.done=false}
+  start(){
+    const me=this;this.done=false;
+    window.__krNative=function(t,d){
+      if(me.done)return;
+      if(t==='partial'||t==='final'){if(me.onresult)me.onresult({results:[[{transcript:d}]]});if(t==='final'&&!me.done){me.done=true;if(me.onend)me.onend()}}
+      else if(t==='error'){me.done=true;if(me.onerror)me.onerror({error:d});if(me.onend)me.onend()}
+    };
+    try{KebunApp.srStart(this.lang)}catch(e){this.done=true;if(this.onerror)this.onerror({error:'service-not-allowed'});if(this.onend)this.onend()}
+  }
+  stop(){try{KebunApp.srStop()}catch(e){}}
+  abort(){this.done=true;try{KebunApp.srCancel()}catch(e){}}
+}
+const SR=WEB_SR||(NATIVE?NativeSR:null);
 const CAN_SPEAK='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
 const CAN_REC=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);
 const QARI='Alafasy_128kbps';
@@ -11541,7 +11558,7 @@ function pKoreksi(){
   +'<div class="kr-nav"><button type="button" class="btn sm ghost" data-act="krprev">Ayat sebelumnya</button><button type="button" class="btn sm ghost" data-act="krnext">Ayat berikutnya</button></div>'
   +'<div class="card cream kr-opt"><label class="kr-sw"><input type="checkbox" id="krAuto"'+(st.auto?' checked':'')+'> Lanjut otomatis ke ayat berikutnya saat bacaan benar</label>'
   +'<div class="field" style="margin-top:8px"><label for="krStrict">Ketelitian</label><select id="krStrict"><option value="ketat"'+(st.strict==='ketat'?' selected':'')+'>Ketat (semua kata harus cocok)</option><option value="sedang"'+(st.strict==='sedang'?' selected':'')+'>Sedang (boleh 1 kata meleset)</option></select></div>'
-  +'<p class="small muted" style="margin:8px 0 0">Pengenalan suara dari browser tidak selalu sempurna, jadi hasilnya sebagai bantuan belajar. Pelafalan, mad, dan dengung tetap dicek bersama guru.</p></div>'
+  +''+(NATIVE?'<p class="small muted" style="margin:8px 0 0">Di aplikasi, gelombang suara dan rekaman untuk perbandingan belum tersedia. Koreksi bacaan dan contoh qari tetap jalan.</p>':'')+'<p class="small muted" style="margin:8px 0 0">Pengenalan suara dari browser tidak selalu sempurna, jadi hasilnya sebagai bantuan belajar. Pelafalan, mad, dan dengung tetap dicek bersama guru.</p></div>'
   +'<p class="small muted">Dipakai: '+st.ok+' ayat benar pada sesi ini.</p></div>';
 }
 
@@ -11634,7 +11651,7 @@ async function startListen(){
   stopAudio();st.gen++;
   st.heard='';st.res=[];paintWords();
   setMode('listening');setMsg('Mendengarkan... bacakan ayatnya dengan jelas.','');
-  const micOK=await openMic();
+  const micOK=NATIVE?false:await openMic();
   if(st.mode!=='listening'){closeMic();return}
   waveLoop();
   startRec();

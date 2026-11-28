@@ -3,7 +3,7 @@
    - Teks Al-Qur'an dan terjemah sudah ada di dalam index.html, jadi ikut tersimpan.
    - Menangani ketukan notifikasi pengingat.
    Murottal (audio everyayah.com) sengaja TIDAK disimpan karena besar. */
-const CACHE='km-v26';
+const CACHE='km-v27';
 const CORE=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png','./monetization-config.js','./privacy-policy.html','./offline.html'];
 const API_HOSTS=['api.alquran.cloud'];
 self.addEventListener('install',e=>{
